@@ -7,7 +7,7 @@ import { Button, Table } from 'element-react';
 
 import 'element-theme-default';
 const store = createStore();
-class Home extends React.Component{
+class PendingOrders extends React.Component{
   constructor (props) {
     super(props);
     this.state = {
@@ -96,7 +96,7 @@ class Home extends React.Component{
    
     return (
       <Layout>
-        All orders
+        pending orders
         <Table
           style={{width: '100%'}}
           columns={this.state.columns}
@@ -116,4 +116,4 @@ const mapDispatchToProps = dispatch => ({
   addSliderValue: (value) => dispatch({ type: 'storeAmount', value }),
 })
 
-export default Home
+export default PendingOrders
