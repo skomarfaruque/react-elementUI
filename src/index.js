@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import createStore from './store';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from './components/Home';
@@ -8,7 +8,7 @@ import PendingOrders from './components/PendingOrders';
 import Layout from './components/Layout';
 const store = createStore();
 const app = document.getElementById('spring-it');
-ReactDOM.render(
+render(
     <Router>
         <div>
             <Route exact path="/" name="Login" store={store} component={Login}></Route>
