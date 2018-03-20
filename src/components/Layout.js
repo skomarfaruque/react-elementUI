@@ -15,7 +15,7 @@ export default ({ children }) => (
           <Menu.Item index="2-3">Option 3</Menu.Item>
         </Menu.SubMenu>
         <Menu.Item index="3"><Link to="/pending-orders">Pending Orders</Link></Menu.Item>
-        <Menu.Item index="4">Logout</Menu.Item>
+        <Menu.Item index="4"><Link to="/">Logout</Link></Menu.Item>
       </Menu>
       
     </div>
