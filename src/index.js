@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createStore from './store';
-import Slider from './components/Slider';
+import Home from './components/Home';
 const store = createStore();
-ReactDOM.render(<Slider store={store}/>, document.getElementById('spring-it'));
+ReactDOM.render(<Home store={store}/>, document.getElementById('spring-it'));

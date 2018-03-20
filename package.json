@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.6.2",
+    "element-react": "^1.4.8",
+    "element-theme-default": "^1.4.13",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^20.0.4",
