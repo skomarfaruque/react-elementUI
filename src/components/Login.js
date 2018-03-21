@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, Form, Input, Layout } from 'element-react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import { connect } from 'react-redux'
 import 'element-theme-default';
 class Login extends React.Component{
   constructor(props) {
+    console.log(props)
     super(props);
     this.state = {
       form: {
@@ -48,7 +49,10 @@ class Login extends React.Component{
   
     this.refs.form.validate((valid) => {
       if (valid) {
-        this.props.history.push("/home")
+        let token = this.state.form.userName;
+        console.log(token)
+        this.props.login(token);
+        this.props.history.push("/home");
       } else {
         console.log('error submit!!');
         return false;
@@ -88,7 +92,7 @@ class Login extends React.Component{
                 <Input type="password" value={this.state.form.password} onChange={this.onChange.bind(this, 'password')} autoComplete="off" />
               </Form.Item>
               <Form.Item>
-                <Button type="primary" onClick={this.handleSubmit.bind(this)}>Login</Button>
+                <Button type="primary" onClick={this.handleSubmit.bind(this)}>Login{this.props.isLoggedIn}</Button>
               </Form.Item>
             </Form>
           </Layout.Col>
@@ -97,5 +101,13 @@ class Login extends React.Component{
     )
   }
 }
-  
-export default Login
+const mapStateToProps = state => ({
+  isLoggedIn: state.auth.token
+})
+
+const mapDispatchToProps = dispatch => ({
+  login: (token) => dispatch({ type: 'Store', token }),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);  
+// export default Login

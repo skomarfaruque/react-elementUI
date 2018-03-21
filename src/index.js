@@ -6,15 +6,18 @@ import Home from './components/Home';
 import Login from './components/Login';
 import PendingOrders from './components/PendingOrders';
 import Layout from './components/Layout';
+import { Provider } from 'react-redux'
 const store = createStore();
 const app = document.getElementById('spring-it');
 render(
+    <Provider store={store}>
     <Router>
         <div>
-            <Route exact path="/" name="Login" store={store} component={Login}></Route>
+            <Route exact path="/" name="Login" component={Login}></Route>
             <Route exact path="/home" name="Home" store={store} component={Home}></Route>
             <Route path="/pending-orders" name="Pending orders" store={store} component={PendingOrders}></Route>
         </div>
     </Router>
+    </Provider>
     ,
   app);

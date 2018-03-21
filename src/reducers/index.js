@@ -1,12 +1,19 @@
 import { combineReducers } from 'redux';
 
-const initialAmountState = { value: 0 };
-function amountReducer(state = initialAmountState, action) {
-  return { ...state, value: action.value ? action.value : 0 }
+const initialAuthState = { token: '', isLoggedIn: false };
+function auth(state = initialAuthState, action) {
+  switch (action.type) {
+    case 'Store':
+      return { ...state, token: action.token, isLoggedIn: true }
+    case 'Logout':
+      return { ...state, token: '', isLoggedIn: false }
+    default:
+      return state;
+  }
 }
 
 const AppReducer = combineReducers({
-  amountReducer
+  auth
 });
 
 export default AppReducer;
