@@ -71,14 +71,16 @@ class Login extends React.Component{
   render() {
     return (
       <div>
-        <Layout.Row gutter="20">
-          <Layout.Col span="6" offset="8">
-            <div className="grid-content bg-purple"><img src={require('../logo.png')} /></div>
+        <Layout.Row>
+          <Layout.Col offset="9">
+            <div className="grid-content bg-purple">
+              <img style={{width: '100px', height: '100px'}} src={require('../logo.png')} />
+            </div>
           </Layout.Col>
         </Layout.Row>
-        <Layout.Row gutter="20">
-          <Layout.Col span="6" offset="7">
-            <Form ref="form" model={this.state.form} rules={this.state.rules} labelWidth="100" className="demo-ruleForm">
+        <Layout.Row>
+          <Layout.Col  offset="5" span="11">
+            <Form ref="form" label-position="top" model={this.state.form} rules={this.state.rules} labelWidth="100" className="demo-ruleForm">
               <Form.Item label="User name" prop="userName">
                 <Input type="text" value={this.state.form.userName} onChange={this.onChange.bind(this, 'userName')} autoComplete="off" />
               </Form.Item>

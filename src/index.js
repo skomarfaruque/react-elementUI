@@ -15,5 +15,6 @@ render(
             <Route exact path="/home" name="Home" store={store} component={Home}></Route>
             <Route path="/pending-orders" name="Pending orders" store={store} component={PendingOrders}></Route>
         </div>
-    </Router>,
+    </Router>
+    ,
   app);

@@ -1,28 +1,32 @@
 import React from 'react';
-import Layout from './Layout';
 import { Menu } from 'element-react';
 import Interest from './Interest'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-export default ({ children }) => (
-  <div>
-    <div>
-      <Menu theme="dark" defaultActive="1" className="el-menu-demo" mode="horizontal">
-        <Menu.Item index="1"> <Link to="/home">Home</Link></Menu.Item>
-        <Menu.SubMenu index="2" title="Menu">
-          <Menu.Item index="2-1">Option 1</Menu.Item>
-          <Menu.Item index="2-2"><Link to="/pending-orders">Pending Orders</Link></Menu.Item>
-          <Menu.Item index="2-3">Option 3</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.Item index="3"><Link to="/pending-orders">Pending Orders</Link></Menu.Item>
-        <Menu.Item index="4"><Link to="/">Logout</Link></Menu.Item>
-      </Menu>
-      
-    </div>
-    
-    <div className='container hero'>
-      { children }
-    </div>
-    <div>Footer</div>
-  </div>
-)
+import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
+
+export default class Layout extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+        optionsdata : []
+    };
+  }
+  demoFunction () {
+    console.log('clicked');
+  }
+  render () {
+    const items = [
+      <SidebarItem color="white" path="/pending-orders"><Link to="/home">Home</Link></SidebarItem>,
+      <SidebarItem><Link to="/pending-orders">Pending Orders</Link></SidebarItem>,
+      <SidebarItem><Link to="/">Logout</Link></SidebarItem>,
+    ];
+    return (
+      <Sidebar content={items} background="orange" color="white">
+      <div style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>Welcome to Tong</div>
+       <div className='box'>
+         { this.props.children }
+       </div>
+      </Sidebar>
+    )
+  }
+} 

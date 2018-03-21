@@ -96,7 +96,7 @@ class PendingOrders extends React.Component{
    
     return (
       <Layout>
-        pending orders
+        Pending orders
         <Table
           style={{width: '100%'}}
           columns={this.state.columns}
