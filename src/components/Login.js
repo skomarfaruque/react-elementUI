@@ -8,29 +8,28 @@ class Login extends React.Component{
     super(props);
     this.state = {
       form: {
-        pass: '',
-        checkPass: '',
-        age: ''
+        userName: '',
+        password: ''
       },
       rules: {
-        pass: [
+        userName: [
           { required: true, message: 'Please input the User name', trigger: 'blur' },
           { validator: (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('Please input the password'));
+              callback(new Error('Please input the User name'));
             } else {
-              if (this.state.form.checkPass !== '') {
-                this.refs.form.validateField('checkPass');
-              }
+              // if (this.state.form.checkPass !== '') {
+              //   this.refs.form.validateField('checkPass');
+              // }
               callback();
             }
           } }
         ],
-        checkPass: [
+        password: [
           { required: true, message: 'Please input the Password', trigger: 'blur' },
           { validator: (rule, value, callback) => {
               if (value === '') {
-                callback(new Error('Please input the password again'));
+                callback(new Error('Please input the Password'));
               } else {
                 callback();
               }
@@ -80,11 +79,11 @@ class Login extends React.Component{
         <Layout.Row gutter="20">
           <Layout.Col span="6" offset="7">
             <Form ref="form" model={this.state.form} rules={this.state.rules} labelWidth="100" className="demo-ruleForm">
-              <Form.Item label="User name" prop="pass">
-                <Input type="text" value={this.state.form.pass} onChange={this.onChange.bind(this, 'pass')} autoComplete="off" />
+              <Form.Item label="User name" prop="userName">
+                <Input type="text" value={this.state.form.userName} onChange={this.onChange.bind(this, 'userName')} autoComplete="off" />
               </Form.Item>
-              <Form.Item label="Password" prop="checkPass">
-                <Input type="password" value={this.state.form.checkPass} onChange={this.onChange.bind(this, 'checkPass')} autoComplete="off" />
+              <Form.Item label="Password" prop="password">
+                <Input type="password" value={this.state.form.password} onChange={this.onChange.bind(this, 'password')} autoComplete="off" />
               </Form.Item>
               <Form.Item>
                 <Button type="primary" onClick={this.handleSubmit.bind(this)}>Login</Button>
