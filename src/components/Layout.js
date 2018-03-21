@@ -1,10 +1,8 @@
 import React from 'react';
-import { Menu } from 'element-react';
-import Interest from './Interest'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
-
-export default class Layout extends React.Component {
+import { connect } from 'react-redux'
+class Layout extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -22,7 +20,7 @@ export default class Layout extends React.Component {
     ];
     return (
       <Sidebar content={items} background="orange" color="white">
-      <div style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>Welcome to Tong</div>
+      <div style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>Welcome to Tong {this.props.isLoggedIn}</div>
        <div className='box'>
          { this.props.children }
        </div>
@@ -30,3 +28,8 @@ export default class Layout extends React.Component {
     )
   }
 } 
+const mapStateToProps = state => ({
+  isLoggedIn: state.auth.token
+})
+export default connect(mapStateToProps, null)(Layout);  
+// export default Layout;
