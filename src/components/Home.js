@@ -87,7 +87,7 @@ class Home extends React.Component{
     }
   }
   componentWillMount () {
-    document.title = "Tong Dashboard";
+    document.title = "Home";
   }
 
 

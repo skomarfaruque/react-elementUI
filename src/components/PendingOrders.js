@@ -87,7 +87,7 @@ class PendingOrders extends React.Component{
     }
   }
   componentWillMount () {
-    document.title = "Tong Dashboard";
+    document.title = "Pending orders";
   }
 
 
