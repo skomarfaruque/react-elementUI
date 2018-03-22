@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 class Layout extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -19,7 +19,7 @@ class Layout extends React.Component {
       <SidebarItem><Link to="/">Logout</Link></SidebarItem>,
     ];
     return (
-      <Sidebar content={items} background="orange" color="white">
+      <Sidebar content={items} background="orange" color="white" breakPoint={1024}>
       <div style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>Welcome to Tong {this.props.isLoggedIn}</div>
        <div className='box'>
          { this.props.children }
