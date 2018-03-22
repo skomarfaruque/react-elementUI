@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Layout from './Layout';
+import SiteLayout from './Layout';
 import createStore from '../store';
 
-import { Button, Table } from 'element-react';
+import { Button, Table, Card, Layout } from 'element-react';
 
 import 'element-theme-default';
 const store = createStore();
@@ -11,75 +11,18 @@ class Home extends React.Component{
   constructor (props) {
     super(props);
     this.state = {
-      columns: [
-        {
-          type: 'expand',
-          expandPannel: function(data) {
-            return (
-              <div>
-                <p>State: {data.state}</p>
-                <p>City: {data.city}</p>
-                <p>Address: {data.address}</p>
-                <p>Zip: {data.zip}</p>
-              </div>
-            )
-          }
-        },
-        {
-          label: "Date",
-          prop: "date",
-        },
-        {
-          label: "Name",
-          prop: "name",
-        }
-      ],
+      image: 'https://eleme.github.io/element-react/50e4091cc60a.png',
       data: [{
         date: '2016-05-03',
-        name: 'Tom',
-        state: 'California',
+        name: 'Coffee',
+        image: 'http://52.14.91.110/pos/uploads/category/thumb/2.jpg',
         city: 'Los Angeles',
         address: 'No. 189, Grove St, Los Angeles',
         zip: 'CA 90036'
       }, {
         date: '2016-05-02',
-        name: 'Tom',
-        state: 'California',
-        city: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      }, {
-        date: '2016-05-04',
-        name: 'Tom',
-        state: 'California',
-        city: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      }, {
-        date: '2016-05-01',
-        name: 'Tom',
-        state: 'California',
-        city: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      }, {
-        date: '2016-05-08',
-        name: 'Tom',
-        state: 'California',
-        city: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      }, {
-        date: '2016-05-06',
-        name: 'Tom',
-        state: 'California',
-        city: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      }, {
-        date: '2016-05-07',
-        name: 'Tom',
-        state: 'California',
+        name: 'Tea',
+        image: 'http://52.14.91.110/pos/uploads/category/thumb/1.jpg',
         city: 'Los Angeles',
         address: 'No. 189, Grove St, Los Angeles',
         zip: 'CA 90036'
@@ -90,21 +33,32 @@ class Home extends React.Component{
     document.title = "Home";
   }
 
-
-
   render () {
-   
+   let marginTop = {
+     marginTop: '10px'
+   }
+   let products =  this.state.data.map(productInfo => {
+     return  <Layout.Col span={ 6 } offset={ 0 } style={marginTop}>
+     <Card bodyStyle={{ padding: 0 }}>
+       <img src={productInfo.image} className="image" />
+       <div style={{ padding: 14, textAlign: 'center' }}>
+         <span>{productInfo.name}</span>
+         <div className="bottom clearfix">
+         <Button type="primary" size="mini">XL</Button>
+         <Button type="primary" size="mini">M</Button>
+         <Button type="primary" size="mini">L</Button>
+         </div>
+       </div>
+     </Card>
+   </Layout.Col>
+   }) 
     return (
-      <Layout>
-        All orders
-        <Table
-          style={{width: '100%'}}
-          columns={this.state.columns}
-          data={this.state.data}
-          border={false}
-          onCurrentChange={item=>{console.log(item)}}
-        />
-      </Layout>
+      <SiteLayout>
+        Products
+        <Layout.Row gutter="15">
+        {products}
+        </Layout.Row>
+      </SiteLayout>
     )
   }
 }
