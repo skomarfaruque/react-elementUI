@@ -25,10 +25,18 @@ class Home extends React.Component{
   }
 
   render () {
-   let marginTop = {
-     marginTop: '100px'
-   }
-  
+    var styles = {
+      marginTop: {
+        margin: '13% 36%'
+      },
+      inputBox: {
+        width: '209px', marginTop: '10%'
+      },
+      rightNav: {
+      },
+      verticalLine: {
+      },
+    };
     return (
       <SiteLayout>
         <Breadcrumb separator="/">
@@ -36,7 +44,7 @@ class Home extends React.Component{
         </Breadcrumb>
         <Layout.Row type="flex">
         
-          <Layout.Col style={{margin: '13% 36%'}}>
+          <Layout.Col style={styles.marginTop}>
             <Layout.Row type="flex">
               <Radio.Group size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')}>
                 <Radio.Button value="New User" />
@@ -44,15 +52,15 @@ class Home extends React.Component{
               </Radio.Group>
             </Layout.Row>
 
-            <Layout.Row type="flex" style={{width: '209px', marginTop: '10%'}}>
+            <Layout.Row type="flex" style={styles.inputBox}>
               <Layout.Col  offset="0">
                 <Input placeholder="Phone number"/>
               </Layout.Col>
             </Layout.Row>
 
-            <Layout.Row type="flex" style={{width: '209px', marginTop: '10%'}}>
+            <Layout.Row type="flex" style={styles.inputBox}>
               <Layout.Col  offset="0">
-               <Button type="primary" style={{width: '100%'}}>Primary Button</Button>
+               <Button type="primary" style={{width: '100%'}}>Next</Button>
               </Layout.Col>
             </Layout.Row>
           </Layout.Col>

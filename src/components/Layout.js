@@ -22,7 +22,7 @@ class Layout extends React.Component {
     return (
       <Sidebar content={items} background="orange" color="white" breakPoint={1024}>
       <div style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>Welcome to Tong {this.props.isLoggedIn}</div>
-       <div className='box'>
+       <div style={{padding: '1.25rem'}}>
          { this.props.children }
        </div>
       </Sidebar>
