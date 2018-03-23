@@ -30,7 +30,7 @@ class PendingOrders extends React.Component{
           prop: "date",
         },
         {
-          label: "Name",
+          label: "Id",
           prop: "name",
         }
       ],
