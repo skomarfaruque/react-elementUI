@@ -23,6 +23,9 @@ class Home extends React.Component{
       [key]: value
     });
   }
+  startBooking () {
+    this.props.history.push("/order-first-step");
+  }
 
   render () {
     var styles = {
@@ -40,7 +43,7 @@ class Home extends React.Component{
     return (
       <SiteLayout>
         <Breadcrumb separator="/">
-          <Breadcrumb.Item>Homepage</Breadcrumb.Item>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
         </Breadcrumb>
         <Layout.Row type="flex">
         
@@ -60,10 +63,12 @@ class Home extends React.Component{
 
             <Layout.Row type="flex" style={styles.inputBox}>
               <Layout.Col  offset="0">
-               <Button type="primary" style={{width: '100%'}}>Next</Button>
+               <Button type="primary" style={{width: '100%'}} onClick={this.startBooking.bind(this)}>Next</Button>
               </Layout.Col>
             </Layout.Row>
+
           </Layout.Col>
+
         </Layout.Row>
       </SiteLayout>
     )

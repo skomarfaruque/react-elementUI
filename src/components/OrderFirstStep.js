@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SiteLayout from './Layout';
 import createStore from '../store';
 
-import { Button, Table, Card, Layout } from 'element-react';
+import { Button, Breadcrumb, Card, Layout, Radio } from 'element-react';
 
 import 'element-theme-default';
 const store = createStore();
@@ -11,6 +11,9 @@ class OrderFirstStep extends React.Component{
   constructor (props) {
     super(props);
     this.state = {
+      radio3: 'All',
+      radio4: 'Tea',
+      radio4: 'Coffee',
       image: 'https://eleme.github.io/element-react/50e4091cc60a.png',
       data: [{
         date: '2016-05-03',
@@ -32,21 +35,29 @@ class OrderFirstStep extends React.Component{
   componentWillMount () {
     document.title = "Category & Products";
   }
+  onChange(key, value) {
+    this.setState({
+      [key]: value
+    });
+  }
 
   render () {
-   let marginTop = {
-     marginTop: '10px'
-   }
+    var styles = {
+      marginTop: {
+        margin: '2%',
+        textAlign: 'center'
+      }
+    };
+
    let products =  this.state.data.map((productInfo, key) => {
-     return  <Layout.Col key= {key} span={ 6 } offset={ 0 } style={marginTop}>
+     return  <Layout.Col key= {key} span={ 6 } offset={ 0 } style={styles.marginTop}>
      <Card bodyStyle={{ padding: 0 }}>
        <img src={productInfo.image} className="image" />
        <div style={{ padding: 14, textAlign: 'center' }}>
          <span>{productInfo.name}</span>
          <div className="bottom clearfix">
-         <Button type="primary" size="mini">XL</Button>
-         <Button type="primary" size="mini">M</Button>
-         <Button type="primary" size="mini">L</Button>
+          10Tk - 1000Tk<hr/>
+          <span>Available</span>
          </div>
        </div>
      </Card>
@@ -54,7 +65,19 @@ class OrderFirstStep extends React.Component{
    }) 
     return (
       <SiteLayout>
-        Products
+        <Breadcrumb separator="/">
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>Product</Breadcrumb.Item>
+        </Breadcrumb>
+        <Layout.Row type="flex" justify="end"  style={styles.marginTop}>
+          <Layout.Col>
+              <Radio.Group size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')}>
+                <Radio.Button value="All" />
+                <Radio.Button value="Tea" />
+                <Radio.Button value="Coffee" />
+              </Radio.Group>
+          </Layout.Col>
+      </Layout.Row>
         <Layout.Row gutter="15">
         {products}
         </Layout.Row>

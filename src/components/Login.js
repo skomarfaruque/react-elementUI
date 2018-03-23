@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import 'element-theme-default';
 class Login extends React.Component{
   constructor(props) {
-    console.log(props)
     super(props);
     this.state = {
       form: {
