@@ -14,7 +14,8 @@ class Layout extends React.Component {
   }
   render () {
     const items = [
-      <SidebarItem color="white" path="/pending-orders"><Link to="/home">Home</Link></SidebarItem>,
+      <SidebarItem color="white" path="/home"><Link to="/home">Home</Link></SidebarItem>,
+      <SidebarItem><Link to="/order-first-step">Product</Link></SidebarItem>,
       <SidebarItem><Link to="/pending-orders">Pending Orders</Link></SidebarItem>,
       <SidebarItem><Link to="/">Logout</Link></SidebarItem>,
     ];
