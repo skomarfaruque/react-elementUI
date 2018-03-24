@@ -6,7 +6,6 @@ import createStore from '../store';
 import { Button, Input, Radio, Layout, Breadcrumb } from 'element-react';
 
 import 'element-theme-default';
-const store = createStore();
 class Home extends React.Component{
   constructor (props) {
     super(props);

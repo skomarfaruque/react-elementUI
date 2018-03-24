@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SiteLayout from './Layout';
-import createStore from '../store';
+
 
 import { Button, Breadcrumb, Card, Layout, Radio } from 'element-react';
 
 import 'element-theme-default';
-const store = createStore();
 class OrderFirstStep extends React.Component{
   constructor (props) {
     super(props);

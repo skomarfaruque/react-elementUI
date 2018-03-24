@@ -6,7 +6,6 @@ import createStore from '../store';
 import { Button, Table } from 'element-react';
 
 import 'element-theme-default';
-const store = createStore();
 class PendingOrders extends React.Component{
   constructor (props) {
     super(props);
