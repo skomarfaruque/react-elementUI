@@ -2,30 +2,70 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
 import { connect } from 'react-redux';
+import ReactDrawer from 'react-drawer';
+import 'react-drawer/lib/react-drawer.css';
 class Layout extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-        optionsdata : []
+        optionsdata : [],
+        open: false,
+      position: 'left',
+      noOverlay: false
     };
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.closeDrawer = this.closeDrawer.bind(this);
+    this.onDrawerClose = this.onDrawerClose.bind(this);
+    this.setPosition = this.setPosition.bind(this);
+    this.setNoOverlay = this.setNoOverlay.bind(this);
   }
-  demoFunction () {
-    console.log('clicked');
+  setPosition(e) {
+    this.setState({position: e.target.value});
+  }
+  setNoOverlay(e) {
+    this.setState({noOverlay: e.target.checked});
+  }
+  toggleDrawer() {
+    this.setState({open: !this.state.open});
+  }
+  closeDrawer() {
+    this.setState({open: false});
+  }
+  onDrawerClose() {
+    this.setState({open: false});
+  }
+  demoFunction (e) {
+    console.log(this.props)
   }
   render () {
     const items = [
       <SidebarItem color="white" path="/home"><Link to="/home">Home</Link></SidebarItem>,
       <SidebarItem><Link to="/order-first-step">Product</Link></SidebarItem>,
       <SidebarItem><Link to="/pending-orders">Pending Orders</Link></SidebarItem>,
-      <SidebarItem><Link to="/">Logout</Link></SidebarItem>,
+      <SidebarItem>op</SidebarItem>
     ];
     return (
-      <Sidebar content={items} background="orange" color="white" breakPoint={1024}>
-      <div style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>Welcome to Tong {this.props.isLoggedIn}</div>
-       <div style={{padding: '1.25rem'}}>
-         { this.props.children }
-       </div>
-      </Sidebar>
+      <div>
+        <div>
+          {this.props.children}
+          <button
+            style={{margin: 20}}
+            onClick={this.toggleDrawer}
+            disabled={this.state.open && !this.state.noOverlay}
+            >
+            {!this.state.open ? <span>show drawer</span>: <span>close drawer</span>}
+          </button>
+        </div>
+        <ReactDrawer
+          open={this.state.open}
+          position={this.state.position}
+          onClose={this.onDrawerClose}
+          noOverlay={this.state.noOverlay}>
+          <i onClick={this.closeDrawer} className="icono-cross"></i>
+          <h2><Link to ="/home">What a nice drawer !</Link></h2>
+          <h2 onClick={console.log('hello')}>Log out</h2>
+        </ReactDrawer>
+      </div>
     )
   }
 } 
