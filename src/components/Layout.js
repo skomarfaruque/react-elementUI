@@ -63,6 +63,8 @@ class Layout extends React.Component {
           noOverlay={this.state.noOverlay}>
           <i onClick={this.closeDrawer} className="icono-cross"></i>
           <h2><Link to ="/home">What a nice drawer !</Link></h2>
+          <i onClick={this.closeDrawer} className="icono-cross">x</i>
+          <h2>What a nice drawer !</h2>
           <h2 onClick={console.log('hello')}>Log out</h2>
         </ReactDrawer>
       </div>
