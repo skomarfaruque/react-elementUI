@@ -47,14 +47,17 @@ class Layout extends React.Component {
     return (
       <div>
         <div>
-          {this.props.children}
-          <button
+        <div style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>
+        <button
             style={{margin: 20}}
             onClick={this.toggleDrawer}
             disabled={this.state.open && !this.state.noOverlay}
             >
             {!this.state.open ? <span>show drawer</span>: <span>close drawer</span>}
           </button>
+          Welcome to Tong {this.props.isLoggedIn}</div>
+          {this.props.children}
+        
         </div>
         <ReactDrawer
           open={this.state.open}
