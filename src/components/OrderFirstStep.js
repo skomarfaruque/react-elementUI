@@ -8,9 +8,9 @@ class OrderFirstStep extends React.Component{
   constructor (props) {
     super(props);
     this.state = {
-      radio3: 'All',
-      radio4: 'Tea',
+      radio3: 'Tea',
       radio4: 'Coffee',
+      radio4: 'Coffee1',
       radio4: 'Coffee2',
       image: 'https://eleme.github.io/element-react/50e4091cc60a.png',
       data: [{
@@ -43,7 +43,7 @@ class OrderFirstStep extends React.Component{
     var styles = {
       marginTop: {
         margin: '2%',
-        textAlign: 'center'
+        textAlign: 'left'
       }
     };
 
@@ -69,14 +69,14 @@ class OrderFirstStep extends React.Component{
         </Breadcrumb>
         <Layout.Row type="flex" justify="end"  style={styles.marginTop}>
           <Layout.Col>
-              <Radio.Group size="small" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')}>
-                <Radio.Button value="All" />
+              <Radio.Group className="orderFirst" size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')}>
                 <Radio.Button value="Tea" />
                 <Radio.Button value="Coffee" />
+                <Radio.Button value="Coffee1" />
                 <Radio.Button value="Coffee2" />
               </Radio.Group>
           </Layout.Col>
-      </Layout.Row>
+        </Layout.Row>
         <Layout.Row gutter="15">
         {products}
         </Layout.Row>

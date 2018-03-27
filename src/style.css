@@ -3,6 +3,11 @@
     border-radius: 8px;
     color: white;
   }
+  .orderFirst .el-radio-button--large .el-radio-button__inner{
+    padding: 20% 30%!important;
+    font-size: 28px !important;
+    width: 100%!important
+  }
   .el-radio-button--large .el-radio-button__inner{
     padding: 20% 30%!important;
     font-size: 28px !important
@@ -10,8 +15,11 @@
   .el-radio-group {
       width: 100%!important
   }
-  .sohag .el-radio-button {
+  .homeScreen .el-radio-button {
       width: 50%!important
+  }
+  .orderFirst .el-radio-button {
+      width: 24%!important
   }
   .el-radio-button__inner{
       border: 1px solid #bfcbd9!important

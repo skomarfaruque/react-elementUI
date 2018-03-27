@@ -58,7 +58,7 @@ class Home extends React.Component{
         
           <Layout.Col style={styles.marginTop}>
             <Layout.Row type="flex">
-              <Radio.Group size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')} className="sohag">
+              <Radio.Group size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')} className="homeScreen">
                 <Radio.Button value="New User" />
                 <Radio.Button value="Old User" />
               </Radio.Group>
