@@ -56,7 +56,8 @@ class Layout extends React.Component {
           <div className="is-8">Welcome to Tong {this.props.isLoggedIn}</div>
           <div className="column"></div>
         </div>
-          {this.props.children}
+        <div>{this.props.children}</div>
+          
         
       
         <ReactDrawer
