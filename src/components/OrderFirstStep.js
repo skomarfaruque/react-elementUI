@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SiteLayout from './Layout';
-
-
 import { Button, Breadcrumb, Card, Layout, Radio } from 'element-react';
 
 import 'element-theme-default';
@@ -13,6 +11,7 @@ class OrderFirstStep extends React.Component{
       radio3: 'All',
       radio4: 'Tea',
       radio4: 'Coffee',
+      radio4: 'Coffee2',
       image: 'https://eleme.github.io/element-react/50e4091cc60a.png',
       data: [{
         date: '2016-05-03',
@@ -70,10 +69,11 @@ class OrderFirstStep extends React.Component{
         </Breadcrumb>
         <Layout.Row type="flex" justify="end"  style={styles.marginTop}>
           <Layout.Col>
-              <Radio.Group size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')}>
+              <Radio.Group size="small" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')}>
                 <Radio.Button value="All" />
                 <Radio.Button value="Tea" />
                 <Radio.Button value="Coffee" />
+                <Radio.Button value="Coffee2" />
               </Radio.Group>
           </Layout.Col>
       </Layout.Row>

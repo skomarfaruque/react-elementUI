@@ -4,7 +4,7 @@ import SiteLayout from './Layout';
 import createStore from '../store';
 
 import { Button, Input, Radio, Layout, Breadcrumb } from 'element-react';
-
+import '../style.css'
 import 'element-theme-default';
 class Home extends React.Component{
   constructor (props) {
@@ -29,15 +29,25 @@ class Home extends React.Component{
   render () {
     var styles = {
       marginTop: {
-        margin: '13% 36%'
+        margin: '11% 15% 20%'
       },
       inputBox: {
-        width: '209px', marginTop: '10%'
+        width: '95%', margin: '4% 0% 1%'
       },
       rightNav: {
       },
       verticalLine: {
       },
+      submitButtonDiv: {
+        width: '95%',
+        height: '70px',
+        marginTop: '3%'
+      },
+      submitButton: {
+        width: '100%',
+        height: '70px',
+        fontSize: '28px'
+      }
     };
     return (
       <SiteLayout>
@@ -48,7 +58,7 @@ class Home extends React.Component{
         
           <Layout.Col style={styles.marginTop}>
             <Layout.Row type="flex">
-              <Radio.Group size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')}>
+              <Radio.Group size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')} className="sohag">
                 <Radio.Button value="New User" />
                 <Radio.Button value="Old User" />
               </Radio.Group>
@@ -60,9 +70,9 @@ class Home extends React.Component{
               </Layout.Col>
             </Layout.Row>
 
-            <Layout.Row type="flex" style={styles.inputBox}>
+            <Layout.Row type="flex" style={styles.submitButtonDiv}>
               <Layout.Col  offset="0">
-               <Button type="primary" style={{width: '100%'}} onClick={this.startBooking.bind(this)}>Next</Button>
+               <Button type="primary"  style={styles.submitButton} onClick={this.startBooking.bind(this)}>Next</Button>
               </Layout.Col>
             </Layout.Row>
 
