@@ -38,37 +38,41 @@ class Layout extends React.Component {
     console.log(this.props)
   }
   render () {
-    const items = [
-      <SidebarItem color="white" path="/home"><Link to="/home">Home</Link></SidebarItem>,
-      <SidebarItem><Link to="/order-first-step">Product</Link></SidebarItem>,
-      <SidebarItem><Link to="/pending-orders">Pending Orders</Link></SidebarItem>,
-      <SidebarItem>op</SidebarItem>
-    ];
     return (
       <div>
-        <div>
-        <div style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>
-        <button
-            style={{margin: 20}}
-            onClick={this.toggleDrawer}
-            disabled={this.state.open && !this.state.noOverlay}
-            >
-            {!this.state.open ? <span>show drawer</span>: <span>close drawer</span>}
-          </button>
-          Welcome to Tong {this.props.isLoggedIn}</div>
+
+        <div className="columns" style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>
+          <div className="has-text-left is-3">
+            <button 
+              style={{margin: 20}}
+              onClick={this.toggleDrawer}
+              disabled={this.state.open && !this.state.noOverlay}
+              >
+              {!this.state.open ? <span>Menu</span>: <span>close drawer</span>}
+            </button>
+          </div>
+          <div className="is-8">Welcome to Tong {this.props.isLoggedIn}</div>
+          <div className="column"></div>
+        </div>
           {this.props.children}
         
-        </div>
+      
         <ReactDrawer
           open={this.state.open}
           position={this.state.position}
           onClose={this.onDrawerClose}
           noOverlay={this.state.noOverlay}>
           <i onClick={this.closeDrawer} className="icono-cross"></i>
-          <h2><Link to ="/home">What a nice drawer !</Link></h2>
-          <i onClick={this.closeDrawer} className="icono-cross">x</i>
-          <h2>What a nice drawer !</h2>
-          <h2 onClick={console.log('hello')}>Log out</h2>
+          <div className="columns">
+            <div className="column has-text-right" style={{marginRight: '2%'}}>
+            <i onClick={this.closeDrawer} className="icono-cross">x</i></div>
+          </div>
+          <div className="panel list-group">
+          <Link className="panel-block list-group-item is-primary" to ="/home">Home</Link>
+          <Link className="panel-block list-group-item is-primary" to ="/order-first-step">Product</Link>
+          <Link className="panel-block list-group-item is-primary" to ="/pending-orders">Orders pending</Link>
+            <a className="panel-block list-group-item is-warning" onClick={console.log('hello')}>Logout</a>
+          </div>
         </ReactDrawer>
       </div>
     )
