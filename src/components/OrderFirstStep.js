@@ -4,36 +4,41 @@ import SiteLayout from './Layout';
 import { Button, Breadcrumb, Card, Layout, Radio } from 'element-react';
 
 import 'element-theme-default';
+require('dotenv');
 class OrderFirstStep extends React.Component{
   constructor (props) {
     super(props);
     this.state = {
-      radio3: 'Tea',
-      radio4: 'Coffee',
-      radio4: 'Coffee1',
-      radio4: 'Coffee2',
+      selectedCategory: 'All',
       image: 'https://eleme.github.io/element-react/50e4091cc60a.png',
-      data: [{
-        date: '2016-05-03',
-        name: 'Coffee',
-        image: 'http://52.14.91.110/pos/uploads/category/thumb/2.jpg',
-        city: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      }, {
-        date: '2016-05-02',
-        name: 'Tea',
-        image: 'http://52.14.91.110/pos/uploads/category/thumb/1.jpg',
-        city: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      }]
+      categories: [],
+      products: []
     }
   }
-  componentWillMount () {
+  async componentWillMount () {
     document.title = "Category & Products";
+    let res = await fetch(`http://52.14.91.110:8080/admin/product/list`, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    });
+    let result = await res.json();
+    if (result.status === 200) {
+      this.setState({categories: result.categories, products: result.categories[0].products})
+    }
   }
-  onChange(key, value) {
+  // componentDidMount () {
+  //   console.log(this.state)
+  // }
+  async onChange(key, value) {
+    let res =  await this.state.categories.find(data => {
+      return data.CategoryName === value;
+    })
+    if (res) {
+      this.setState({products: res.products})
+    }
+    console.log(this.state.products)
     this.setState({
       [key]: value
     });
@@ -42,42 +47,43 @@ class OrderFirstStep extends React.Component{
   render () {
     var styles = {
       marginTop: {
-        margin: '2%',
+        margin: '3%',
         textAlign: 'left'
       }
     };
 
-   let products =  this.state.data.map((productInfo, key) => {
-     return  <Layout.Col key= {key} span={ 6 } offset={ 0 } style={styles.marginTop}>
+   let products =  this.state.products.map((productInfo, key) => {
+     return  <Layout.Col key= {key} span="5"  style={{margin: '.1rem'}}>
      <Card bodyStyle={{ padding: 0 }}>
-       <img src={productInfo.image} className="image" />
-       <div style={{ padding: 14, textAlign: 'center' }}>
-         <span>{productInfo.name}</span>
+       {/* <img src={productInfo.image} className="image" /> */}
+       <div style={{ padding: '6%', textAlign: 'center' }}>
+         <span>{productInfo.Name}</span>
          <div className="bottom clearfix">
           10Tk - 1000Tk<hr/>
-          <span>Available</span>
+          <span> <Button type="primary">Order</Button></span>
          </div>
        </div>
      </Card>
    </Layout.Col>
    }) 
+     let category =  this.state.categories.map((categoryInfo, key) => {
+     return  <Radio.Button value={categoryInfo.CategoryName}/>
+    
+   }) 
     return (
       <SiteLayout>
-        <Breadcrumb separator="/">
+        {/* <Breadcrumb separator="/">
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>Product</Breadcrumb.Item>
-        </Breadcrumb>
-        <Layout.Row type="flex" justify="end"  style={styles.marginTop}>
+        </Breadcrumb> */}
+        <Layout.Row type="flex" justify="left"  style={styles.marginTop}>
           <Layout.Col>
-              <Radio.Group className="orderFirst" size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')}>
-                <Radio.Button value="Tea" />
-                <Radio.Button value="Coffee" />
-                <Radio.Button value="Coffee1" />
-                <Radio.Button value="Coffee2" />
+              <Radio.Group className="orderFirst" size="large" value={this.state.selectedCategory} onChange={this.onChange.bind(this, 'selectedCategory')}>
+                {category}
               </Radio.Group>
           </Layout.Col>
         </Layout.Row>
-        <Layout.Row gutter="15">
+        <Layout.Row  justify="left" style={{marginLeft: '3%'}}>
         {products}
         </Layout.Row>
       </SiteLayout>
