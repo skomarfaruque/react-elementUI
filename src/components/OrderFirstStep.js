@@ -12,7 +12,8 @@ class OrderFirstStep extends React.Component{
       selectedCategory: 'All',
       image: 'https://eleme.github.io/element-react/50e4091cc60a.png',
       categories: [],
-      products: []
+      products: [],
+      allProducts: []
     }
   }
   async componentWillMount () {
@@ -25,20 +26,33 @@ class OrderFirstStep extends React.Component{
     });
     let result = await res.json();
     if (result.status === 200) {
-      this.setState({categories: result.categories, products: result.categories[0].products})
+      this.setState({categories: result.categories})
     }
+    let proArray = []
+    await result.categories.map(data => {
+      data.products.map(proData => {
+        return proArray.push(proData)
+      })
+    })
+    console.log(proArray)
+    this.setState({products: proArray})
+    this.setState({allProducts: proArray})
+
   }
   // componentDidMount () {
   //   console.log(this.state)
   // }
   async onChange(key, value) {
-    let res =  await this.state.categories.find(data => {
-      return data.CategoryName === value;
-    })
-    if (res) {
-      this.setState({products: res.products})
+    if (value === 'All') {
+      this.setState({products: this.state.allProducts})
+    } else {
+      let res =  await this.state.categories.find(data => {
+        return data.CategoryName === value;
+      })
+      if (res) {
+        this.setState({products: res.products})
+      }
     }
-    console.log(this.state.products)
     this.setState({
       [key]: value
     });
@@ -53,13 +67,13 @@ class OrderFirstStep extends React.Component{
     };
 
    let products =  this.state.products.map((productInfo, key) => {
-     return  <Layout.Col key= {key} span="5"  style={{margin: '.1rem'}}>
+     return  <Layout.Col key= {key} span="6"  style={{margin: '.1rem'}} style={{width: '25%'}}>
      <Card bodyStyle={{ padding: 0 }}>
        {/* <img src={productInfo.image} className="image" /> */}
        <div style={{ padding: '6%', textAlign: 'center' }}>
          <span>{productInfo.Name}</span>
          <div className="bottom clearfix">
-          10Tk - 1000Tk<hr/>
+         {productInfo.Price}Tk<hr/>
           <span> <Button type="primary">Order</Button></span>
          </div>
        </div>
@@ -79,11 +93,13 @@ class OrderFirstStep extends React.Component{
         <Layout.Row type="flex" justify="left"  style={styles.marginTop}>
           <Layout.Col>
               <Radio.Group className="orderFirst" size="large" value={this.state.selectedCategory} onChange={this.onChange.bind(this, 'selectedCategory')}>
+              <Radio.Button value="All"/>
                 {category}
               </Radio.Group>
           </Layout.Col>
         </Layout.Row>
-        <Layout.Row  justify="left" style={{marginLeft: '3%'}}>
+        <hr/>
+        <Layout.Row  justify="left" gutter="1" >
         {products}
         </Layout.Row>
       </SiteLayout>

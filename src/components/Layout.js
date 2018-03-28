@@ -45,15 +45,16 @@ class Layout extends React.Component {
 
         <div className="columns" style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>
           <div className="has-text-left is-3">
-            <button 
-              style={{margin: 20}}
+          <a  style={{margin: 20}} onClick={this.toggleDrawer}><img style={{width: '50px', height: '100px'}} src={require('../menu.png')} /></a>
+            {/* <button 
+             
               onClick={this.toggleDrawer}
               disabled={this.state.open && !this.state.noOverlay}
               >
               {!this.state.open ? <span>Menu</span>: <span>close drawer</span>}
-            </button>
+            </button> */}
           </div>
-          <div className="is-8">Welcome to Tong {this.props.isLoggedIn}</div>
+          <div className="is-8">Welcome to Tong {this.props.isLoggedIn} <a><span className="mi mi-face"></span></a></div>
           <div className="column"></div>
         </div>
         <div>{this.props.children}</div>
