@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import OrderFirstStep from './components/OrderFirstStep';
+import OrderSecondStep from './components/OrderSecondStep';
 import Login from './components/Login';
 import PendingOrders from './components/PendingOrders';
 import Layout from './components/Layout';
@@ -17,6 +18,7 @@ render(
         <div>
             <Route exact path="/" name="Login" component={Login}></Route>
             <Route exact path="/order-first-step" name="Order first step" component={OrderFirstStep}></Route>
+            <Route exact path="/order-second-step" name="Order Second step" component={OrderSecondStep}></Route>
             <Route exact path="/home" name="type" component={Home}></Route>
             <Route path="/pending-orders" name="Pending orders"  component={PendingOrders}></Route>
         </div>

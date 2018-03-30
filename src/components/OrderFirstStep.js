@@ -47,7 +47,7 @@ class OrderFirstStep extends React.Component{
       this.setState({products: this.state.allProducts})
     } else {
       let res =  await this.state.categories.find(data => {
-        return data.CategoryName === value;
+        return data.CategoryName === value
       })
       if (res) {
         this.setState({products: res.products})
@@ -56,6 +56,11 @@ class OrderFirstStep extends React.Component{
     this.setState({
       [key]: value
     });
+  }
+  productNext (key) { // here key is the product index
+    let product = this.state.products[key]
+    this.props.cart(product)
+    this.props.history.push("/order-second-step");
   }
 
   render () {
@@ -67,8 +72,8 @@ class OrderFirstStep extends React.Component{
     };
 
    let products =  this.state.products.map((productInfo, key) => {
-     return  <Layout.Col key= {key} span="6"  style={{margin: '.1rem'}} style={{width: '25%'}}>
-     <Card bodyStyle={{ padding: 0 }}>
+     return  <Layout.Col key= {key} span="6"  style={{margin: '.1rem'}} style={{width: '25%'}} >
+     <a onClick={this.productNext.bind(this, key)}><Card bodyStyle={{ padding: 0 }} >
        {/* <img src={productInfo.image} className="image" /> */}
        <div style={{ padding: '6%', textAlign: 'center' }}>
          <span>{productInfo.Name}</span>
@@ -78,6 +83,7 @@ class OrderFirstStep extends React.Component{
          </div>
        </div>
      </Card>
+     </a>
    </Layout.Col>
    }) 
      let category =  this.state.categories.map((categoryInfo, key) => {
@@ -107,11 +113,10 @@ class OrderFirstStep extends React.Component{
   }
 }
 const mapStateToProps = state => ({
-  slidedVal: state.amountReducer.value
+  // slidedVal: state.amountReducer.value
 })
 
 const mapDispatchToProps = dispatch => ({
-  addSliderValue: (value) => dispatch({ type: 'storeAmount', value }),
+  cart: (product) => dispatch({ type: 'tempProduct', product }),
 })
-
-export default OrderFirstStep
+export default connect(null, mapDispatchToProps)(OrderFirstStep);  

@@ -31,3 +31,9 @@
       height: 70px!important;
       font-size: 28px!important
   }
+  .orderSecond .el-radio-button {
+      display: list-item;
+  }
+  .el-radio-button__inner {
+      width: 100%
+  }

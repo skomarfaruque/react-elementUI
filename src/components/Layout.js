@@ -21,6 +21,9 @@ class Layout extends React.Component {
     this.setPosition = this.setPosition.bind(this);
     this.setNoOverlay = this.setNoOverlay.bind(this);
   }
+  componentDidMount () {
+    console.log('cartitem', this.props.cartItem)
+  }
   setPosition(e) {
     this.setState({position: e.target.value});
   }
@@ -54,7 +57,7 @@ class Layout extends React.Component {
               {!this.state.open ? <span>Menu</span>: <span>close drawer</span>}
             </button> */}
           </div>
-          <div className="is-8">Welcome to Tong {this.props.isLoggedIn} <a><span className="mi mi-face"></span></a></div>
+          <div className="is-8">Welcome to Tong {this.props.isLoggedIn} - {this.props.cartItem.product.length} <a><span className="mi mi-face"></span></a></div>
           <div className="column"></div>
         </div>
         <div>{this.props.children}</div>
@@ -75,7 +78,7 @@ class Layout extends React.Component {
           <Link className="panel-block list-group-item is-primary" to ="/home">Home</Link>
           <Link className="panel-block list-group-item is-primary" to ="/order-first-step">Product</Link>
           <Link className="panel-block list-group-item is-primary" to ="/pending-orders">Orders pending</Link>
-            <a className="panel-block list-group-item is-warning" onClick={console.log('hello')}>Logout</a>
+            <a className="panel-block list-group-item is-warning">Logout</a>
           </div>
         </ReactDrawer>
       </div>
@@ -83,7 +86,8 @@ class Layout extends React.Component {
   }
 } 
 const mapStateToProps = state => ({
-  isLoggedIn: state.auth.token
+  isLoggedIn: state.auth.token,
+  cartItem: state.cart
 })
 export default connect(mapStateToProps, null)(Layout);  
 // export default Layout;
