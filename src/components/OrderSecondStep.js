@@ -24,15 +24,17 @@ class OrderSecondStep extends React.Component{
 
   productNext (key) { // here key is the product index
     let product = this.state.products[key]
-    console.log('clicked on product')
     this.props.cart(product)
   }
   async onChange(key, value) {
     await this.setState({
       [key]: value
     });
-    console.log('states', this.state)
   }
+  async restRadio(key, value) {
+    console.log('key:', key,'value:',value)
+  }
+
 
   render () {
     var styles = {
@@ -74,19 +76,16 @@ class OrderSecondStep extends React.Component{
               </Radio.Group>
           </div>
           {product.Adons.map(d=>{
-            return <div className="column is-3">{d.AdonsTitle} 
+            return <div className="column is-3">{d.AdonsTitle}
             {
-              d.AdonsDetails.map(s=>
+              d.AdonsDetails.map((s,k)=>
                 {
-                  return <Radio.Group className="orderSecond" size="large" value={this.state[d.AdonsTitle]} onChange={this.onChange.bind(this, d.AdonsTitle)}>
-                  <Radio.Button  value={s.name + ' +' +s.price + 'Tk'}/>
+                  return <Radio.Group className="orderSecond" size="large"  value={this.state[d.AdonsTitle]} onChange={this.onChange.bind(this, d.AdonsTitle)}>
+                  <Radio.Button value={s.name + ' +' +s.price + 'Tk'}/>
               </Radio.Group>
                 }
               )
             }</div>})}
-          {/* {product.Adons.map(data => {
-            <div className="column">sd{data.AdonsTitle}</div>
-          })} */}
         </div>
       </SiteLayout>
     )

@@ -74,7 +74,6 @@ class OrderFirstStep extends React.Component{
    let products =  this.state.products.map((productInfo, key) => {
      return  <Layout.Col key= {key} span="6"  style={{margin: '.1rem'}} style={{width: '25%'}} >
      <a onClick={this.productNext.bind(this, key)}><Card bodyStyle={{ padding: 0 }} >
-       {/* <img src={productInfo.image} className="image" /> */}
        <div style={{ padding: '6%', textAlign: 'center' }}>
          <span>{productInfo.Name}</span>
          <div className="bottom clearfix">
