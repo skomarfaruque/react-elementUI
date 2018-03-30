@@ -28,9 +28,10 @@ class OrderSecondStep extends React.Component{
     this.props.cart(product)
   }
   async onChange(key, value) {
-    this.setState({
+    await this.setState({
       [key]: value
     });
+    console.log('states', this.state)
   }
 
   render () {
@@ -78,7 +79,7 @@ class OrderSecondStep extends React.Component{
               d.AdonsDetails.map(s=>
                 {
                   return <Radio.Group className="orderSecond" size="large" value={this.state[d.AdonsTitle]} onChange={this.onChange.bind(this, d.AdonsTitle)}>
-                  <Radio.Button  value={s.name}/>
+                  <Radio.Button  value={s.name + ' +' +s.price + 'Tk'}/>
               </Radio.Group>
                 }
               )
