@@ -60,7 +60,7 @@ class Layout extends React.Component {
           <div className="is-8">Welcome to Tong {this.props.isLoggedIn} - {this.props.cartItem.product.length} <a><span className="mi mi-face"></span></a></div>
           <div className="column"></div>
         </div>
-        <div>{this.props.children}</div>
+        <div className="container">{this.props.children}</div>
           
         
       

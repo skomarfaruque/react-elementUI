@@ -95,10 +95,10 @@ class OrderFirstStep extends React.Component{
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>Product</Breadcrumb.Item>
         </Breadcrumb> */}
-        <Layout.Row type="flex" justify="left"  style={styles.marginTop}>
+        <Layout.Row type="flex" justify="left">
           <Layout.Col>
               <Radio.Group className="orderFirst" size="large" value={this.state.selectedCategory} onChange={this.onChange.bind(this, 'selectedCategory')}>
-              <Radio.Button value="All"/>
+              <Radio.Button value="All" className="firstChild"/>
                 {category}
               </Radio.Group>
           </Layout.Col>
