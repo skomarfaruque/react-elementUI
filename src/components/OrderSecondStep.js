@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SiteLayout from './Layout';
-import { Button, Breadcrumb, Card, Layout, Radio } from 'element-react';
+import { Button, Breadcrumb, Card, Layout, Radio, Checkbox } from 'element-react';
 
 import 'element-theme-default';
 
@@ -12,7 +12,7 @@ class OrderSecondStep extends React.Component{
     console.log('cons', this.props.cartItem.tempProduct)
     this.state = {
      size: temProduct.Size[0].title,
-     sugar: temProduct.Sugar[0].title,
+     sugar: temProduct.Sugar[0].title
     }
   }
   async componentWillMount () {
@@ -27,9 +27,11 @@ class OrderSecondStep extends React.Component{
     this.props.cart(product)
   }
   async onChange(key, value) {
+
     await this.setState({
       [key]: value
     });
+    console.log(this.state)
   }
   async restRadio(key, value) {
     console.log('key:', key,'value:',value)
@@ -48,44 +50,36 @@ class OrderSecondStep extends React.Component{
       return <Radio.Button value={sizeInfo.title}/>
     })
     let suagar = product.Sugar.map((suagarInfo,key) => {
-      return <Radio.Button  value={suagarInfo.title}/>
+      return <Radio.Button  label="w"  value={suagarInfo.title}/>
     })
-    // let adons = product.Adons.map((adonsInfo,key) => {
-    // let adonHtml =  
-    //   <div className="column">
-    //     {adonsInfo.AdonsTitle}
-    //     adonsInfo.AdonsDetails.map(da => {
-    //       return <span></span>
-    //     })
-    //   </div>
-    //   // adonsInfo.AdonsDetails.map((finalAdons,key) => {
-    //   //   return <span>{finalAdons.title}</span>
-    //   // })
-    // })
+   let adons = product.Adons.map(d=>{
+    return <div className="column is-3">{d.AdonsTitle}
+    {
+      d.AdonsDetails.map((s,k)=>
+        {
+      //     return (<Radio.Group  className="orderSecond" size="large"  value={this.state[d.AdonsTitle]} onChange={this.onChange.bind(this, d.AdonsTitle)}>
+      //     <Radio.Button  label="sohag"  onClick={console.log(this.state)} checked={this.state.checked} value={s.name + ' +' +s.price + 'Tk'}/>
+      // </Radio.Group>)
+      return ( <Checkbox.Group  className="orderSecond" size="large" value={this.state[d.AdonsTitle]}  onChange={this.onChange.bind(this, d.AdonsTitle)}>
+       <Checkbox.Button key={k} label={s.name + ' +' +s.price + 'Tk'}>{s.price}</Checkbox.Button>
+      </Checkbox.Group>)
+        }
+      )
+    }</div>})
     return (
       <SiteLayout>
         <div className="columns">
           <div className="column is-3"> Size
-            <Radio.Group className="orderSecond" size="large" value={this.state.size} onChange={this.onChange.bind(this, 'size')}>
+            <Radio.Group name="size" className="orderSecond" size="large" value={this.state.size} onChange={this.onChange.bind(this, 'size')}>
                 {size}
             </Radio.Group>
           </div>
           <div className="column is-3"> Sugar
-          <Radio.Group className="orderSecond" size="large" value={this.state.sugar} onChange={this.onChange.bind(this, 'sugar')}>
+          <Radio.Group className="orderSecond" name="sugar" size="large"  value={this.state.sugar} onChange={this.onChange.bind(this, 'sugar')}>
               {suagar}
               </Radio.Group>
           </div>
-          {product.Adons.map(d=>{
-            return <div className="column is-3">{d.AdonsTitle}
-            {
-              d.AdonsDetails.map((s,k)=>
-                {
-                  return <Radio.Group className="orderSecond" size="large"  value={this.state[d.AdonsTitle]} onChange={this.onChange.bind(this, d.AdonsTitle)}>
-                  <Radio.Button value={s.name + ' +' +s.price + 'Tk'}/>
-              </Radio.Group>
-                }
-              )
-            }</div>})}
+          {adons}
         </div>
       </SiteLayout>
     )
