@@ -15,8 +15,12 @@ class OrderSecondStep extends React.Component{
     document.title = "Product details";
   }
   componentDidMount () {
-    // console.log('state', this.state)
-    // console.log('secondstep', this.props)
+    this.setState({'sohag': 1})
+    let pro = this.props.cartItem.tempProduct
+    console.log(pro)
+    pro.ProductDetails.map(info=>{
+      this.setState({[info.ConfigurationName]: 1})
+    })
   }
 
   productNext (key) { // here key is the product index
@@ -47,9 +51,7 @@ class OrderSecondStep extends React.Component{
     };
     let product = this.props.cartItem.tempProduct
     let displayAdons = product.ProductDetails.map ((data, key) => {
-      let configName = data.ConfigurationName
-      this.setState({configName: 1})
-      // this.setState({conf: ''})
+
       if (data.Default) {
       }
       let adonsData = []
@@ -74,10 +76,10 @@ class OrderSecondStep extends React.Component{
       } else { // radio box
         return (<div className="column" key>{data.ConfigurationName}
             {
-              <Radio.Group key={key}  className="orderSecond" size="large"  value={this.state[data.ConfigurationName]}  onChange={this.onChange.bind(this, data.ConfigurationName)}>
+              <Radio.Group key={key}  className="orderSecond" size="large" value={this.state[data.ConfigurationName]}  onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
                   adonsData.map ((adonInfo,aKey) => {
-                    return <Radio.Button key={aKey} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>{adonInfo.adons.Price}</Radio.Button>
+                    return <Radio.Button key={aKey} value={adonInfo.id}>{adonInfo.adons.Title}</Radio.Button>
                   })
                 }
              </Radio.Group>
