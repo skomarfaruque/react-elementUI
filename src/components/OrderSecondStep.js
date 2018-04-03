@@ -84,7 +84,13 @@ class OrderSecondStep extends React.Component{
         </div>
         <div className="columns">
           <div className="column">
-            <button className="button is-info" onClick={this.addToCart.bind(this)}>Next</button>
+            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCart.bind(this)}>Add Another</button>
+          </div>
+          <div className="column">
+            <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCart.bind(this)}>Add to Cart</button>
+          </div>
+          <div className="column">
+            <button className="button is-success is-large" style={{width: '100%'}} onClick={this.addToCart.bind(this)}>Checkout</button>
           </div>
         </div>
       </SiteLayout>

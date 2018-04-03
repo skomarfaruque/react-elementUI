@@ -30,13 +30,13 @@ class OrderFirstStep extends React.Component{
     }
     let proArray = []
     await result.categories.map(data => {
-      data.products.map(proData => {
+      data.Products.map(proData => {
         return proArray.push(proData)
       })
     })
-    console.log(proArray)
     this.setState({products: proArray})
     this.setState({allProducts: proArray})
+    console.log('all products', this.state.products)
 
   }
   // componentDidMount () {
@@ -50,7 +50,7 @@ class OrderFirstStep extends React.Component{
         return data.CategoryName === value
       })
       if (res) {
-        this.setState({products: res.products})
+        this.setState({products: res.Products})
       }
     }
     this.setState({
@@ -86,7 +86,7 @@ class OrderFirstStep extends React.Component{
    </Layout.Col>
    }) 
      let category =  this.state.categories.map((categoryInfo, key) => {
-     return  <Radio.Button value={categoryInfo.CategoryName}/>
+     return  <Radio.Button key value={categoryInfo.CategoryName}/>
     
    }) 
     return (
