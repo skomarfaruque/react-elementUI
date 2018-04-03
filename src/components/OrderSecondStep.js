@@ -19,7 +19,8 @@ class OrderSecondStep extends React.Component{
     document.title = "Product details";
   }
   componentDidMount () {
-    console.log('secondstep', this.props)
+    // console.log('state', this.state)
+    // console.log('secondstep', this.props)
   }
 
   productNext (key) { // here key is the product index
@@ -36,6 +37,9 @@ class OrderSecondStep extends React.Component{
   async restRadio(key, value) {
     console.log('key:', key,'value:',value)
   }
+  addToCart () {
+    console.log(this.state)
+  }
 
 
   render () {
@@ -47,22 +51,19 @@ class OrderSecondStep extends React.Component{
     };
     let product = this.props.cartItem.tempProduct
     let size = product.Size.map((sizeInfo,key) => {
-      return <Radio.Button value={sizeInfo.title}/>
+      return <Radio.Button key={key} value={sizeInfo.title}/>
     })
     let suagar = product.Sugar.map((suagarInfo,key) => {
-      return <Radio.Button  label="w"  value={suagarInfo.title}/>
+      return <Radio.Button key={key} label="w"  value={suagarInfo.title}/>
     })
-   let adons = product.Adons.map(d=>{
-    return <div className="column is-3">{d.AdonsTitle}
+   let adons = product.Adons.map((d,k)=>{
+    return <div key={k} className="column is-3">{d.AdonsTitle}
     {
       d.AdonsDetails.map((s,k)=>
         {
-      //     return (<Radio.Group  className="orderSecond" size="large"  value={this.state[d.AdonsTitle]} onChange={this.onChange.bind(this, d.AdonsTitle)}>
-      //     <Radio.Button  label="sohag"  onClick={console.log(this.state)} checked={this.state.checked} value={s.name + ' +' +s.price + 'Tk'}/>
-      // </Radio.Group>)
-      return ( <Checkbox.Group  className="orderSecond" size="large" value={this.state[d.AdonsTitle]}  onChange={this.onChange.bind(this, d.AdonsTitle)}>
-       <Checkbox.Button key={k} label={s.name + ' +' +s.price + 'Tk'}>{s.price}</Checkbox.Button>
-      </Checkbox.Group>)
+          return ( <Checkbox.Group key={k}  className="orderSecond" size="large" value={this.state[d.AdonsTitle]}  onChange={this.onChange.bind(this, d.AdonsTitle)}>
+          <Checkbox.Button key={k} label={s.name + ' +' +s.price + 'Tk'}>{s.price}</Checkbox.Button>
+          </Checkbox.Group>)
         }
       )
     }</div>})
@@ -70,16 +71,21 @@ class OrderSecondStep extends React.Component{
       <SiteLayout>
         <div className="columns">
           <div className="column is-3"> Size
-            <Radio.Group name="size" className="orderSecond" size="large" value={this.state.size} onChange={this.onChange.bind(this, 'size')}>
+            <Radio.Group name="size" key="sugar" className="orderSecond" size="large" value={this.state.size} onChange={this.onChange.bind(this, 'size')}>
                 {size}
             </Radio.Group>
           </div>
           <div className="column is-3"> Sugar
           <Radio.Group className="orderSecond" name="sugar" size="large"  value={this.state.sugar} onChange={this.onChange.bind(this, 'sugar')}>
-              {suagar}
-              </Radio.Group>
+            {suagar}
+          </Radio.Group>
           </div>
           {adons}
+        </div>
+        <div className="columns">
+          <div className="column">
+            <button className="button is-info" onClick={this.addToCart.bind(this)}>Next</button>
+          </div>
         </div>
       </SiteLayout>
     )
