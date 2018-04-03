@@ -17,9 +17,8 @@ class OrderSecondStep extends React.Component{
   componentDidMount () {
     this.setState({'sohag': 1})
     let pro = this.props.cartItem.tempProduct
-    console.log(pro)
     pro.ProductDetails.map(info=>{
-      this.setState({[info.ConfigurationName]: 1})
+      this.setState({[info.ConfigurationName]: info.Default || ''})
     })
   }
 
@@ -64,7 +63,7 @@ class OrderSecondStep extends React.Component{
       if (data.Multiple) { // check box
         return (<div className="column" key>{data.ConfigurationName}
             {
-              <Checkbox.Group key={key}  className="orderSecond" size="large">
+              <Checkbox.Group key={key}  className="orderSecond" size="large" >
                 {
                   adonsData.map ((adonInfo,aKey) => {
                     return <Checkbox.Button key={aKey} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>{adonInfo.adons.Price}</Checkbox.Button>
