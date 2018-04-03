@@ -8,12 +8,8 @@ import 'element-theme-default';
 class OrderSecondStep extends React.Component{
   constructor (props) {
     super(props);
-    let temProduct = this.props.cartItem.tempProduct
-    console.log('cons', this.props.cartItem.tempProduct)
-    this.state = {
-     size: temProduct.Size[0].title,
-     sugar: temProduct.Sugar[0].title
-    }
+    // let temProduct = this.props.cartItem.tempProduct
+    this.state = {}
   }
   async componentWillMount () {
     document.title = "Product details";
@@ -50,37 +46,77 @@ class OrderSecondStep extends React.Component{
       }
     };
     let product = this.props.cartItem.tempProduct
-    let size = product.Size.map((sizeInfo,key) => {
-      return <Radio.Button key={key} value={sizeInfo.title}/>
-    })
-    let suagar = product.Sugar.map((suagarInfo,key) => {
-      return <Radio.Button key={key} label="w"  value={suagarInfo.title}/>
-    })
-   let adons = product.Adons.map((d,k)=>{
-    return <div key={k} className="column is-3">{d.AdonsTitle}
-    {
-      d.AdonsDetails.map((s,k)=>
-        {
-          return ( <Checkbox.Group key={k}  className="orderSecond" size="large" value={this.state[d.AdonsTitle]}  onChange={this.onChange.bind(this, d.AdonsTitle)}>
-          <Checkbox.Button key={k} label={s.name + ' +' +s.price + 'Tk'}>{s.price}</Checkbox.Button>
-          </Checkbox.Group>)
+    let displayAdons = product.ProductDetails.map ((data, key) => {
+      let configName = data.ConfigurationName
+      this.setState({configName: 1})
+      // this.setState({conf: ''})
+      if (data.Default) {
+      }
+      let adonsData = []
+      for (var key in data.Configurables) { // loop the json object
+        if (data.Configurables.hasOwnProperty(key)) {
+        
+            adonsData.push({adons:data.Configurables[key], id: key})
         }
-      )
-    }</div>})
+      }
+      if (data.Multiple) { // check box
+        return (<div className="column" key>{data.ConfigurationName}
+            {
+              <Checkbox.Group key={key}  className="orderSecond" size="large">
+                {
+                  adonsData.map ((adonInfo,aKey) => {
+                    return <Checkbox.Button key={aKey} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>{adonInfo.adons.Price}</Checkbox.Button>
+                  })
+                }
+             </Checkbox.Group>
+            }
+        </div>)
+      } else { // radio box
+        return (<div className="column" key>{data.ConfigurationName}
+            {
+              <Radio.Group key={key}  className="orderSecond" size="large"  value={this.state[data.ConfigurationName]}  onChange={this.onChange.bind(this, data.ConfigurationName)}>
+                {
+                  adonsData.map ((adonInfo,aKey) => {
+                    return <Radio.Button key={aKey} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>{adonInfo.adons.Price}</Radio.Button>
+                  })
+                }
+             </Radio.Group>
+            }
+        </div>)
+      }
+    })
+    // let size = product.Size.map((sizeInfo,key) => {
+    //   return <Radio.Button key={key} value={sizeInfo.title}/>
+    // })
+    // let suagar = product.Sugar.map((suagarInfo,key) => {
+    //   return <Radio.Button key={key} label="w"  value={suagarInfo.title}/>
+    // })
+    console.log('tempproduct',product)
+  //  let adons = product.Adons.map((d,k)=>{
+  //   return <div key={k} className="column is-3">{d.AdonsTitle}
+  //   {
+  //     d.AdonsDetails.map((s,k)=>
+  //       {
+  //         return ( <Checkbox.Group key={k}  className="orderSecond" size="large" value={this.state[d.AdonsTitle]}  onChange={this.onChange.bind(this, d.AdonsTitle)}>
+  //         <Checkbox.Button key={k} label={s.name + ' +' +s.price + 'Tk'}>{s.price}</Checkbox.Button>
+  //         </Checkbox.Group>)
+  //       }
+  //     )
+  //   }</div>})
     return (
       <SiteLayout>
         <div className="columns">
-          <div className="column is-3"> Size
+          {/* <div className="column is-3"> Size
             <Radio.Group name="size" key="sugar" className="orderSecond" size="large" value={this.state.size} onChange={this.onChange.bind(this, 'size')}>
                 {size}
             </Radio.Group>
-          </div>
-          <div className="column is-3"> Sugar
+          </div> */}
+          {/* <div className="column is-3"> Sugar
           <Radio.Group className="orderSecond" name="sugar" size="large"  value={this.state.sugar} onChange={this.onChange.bind(this, 'sugar')}>
             {suagar}
           </Radio.Group>
-          </div>
-          {adons}
+          </div> */}
+          {displayAdons}
         </div>
         <div className="columns">
           <div className="column">
