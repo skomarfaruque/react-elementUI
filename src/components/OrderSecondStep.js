@@ -4,20 +4,66 @@ import SiteLayout from './Layout';
 import { Button, Breadcrumb, Card, Layout, Radio, Checkbox } from 'element-react';
 
 import 'element-theme-default';
+import { isArray } from 'util';
 
 class OrderSecondStep extends React.Component{
   constructor (props) {
     super(props);
-    this.state = {}
+    this.state = {
+      totalPrice: 0,
+      tempProduct: this.props.cartItem.tempProduct,
+      allconfig: []
+    }
   }
   async componentWillMount () {
     document.title = "Product details";
   }
+  async componentDidUpdate () {
+    let objArr = []
+    let obj = this.state
+    for (var key in obj) { // loop the json object
+      if (obj.hasOwnProperty(key)) {
+        if (key !== 'totalPrice' && key !=='tempProduct' && key !=='allconfig') {
+          if (isArray(obj[key])) {
+            obj[key].map (dt=>{
+              objArr.push({configId:(dt).toString()})
+            })
+          } else {
+            objArr.push({configId:(obj[key]).toString()})
+          }
+        }
+      }
+    }
+
+    let price = []
+    await objArr.map(async oData => {
+      let conPrice = await this.state.allconfig.find(allData => {
+        return allData.id === oData.configId
+      })
+      await price.push(conPrice)
+    })
+    let finalCalPrice = 0
+    await price.map(pCal=> {
+      if (pCal) {
+        finalCalPrice += pCal.adons.Price
+      }
+    })
+    // this.setState({totalPrice: finalCalPrice})
+  }
   async componentDidMount () {
     let pro = this.props.cartItem.tempProduct
-    await pro.ProductDetails.map(async(info)=>{
-      await this.setState({[info.ConfigurationName]: info.Default || ''})
+    let adonsData = []
+    await pro.ProductDetails.map(async(data)=>{
+      await this.setState({[data.ConfigurationName]: data.Default || ''})
+      
+      for (var key in data.Configurables) { // loop the json object
+        if (data.Configurables.hasOwnProperty(key)) {
+            adonsData.push({adons:data.Configurables[key], id: key})
+        }
+      }
+      
     })
+    this.setState({allconfig: adonsData})
   }
 
   productNext (key) { // here key is the product index
@@ -25,17 +71,22 @@ class OrderSecondStep extends React.Component{
     this.props.cart(product)
   }
   async onChange(key, value) {
-
     await this.setState({
       [key]: value
-    });
-    console.log(this.state)
-  }
-  async restRadio(key, value) {
-    console.log('key:', key,'value:',value)
+    })
+    // console.log(key, value)
+    this.priceCalculation()
   }
   addToCart () {
     console.log(this.state)
+  }
+  async addToCartReturnHome () {
+    console.log(this.state)
+  }
+  priceCalculation () {
+    // this.setState({totalPrice: 10})
+    // console.log(this.props.cartItem.tempProduct)
+  
   }
 
 
@@ -49,19 +100,16 @@ class OrderSecondStep extends React.Component{
     let product = this.props.cartItem.tempProduct
     let displayAdons = product.ProductDetails.map ((data, key) => {
 
-      if (data.Default) {
-      }
       let adonsData = []
       for (var key in data.Configurables) { // loop the json object
         if (data.Configurables.hasOwnProperty(key)) {
-        
             adonsData.push({adons:data.Configurables[key], id: key})
         }
       }
       if (data.Multiple) { // check box
-        return (<div className="column" key>{data.ConfigurationName}
+        return (<div className="column">{data.ConfigurationName}
             {
-              <Checkbox.Group key={data.ConfigurationName+key}  className="orderSecond" size="large" onChange={this.onChange.bind(this, data.ConfigurationName)}>
+              <Checkbox.Group   className="orderSecond" size="large" onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
                   adonsData.map ((adonInfo,aKey) => {
                     return <Checkbox.Button key={adonInfo.adons.Title+aKey} value={adonInfo.id} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>hello</Checkbox.Button>
@@ -73,10 +121,10 @@ class OrderSecondStep extends React.Component{
       } else { // radio box
         return (<div className="column" key>{data.ConfigurationName}
             {
-              <Radio.Group key={key}  className="orderSecond" size="large" value={this.state[data.ConfigurationName]}  onChange={this.onChange.bind(this, data.ConfigurationName)}>
+              <Radio.Group className="orderSecond" size="large" value={this.state[data.ConfigurationName]}  onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
                   adonsData.map ((adonInfo,aKey) => {
-                    return <Radio.Button key={aKey} value={adonInfo.id}>{adonInfo.adons.Title + "+"+ adonInfo.adons.Price+"Tk" }</Radio.Button>
+                    return <Radio.Button value={adonInfo.id}>{adonInfo.adons.Title + "+"+ adonInfo.adons.Price+"Tk" }</Radio.Button>
                   })
                 }
              </Radio.Group>
@@ -88,11 +136,14 @@ class OrderSecondStep extends React.Component{
     return (
       <SiteLayout>
         <div className="columns">
+          <div className="column">Price: {this.state.totalPrice} Tk</div>
+        </div>
+        <div className="columns">
           {displayAdons}
         </div>
         <div className="columns">
           <div className="column">
-            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCart.bind(this)}>Add Another</button>
+            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCartReturnHome.bind(this)}>Add Another</button>
           </div>
           <div className="column">
             <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCart.bind(this)}>Add to Cart</button>
