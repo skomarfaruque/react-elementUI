@@ -17,8 +17,6 @@ class OrderSecondStep extends React.Component{
   }
   async componentWillMount () {
     document.title = "Product details";
-  }
-  async componentDidMount () {
     let pro = this.props.cartItem.tempProduct
     let adonsData = []
     await pro.ProductDetails.map(async(data)=>{
@@ -31,7 +29,11 @@ class OrderSecondStep extends React.Component{
       }
       
     })
+    console.log('ss', this.state)
     this.setState({allconfig: adonsData, totalPrice: this.state.tempProduct.Price})
+  }
+  async componentDidMount () {
+   
   }
   productNext (key) { // here key is the product index
     let product = this.state.products[key]
@@ -101,6 +103,7 @@ class OrderSecondStep extends React.Component{
             adonsData.push({adons:data.Configurables[keyData], id: keyData})
         }
       }
+      console.log('xxx',adonsData)
       if (data.Multiple) { // check box
         return (<div className="column is-4" key={data.ConfigurationName+ key}>
         <span className="has-text-link" style={{fontWeight: 'bold'}}>{data.ConfigurationName}</span>
