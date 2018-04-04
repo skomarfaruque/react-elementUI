@@ -102,7 +102,8 @@ class OrderSecondStep extends React.Component{
         }
       }
       if (data.Multiple) { // check box
-        return (<div className="column" key={data.ConfigurationName+ key}>{data.ConfigurationName}
+        return (<div className="column is-4" key={data.ConfigurationName+ key}>
+        <span className="has-text-link" style={{fontWeight: 'bold'}}>{data.ConfigurationName}</span>
             {
               <Checkbox.Group   className="orderSecond" size="large" onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
@@ -114,7 +115,7 @@ class OrderSecondStep extends React.Component{
             }
         </div>)
       } else { // radio box
-        return (<div className="column" key={data.ConfigurationName+ key}>{data.ConfigurationName}
+        return (<div className="column is-4" key={data.ConfigurationName+ key}>{data.ConfigurationName}
             {
               <Radio.Group className="orderSecond" size="large" value={this.state[data.ConfigurationName]}  onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
@@ -130,10 +131,10 @@ class OrderSecondStep extends React.Component{
 
     return (
       <SiteLayout>
-        <div className="columns" key="price">
-          <div className="column">Price: {this.state.totalPrice} Tk</div>
+        <div className="columns is-right" key="price">
+          <div className="column has-text-right">Price: {this.state.totalPrice} Tk</div>
         </div>
-        <div className="columns" key="adons">
+        <div className="columns is-multiline" key="adons">
           {displayAdons}
         </div>
         <div className="columns">
