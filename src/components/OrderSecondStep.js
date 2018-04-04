@@ -63,10 +63,10 @@ class OrderSecondStep extends React.Component{
       if (data.Multiple) { // check box
         return (<div className="column" key>{data.ConfigurationName}
             {
-              <Checkbox.Group key={key}  className="orderSecond" size="large" >
+              <Checkbox.Group key={key}  className="orderSecond" size="large" onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
                   adonsData.map ((adonInfo,aKey) => {
-                    return <Checkbox.Button key={aKey} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>{adonInfo.adons.Price}</Checkbox.Button>
+                    return <Checkbox.Button key={aKey} value={adonInfo.id} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>hello</Checkbox.Button>
                   })
                 }
              </Checkbox.Group>
