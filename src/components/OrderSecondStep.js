@@ -18,7 +18,39 @@ class OrderSecondStep extends React.Component{
   async componentWillMount () {
     document.title = "Product details";
   }
-  async componentDidUpdate () {
+  async componentDidMount () {
+    let pro = this.props.cartItem.tempProduct
+    let adonsData = []
+    await pro.ProductDetails.map(async(data)=>{
+      await this.setState({[data.ConfigurationName]: data.Default || ''})
+      
+      for (var key in data.Configurables) { // loop the json object
+        if (data.Configurables.hasOwnProperty(key)) {
+            adonsData.push({adons:data.Configurables[key], id: key})
+        }
+      }
+      
+    })
+    this.setState({allconfig: adonsData, totalPrice: this.state.tempProduct.Price})
+  }
+  productNext (key) { // here key is the product index
+    let product = this.state.products[key]
+    this.props.cart(product)
+  }
+  async onChange(key, value) {
+    await this.setState({
+      [key]: value
+    })
+    // console.log(key, value)
+    this.priceCalculation()
+  }
+  addToCart () {
+    console.log(this.state)
+  }
+  async addToCartReturnHome () {
+    console.log(this.state)
+  }
+  async priceCalculation () {
     let objArr = []
     let obj = this.state
     for (var key in obj) { // loop the json object
@@ -42,50 +74,13 @@ class OrderSecondStep extends React.Component{
       })
       await price.push(conPrice)
     })
-    let finalCalPrice = 0
+    let finalCalPrice = this.state.tempProduct.Price
     await price.map(pCal=> {
       if (pCal) {
         finalCalPrice += pCal.adons.Price
       }
     })
-    // this.setState({totalPrice: finalCalPrice})
-  }
-  async componentDidMount () {
-    let pro = this.props.cartItem.tempProduct
-    let adonsData = []
-    await pro.ProductDetails.map(async(data)=>{
-      await this.setState({[data.ConfigurationName]: data.Default || ''})
-      
-      for (var key in data.Configurables) { // loop the json object
-        if (data.Configurables.hasOwnProperty(key)) {
-            adonsData.push({adons:data.Configurables[key], id: key})
-        }
-      }
-      
-    })
-    this.setState({allconfig: adonsData})
-  }
-
-  productNext (key) { // here key is the product index
-    let product = this.state.products[key]
-    this.props.cart(product)
-  }
-  async onChange(key, value) {
-    await this.setState({
-      [key]: value
-    })
-    // console.log(key, value)
-    this.priceCalculation()
-  }
-  addToCart () {
-    console.log(this.state)
-  }
-  async addToCartReturnHome () {
-    console.log(this.state)
-  }
-  priceCalculation () {
-    // this.setState({totalPrice: 10})
-    // console.log(this.props.cartItem.tempProduct)
+    this.setState({totalPrice: finalCalPrice})
   
   }
 
@@ -101,13 +96,13 @@ class OrderSecondStep extends React.Component{
     let displayAdons = product.ProductDetails.map ((data, key) => {
 
       let adonsData = []
-      for (var key in data.Configurables) { // loop the json object
-        if (data.Configurables.hasOwnProperty(key)) {
-            adonsData.push({adons:data.Configurables[key], id: key})
+      for (var keyData in data.Configurables) { // loop the json object
+        if (data.Configurables.hasOwnProperty(keyData)) {
+            adonsData.push({adons:data.Configurables[keyData], id: keyData})
         }
       }
       if (data.Multiple) { // check box
-        return (<div className="column">{data.ConfigurationName}
+        return (<div className="column" key={data.ConfigurationName+ key}>{data.ConfigurationName}
             {
               <Checkbox.Group   className="orderSecond" size="large" onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
@@ -119,12 +114,12 @@ class OrderSecondStep extends React.Component{
             }
         </div>)
       } else { // radio box
-        return (<div className="column" key>{data.ConfigurationName}
+        return (<div className="column" key={data.ConfigurationName+ key}>{data.ConfigurationName}
             {
               <Radio.Group className="orderSecond" size="large" value={this.state[data.ConfigurationName]}  onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
                   adonsData.map ((adonInfo,aKey) => {
-                    return <Radio.Button value={adonInfo.id}>{adonInfo.adons.Title + "+"+ adonInfo.adons.Price+"Tk" }</Radio.Button>
+                    return <Radio.Button key={aKey} value={adonInfo.id}>{adonInfo.adons.Title + "+"+ adonInfo.adons.Price+"Tk" }</Radio.Button>
                   })
                 }
              </Radio.Group>
@@ -135,10 +130,10 @@ class OrderSecondStep extends React.Component{
 
     return (
       <SiteLayout>
-        <div className="columns">
+        <div className="columns" key="price">
           <div className="column">Price: {this.state.totalPrice} Tk</div>
         </div>
-        <div className="columns">
+        <div className="columns" key="adons">
           {displayAdons}
         </div>
         <div className="columns">
