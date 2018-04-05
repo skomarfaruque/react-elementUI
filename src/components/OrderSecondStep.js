@@ -29,8 +29,8 @@ class OrderSecondStep extends React.Component{
       }
       
     })
-    console.log('ss', this.state)
-    this.setState({allconfig: adonsData, totalPrice: this.state.tempProduct.Price})
+    await this.setState({allconfig: adonsData, totalPrice: this.state.tempProduct.Price})
+    this.priceCalculation()
   }
   async componentDidMount () {
    
@@ -103,7 +103,6 @@ class OrderSecondStep extends React.Component{
             adonsData.push({adons:data.Configurables[keyData], id: keyData})
         }
       }
-      console.log('xxx',adonsData)
       if (data.Multiple) { // check box
         return (<div className="column is-4" key={data.ConfigurationName+ key}>
         <span className="has-text-link" style={{fontWeight: 'bold'}}>{data.ConfigurationName}</span>

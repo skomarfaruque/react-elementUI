@@ -22,7 +22,7 @@ class Layout extends React.Component {
     this.setNoOverlay = this.setNoOverlay.bind(this);
   }
   componentDidMount () {
-    console.log('cartitem', this.props.cartItem)
+    // console.log('cartitem', this.props.cartItem)
   }
   setPosition(e) {
     this.setState({position: e.target.value});
