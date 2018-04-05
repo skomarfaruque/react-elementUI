@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SiteLayout from './Layout';
-import { Button, Breadcrumb, Card, Layout, Radio, Checkbox } from 'element-react';
+import { Button, Breadcrumb, Card, Layout, Radio, Checkbox, Tag } from 'element-react';
 
 import 'element-theme-default';
 import { isArray } from 'util';
@@ -33,7 +33,7 @@ class OrderSecondStep extends React.Component{
     this.priceCalculation()
   }
   async componentDidMount () {
-   
+  //  console.log(this.props)
   }
   productNext (key) { // here key is the product index
     let product = this.state.products[key]
@@ -85,6 +85,9 @@ class OrderSecondStep extends React.Component{
     this.setState({totalPrice: finalCalPrice})
   
   }
+  breadCrumbAction (val) {
+    this.props.history.push(val);
+  }
 
 
   render () {
@@ -133,8 +136,13 @@ class OrderSecondStep extends React.Component{
 
     return (
       <SiteLayout>
+        <Breadcrumb separator="/">
+          <Breadcrumb.Item><span onClick={this.breadCrumbAction.bind(this, '/home')}>Home</span></Breadcrumb.Item>
+          <Breadcrumb.Item><span onClick={this.breadCrumbAction.bind(this, '/order-first-step')}>{this.props.cartItem.tempCategory.title}</span></Breadcrumb.Item>
+          <Breadcrumb.Item>{this.state.tempProduct.Name}</Breadcrumb.Item>
+        </Breadcrumb>
         <div className="columns is-right" key="price">
-          <div className="column has-text-right">Price: {this.state.totalPrice} Tk</div>
+          <div className="column has-text-right">Price: <Tag>{this.state.totalPrice} Tk</Tag> </div>
         </div>
         <div className="columns is-multiline" key="adons">
           {displayAdons}

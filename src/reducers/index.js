@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
 const initialAuthState = { token: '', isLoggedIn: false };
+
 const initialCart = { 
   product: [],
   tempProduct: '',
+  tempCategory: {}
  };
 function auth(state = initialAuthState, action) {
   switch (action.type) {
@@ -19,6 +21,8 @@ function cart(state = initialCart, action) {
   switch (action.type) {
     case 'tempProduct':
       return { ...state, tempProduct: action.product }
+    case 'tempCategory':
+      return { ...state, tempCategory: action.category }
     case 'firstStep':
       return { ...state, product: [...state.product, action.product] }
     case 'Logout':
@@ -27,6 +31,7 @@ function cart(state = initialCart, action) {
       return state;
   }
 }
+
 
 const AppReducer = combineReducers({
   auth,

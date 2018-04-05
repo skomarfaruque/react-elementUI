@@ -56,6 +56,7 @@ class OrderFirstStep extends React.Component{
     this.setState({
       [key]: value
     });
+    this.props.cartCategory({title: value, id: 12})
   }
   productNext (key) { // here key is the product index
     let product = this.state.products[key]
@@ -117,5 +118,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   cart: (product) => dispatch({ type: 'tempProduct', product }),
+  cartCategory: (category) => dispatch({ type: 'tempCategory', category }),
 })
 export default connect(null, mapDispatchToProps)(OrderFirstStep);  
