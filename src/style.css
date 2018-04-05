@@ -33,10 +33,10 @@
   .el-input{
     height: 70px!important
   }
-  .el-input__inner {
+  /* .el-input__inner {
       height: 70px!important;
       font-size: 28px!important
-  }
+  } */
   .orderSecond .el-radio-button {
       display: list-item;
   }

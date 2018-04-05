@@ -12,7 +12,8 @@ class OrderSecondStep extends React.Component{
     this.state = {
       totalPrice: 0,
       tempProduct: this.props.cartItem.tempProduct,
-      allconfig: []
+      allconfig: [],
+      quantity: 1
     }
   }
   async componentWillMount () {
@@ -46,12 +47,18 @@ class OrderSecondStep extends React.Component{
     // console.log(key, value)
     this.priceCalculation()
   }
-  addToCart () {
-    console.log(this.state)
+  async addToCart () {
+    await this.props.cart(this.state)
+    this.successNotification()
+  }
+  async addToCartResetPage () {
+    await this.props.cart(this.state)
+    this.successNotification()
   }
   async addToCartReturnHome () {
     await this.props.cart(this.state)
     this.successNotification()
+    this.props.history.push('order-first-step')
     console.log(this.props)
   }
   async priceCalculation () {
@@ -59,7 +66,7 @@ class OrderSecondStep extends React.Component{
     let obj = this.state
     for (var key in obj) { // loop the json object
       if (obj.hasOwnProperty(key)) {
-        if (key !== 'totalPrice' && key !=='tempProduct' && key !=='allconfig') {
+        if (key !== 'totalPrice' && key !=='tempProduct' && key !=='allconfig' && key !== 'quantity') {
           if (isArray(obj[key])) {
             obj[key].map (dt=>{
               objArr.push({configId:(dt).toString()})
@@ -116,7 +123,7 @@ class OrderSecondStep extends React.Component{
         }
       }
       if (data.Multiple) { // check box
-        return (<div className="column is-4" key={data.ConfigurationName+ key}>
+        return (<div className="column is-3" key={data.ConfigurationName+ key}>
         <span className="has-text-link" style={{fontWeight: 'bold'}}>{data.ConfigurationName}</span>
             {
               <Checkbox.Group   className="orderSecond" size="large" onChange={this.onChange.bind(this, data.ConfigurationName)}>
@@ -129,7 +136,7 @@ class OrderSecondStep extends React.Component{
             }
         </div>)
       } else { // radio box
-        return (<div className="column is-4" key={data.ConfigurationName+ key}>{data.ConfigurationName}
+        return (<div className="column is-3" key={data.ConfigurationName+ key}>{data.ConfigurationName}
             {
               <Radio.Group className="orderSecond" size="large" value={this.state[data.ConfigurationName]}  onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
@@ -161,7 +168,7 @@ class OrderSecondStep extends React.Component{
             <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCartReturnHome.bind(this)}>Add Another</button>
           </div>
           <div className="column">
-            <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCart.bind(this)}>Add to Cart</button>
+            <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this)}>Add to Cart</button>
           </div>
           <div className="column">
             <button className="button is-success is-large" style={{width: '100%'}} onClick={this.addToCart.bind(this)}>Checkout</button>

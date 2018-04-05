@@ -19,6 +19,7 @@ function auth(state = initialAuthState, action) {
   }
 }
 function cart(state = initialCart, action) {
+  console.log(action)
   switch (action.type) {
     case 'tempProduct':
       return { ...state, tempProduct: action.product }
@@ -26,6 +27,10 @@ function cart(state = initialCart, action) {
       return { ...state, tempCategory: action.category }
     case 'cartItems':
       return { ...state, cartItems: [...state.cartItems, action.cartItems] }
+    case 'removeCartItems':
+      return { ...state, cartItems: [...state.cartItems.slice(0, action.index), ...state.cartItems.slice(action.index + 1)] }
+    case 'updateQuantity':
+      return { ...state, cartItems: [...state.cartItems[action.index.key].quantity, action.index.value] }
     case 'firstStep':
       return { ...state, product: [...state.product, action.product] }
     case 'Logout':
