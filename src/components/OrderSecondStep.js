@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SiteLayout from './Layout';
-import { Button, Breadcrumb, Card, Layout, Radio, Checkbox, Tag } from 'element-react';
+import { Button, Breadcrumb, Card, Layout, Radio, Checkbox, Tag, Notification  } from 'element-react';
 
 import 'element-theme-default';
 import { isArray } from 'util';
@@ -50,7 +50,9 @@ class OrderSecondStep extends React.Component{
     console.log(this.state)
   }
   async addToCartReturnHome () {
-    console.log(this.state)
+    await this.props.cart(this.state)
+    this.successNotification()
+    console.log(this.props)
   }
   async priceCalculation () {
     let objArr = []
@@ -87,6 +89,13 @@ class OrderSecondStep extends React.Component{
   }
   breadCrumbAction (val) {
     this.props.history.push(val);
+  }
+  successNotification() {
+    Notification({
+      title: 'Success',
+      message: 'Item is added to cart',
+      type: 'success'
+    });
   }
 
 
@@ -167,6 +176,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  cart: (product) => dispatch({ type: 'tempProduct', product }),
+  cart: (cartItems) => dispatch({ type: 'cartItems', cartItems }),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderSecondStep);  

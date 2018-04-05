@@ -2,6 +2,7 @@ import React from 'react';
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
+import { Badge, Button } from 'element-react';
 import { connect } from 'react-redux';
 import ReactDrawer from 'react-drawer';
 import 'react-drawer/lib/react-drawer.css';
@@ -47,18 +48,20 @@ class Layout extends React.Component {
       <div>
 
         <div className="columns" style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>
-          <div className="has-text-left is-3">
-          <a  style={{margin: 20}} onClick={this.toggleDrawer}><img style={{width: '50px', height: '100px'}} src={require('../menu.png')} /></a>
-            {/* <button 
-             
+          <div className="column is-4">
+            <button 
               onClick={this.toggleDrawer}
               disabled={this.state.open && !this.state.noOverlay}
               >
               {!this.state.open ? <span>Menu</span>: <span>close drawer</span>}
-            </button> */}
+            </button>
           </div>
-          <div className="is-8">Welcome to Tong {this.props.isLoggedIn} - {this.props.cartItem.product.length} <a><span className="mi mi-face"></span></a></div>
-          <div className="column"></div>
+          <div className="column is-4">Welcome to Tong {this.props.isLoggedIn} - {this.props.cartItem.product.length} <a><span className="mi mi-face"></span></a></div>
+          <div className="column is-4">
+          <Badge value={ this.props.cartItem.cartItems.length }>
+            <Button size="small">Items</Button>
+          </Badge>
+          </div>
         </div>
         <div className="container">{this.props.children}</div>
           

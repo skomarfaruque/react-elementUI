@@ -5,6 +5,7 @@ const initialAuthState = { token: '', isLoggedIn: false };
 const initialCart = { 
   product: [],
   tempProduct: '',
+  cartItems: [],
   tempCategory: {}
  };
 function auth(state = initialAuthState, action) {
@@ -23,6 +24,8 @@ function cart(state = initialCart, action) {
       return { ...state, tempProduct: action.product }
     case 'tempCategory':
       return { ...state, tempCategory: action.category }
+    case 'cartItems':
+      return { ...state, cartItems: [...state.cartItems, action.cartItems] }
     case 'firstStep':
       return { ...state, product: [...state.product, action.product] }
     case 'Logout':
