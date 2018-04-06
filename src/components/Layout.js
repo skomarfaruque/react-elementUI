@@ -55,22 +55,26 @@ class Layout extends React.Component {
   }
 
   render () {
-
-      let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
-        console.log(cartData)
-        return (
+    let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
+      return (
+        <div>
           <div className="columns" key>
-            <div className="column is-8">
-              {cartData.tempProduct.Name} 
+            <div className="column is-6">
+              <div className="columns">{cartData.tempProduct.Name} </div>
+              <div className="columns">Adons1, Adons2</div>
+            </div>
+            <div className="column is-3"> 
               <Button type="danger" icon="delete" onClick={this.deleteItemFromCart.bind(this, key)}></Button>
               <Button type="primary" icon="edit" onClick={this.deleteItemFromCart.bind(this, key)}></Button>
             </div>
-            <div className="column"> 
+            <div className="column is-3"> 
               <InputNumber size="small" min="1" defaultValue={cartData.quantity} onChange={this.onChange.bind(this, key)}></InputNumber>
             </div>
-         </div>
-        )
-      })
+        </div>
+        <hr/>
+        </div>
+      )
+    })
     return (
       <div>
 
