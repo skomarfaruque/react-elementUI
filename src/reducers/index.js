@@ -30,7 +30,14 @@ function cart(state = initialCart, action) {
     case 'removeCartItems':
       return { ...state, cartItems: [...state.cartItems.slice(0, action.index), ...state.cartItems.slice(action.index + 1)] }
     case 'updateQuantity':
-      return { ...state, cartItems: [...state.cartItems[action.index.key].quantity, action.index.value] }
+    return { 
+      ...state, 
+      cartItems: state.cartItems.map(
+          (data, i) => i === action.index.key ? {...data, quantity: action.index.value}
+                                  : data
+      )
+   }
+      // return { ...state, cartItems: [...state.cartItems[action.index.key].quantity, action.index.value] }
     case 'firstStep':
       return { ...state, product: [...state.product, action.product] }
     case 'Logout':

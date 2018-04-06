@@ -50,14 +50,13 @@ class Layout extends React.Component {
   }
   async onChange (key, value) {
     let obj = {key, value}
-    // await this.props.updateQuantity(obj)
+    console.log(obj)
+    await this.props.updateQuantity(obj)
   }
 
   render () {
-    let showCartItems = ''
-    if ( this.props.cartItem.cartItems) {
-      console.log(this.props.cartItem.cartItems)
-      showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
+
+      let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
         console.log(cartData)
         return (
           <div className="columns" key>
@@ -72,9 +71,6 @@ class Layout extends React.Component {
          </div>
         )
       })
-  
-    }
-   
     return (
       <div>
 
