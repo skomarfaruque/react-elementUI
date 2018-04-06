@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
-import { Badge, Button, InputNumber } from 'element-react';
+import { Badge, Button, InputNumber, Tag } from 'element-react';
 import { connect } from 'react-redux';
 import ReactDrawer from 'react-drawer';
 import 'react-drawer/lib/react-drawer.css';
@@ -50,18 +50,57 @@ class Layout extends React.Component {
   }
   async onChange (key, value) {
     let obj = {key, value}
-    console.log(obj)
     await this.props.updateQuantity(obj)
   }
 
   render () {
+   
     let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
+      // console.log(cartData)
+      let objArr = []
+      let obj = cartData
+      for (var akey in obj) { // loop the json object
+        if (obj.hasOwnProperty(akey)) {
+          if (akey !== 'totalPrice' && akey !=='tempProduct' && akey !=='allconfig' && akey !== 'quantity') {
+            let inserArray = {key: akey, values: []}
+             /*eslint no-undef: "error"*/
+            if (Array.isArray(obj[akey])) {
+              obj[akey].map (dt=>{
+                let adonInfo = cartData.allconfig.find(allData => {
+                  return allData.id === (dt).toString()
+                })
+                if (adonInfo) {
+                  inserArray.values.push(adonInfo)
+                }
+              })
+            } else {
+              let adonInfo = cartData.allconfig.find(allData => {
+                return allData.id === (obj[akey]).toString()
+              })
+              inserArray.values.push(adonInfo)
+            }
+            objArr.push(inserArray)
+          }
+        }
+      }
       return (
         <div>
           <div className="columns" key>
-            <div className="column is-6">
+            <div className="column is-4">
               <div className="columns">{cartData.tempProduct.Name} </div>
-              <div className="columns">Adons1, Adons2</div>
+              <div className="columns">
+                {objArr.map(inf=> {
+                  // console.log(inf)
+                    if (inf.values[0]) {
+                      return (  <div>
+                        {inf.key}:
+                        {inf.values.map(ind=> {
+                          return (<Tag>{ind.adons.Title}</Tag>)
+                        })}
+                      </div>)
+                    }
+                })}
+              </div>
             </div>
             <div className="column is-3"> 
               <Button type="danger" icon="delete" onClick={this.deleteItemFromCart.bind(this, key)}></Button>
@@ -69,6 +108,10 @@ class Layout extends React.Component {
             </div>
             <div className="column is-3"> 
               <InputNumber size="small" min="1" defaultValue={cartData.quantity} onChange={this.onChange.bind(this, key)}></InputNumber>
+            </div>
+            <div className="column is-2">Price: 
+
+              {cartData.totalPrice * cartData.quantity} tk
             </div>
         </div>
         <hr/>

@@ -19,7 +19,6 @@ function auth(state = initialAuthState, action) {
   }
 }
 function cart(state = initialCart, action) {
-  console.log(action)
   switch (action.type) {
     case 'tempProduct':
       return { ...state, tempProduct: action.product }
