@@ -116,7 +116,7 @@ class Layout extends React.Component {
               <Button type="primary" icon="edit" onClick={this.deleteItemFromCart.bind(this, key)}></Button>
             </div>
             <div className="column is-3"> 
-              <InputNumber size="small" min="1" defaultValue={cartData.quantity} onChange={this.onChange.bind(this, key)}></InputNumber>
+              <InputNumber size="large" min="1" defaultValue={cartData.quantity} onChange={this.onChange.bind(this, key)}></InputNumber>
             </div>
             <div className="column is-2">Price: 
 
@@ -150,7 +150,7 @@ class Layout extends React.Component {
           
         <div className={"modal " + (this.state.showModal ? 'is-active': '')}>
           <div className="modal-background"></div>
-          <div className="modal-card">
+          <div className="modal-card" style={{width: '95%'}}>
             <header className="modal-card-head">
               <p className="modal-card-title"><span className="has-text-left">Cart Summary</span></p>
               <span className="has-text-right">Total Cost: {this.state.grandTotalPrice}Tk</span>
