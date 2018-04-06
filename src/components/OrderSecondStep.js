@@ -165,7 +165,7 @@ class OrderSecondStep extends React.Component{
         </div>
         <div className="columns">
           <div className="column">
-            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCartReturnHome.bind(this)}>Add Another</button>
+            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCartReturnHome.bind(this)}>Save & Add New</button>
           </div>
           <div className="column">
             <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this)}>Add to Cart</button>

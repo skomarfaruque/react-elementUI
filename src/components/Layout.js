@@ -16,7 +16,8 @@ class Layout extends React.Component {
       position: 'left',
       noOverlay: false,
       showModal: false,
-      num6: 1
+      num6: 1,
+      grandTotalPrice: 0
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.closeDrawer = this.closeDrawer.bind(this);
@@ -24,8 +25,8 @@ class Layout extends React.Component {
     this.setPosition = this.setPosition.bind(this);
     this.setNoOverlay = this.setNoOverlay.bind(this);
   }
-  componentDidMount () {
-    console.log('cartitem', this.props.cartItem)
+  async componentDidMount () {
+   await this.upateGrandTotalPrice()
   }
   setPosition(e) {
     this.setState({position: e.target.value});
@@ -51,6 +52,14 @@ class Layout extends React.Component {
   async onChange (key, value) {
     let obj = {key, value}
     await this.props.updateQuantity(obj)
+    await this.upateGrandTotalPrice()
+  }
+  async upateGrandTotalPrice () {
+    let grandTotalPrice = 0
+    let grandTotal = await this.props.cartItem.cartItems.map(p=> {
+      grandTotalPrice += p.quantity * p.totalPrice
+    })
+    this.setState({grandTotalPrice})
   }
 
   render () {
@@ -143,7 +152,8 @@ class Layout extends React.Component {
           <div className="modal-background"></div>
           <div className="modal-card">
             <header className="modal-card-head">
-              <p className="modal-card-title">Cart Summary</p>
+              <p className="modal-card-title"><span className="has-text-left">Cart Summary</span></p>
+              <span className="has-text-right">Total Cost: {this.state.grandTotalPrice}Tk</span>
               <button className="delete" aria-label="close" onClick={() => {this.setState({showModal: false})}}></button>
             </header>
             <section className="modal-card-body">
