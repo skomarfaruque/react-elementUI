@@ -168,7 +168,8 @@ class Layout extends React.Component {
     delete finalIteration.showModal
     delete finalIteration.updateModal
     delete finalIteration.key
-    console.log('f',finalIteration)
+    let ind = {finalIteration, arrayInd: this.state.key}
+    this.props.updateCartItems(ind)
   }
   render () {
    
@@ -362,6 +363,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   cart: (index) => dispatch({ type: 'removeCartItems', index }),
   updateQuantity: (index) => dispatch({ type: 'updateQuantity', index }),
+  updateCartItems: (index) => dispatch({ type: 'updateCartItems', index })
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);  
 // export default Layout;
