@@ -104,6 +104,12 @@ class Layout extends React.Component {
       })
   }
   async onChange (key, value) {
+    if (typeof value === 'number') {
+      value = Math.floor(value)
+    } else {
+      console.log('ca', this.props.cartItem.cartItems[key])
+      value = this.props.cartItem.cartItems[key].quantity
+    }
     let obj = {key, value}
     await this.props.updateQuantity(obj)
     await this.upateGrandTotalPrice()
