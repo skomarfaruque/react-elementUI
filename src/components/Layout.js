@@ -60,7 +60,8 @@ class Layout extends React.Component {
         updateModal: true, 
         activeCartItem: this.props.cartItem.cartItems[key],
         activeTempProduct: this.props.cartItem.cartItems[key].tempProduct,
-        totalPrice:  this.props.cartItem.cartItems[key].totalPrice
+        totalPrice:  this.props.cartItem.cartItems[key].totalPrice,
+        key
       })
       let objArr = []
       let obj = this.state.activeCartItem
@@ -80,8 +81,6 @@ class Layout extends React.Component {
           }
         }
       }
-      // console.log(result)
-      console.log('activeCartItem', this.state.activeCartItem, 'a', objArr )
       await this.state.activeTempProduct.ProductDetails.map(async(data)=>{
         let foundAdon = await objArr.find(d=> {
           return d.key === data.ConfigurationName
@@ -91,10 +90,12 @@ class Layout extends React.Component {
           if (foundAdon.array) {
             let selectedAdonsArrayType = []
             await foundAdon.info.map(adt=> {
-              selectedAdonsArrayType.push(adt.configId)
+              if (adt.configId) {
+                selectedAdonsArrayType.push(adt.configId)
+              }
+              
             })
-            console.log(selectedAdonsArrayType)
-            await this.setState({[data.ConfigurationName]: selectedAdonsArrayType || ''})
+            await this.setState({[data.ConfigurationName]: selectedAdonsArrayType})
           } else {
             await this.setState({[data.ConfigurationName]: foundAdon.info[0].configId || ''})
           }
@@ -152,7 +153,23 @@ class Layout extends React.Component {
     this.setState({totalPrice: finalCalPrice})
   
   }
-
+  async updateCartItem () {
+    let d = {hello: 12}
+    // let activeCart = await Object.assign({},this.state.activeCartItem) 
+    let finalIteration = await Object.assign({},this.state.activeCartItem, this.state)
+    delete finalIteration.activeCartItem
+    delete finalIteration.activeTempProduct
+    delete finalIteration.grandTotalPrice
+    delete finalIteration.noOverlay
+    delete finalIteration.num6
+    delete finalIteration.open
+    delete finalIteration.optionsdata
+    delete finalIteration.position
+    delete finalIteration.showModal
+    delete finalIteration.updateModal
+    delete finalIteration.key
+    console.log('f',finalIteration)
+  }
   render () {
    
     let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
@@ -230,7 +247,7 @@ class Layout extends React.Component {
         return (<div className="column is-3" key={data.ConfigurationName+ key}>
         <span className="has-text-link" style={{fontWeight: 'bold'}}>{data.ConfigurationName}</span>
             {
-              <Checkbox.Group   className="orderSecond" size="large" value={this.state[data.ConfigurationName]} onChange={this.onChangeUpdate.bind(this, data.ConfigurationName)}>
+              <Checkbox.Group   className="orderSecond" size="large" value={this.state[data.ConfigurationName] || []} onChange={this.onChangeUpdate.bind(this, data.ConfigurationName)}>
                 {
                   adonsData.map ((adonInfo,aKey) => {
                     return <Checkbox.Button key={adonInfo.adons.Title+aKey} value={adonInfo.id} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>hello</Checkbox.Button>
@@ -289,7 +306,7 @@ class Layout extends React.Component {
   </div>
         </section>
         <footer className="modal-card-foot">
-          <button className="button is-success">Update</button>
+          <button className="button is-success" onClick={this.updateCartItem.bind(this)}>Update</button>
           <button className="button" onClick={() => {this.setState({updateModal: false, showModal: true})}}>Cancel</button>
         </footer>
       </div>
