@@ -21,6 +21,7 @@ class Layout extends React.Component {
         updateModal: false,
         activeCartItem: {},
         activeTempProduct: this.props.cartItem.tempProduct,
+        totalPrice: 0,
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.closeDrawer = this.closeDrawer.bind(this);
@@ -58,7 +59,8 @@ class Layout extends React.Component {
         showModal: false, 
         updateModal: true, 
         activeCartItem: this.props.cartItem.cartItems[key],
-        activeTempProduct: this.props.cartItem.cartItems[key].tempProduct
+        activeTempProduct: this.props.cartItem.cartItems[key].tempProduct,
+        totalPrice:  this.props.cartItem.cartItems[key].totalPrice
       })
       let objArr = []
       let obj = this.state.activeCartItem
@@ -115,7 +117,40 @@ class Layout extends React.Component {
     await this.setState({
       [key]: value
     })
+    await this.priceCalculation()
+  }
+  async priceCalculation () {
+    let objArr = []
+    let obj = this.state
+    for (var key in obj) { // loop the json object
+      if (obj.hasOwnProperty(key)) {
+        if (key !== 'totalPrice' && key !=='tempProduct' && key !=='allconfig' && key !== 'quantity') {
+          if (Array.isArray(obj[key])) {
+            obj[key].map (dt=>{
+              objArr.push({configId:(dt).toString()})
+            })
+          } else {
+            objArr.push({configId:(obj[key]).toString()})
+          }
+        }
+      }
+    }
 
+    let price = []
+    await objArr.map(async oData => {
+      let conPrice = await this.state.activeCartItem.allconfig.find(allData => {
+        return allData.id === oData.configId
+      })
+      await price.push(conPrice)
+    })
+    let finalCalPrice = this.state.activeCartItem.tempProduct.Price
+    await price.map(pCal=> {
+      if (pCal) {
+        finalCalPrice += pCal.adons.Price
+      }
+    })
+    this.setState({totalPrice: finalCalPrice})
+  
   }
 
   render () {
@@ -245,7 +280,7 @@ class Layout extends React.Component {
       <div className="modal-card" style={{width: '95%'}}>
         <header className="modal-card-head">
           <p className="modal-card-title"><span className="has-text-left">Update Screen</span></p>
-          <span className="has-text-right">Total Cost: {this.state.activeCartItem.totalPrice * this.state.activeCartItem.quantity}Tk</span>
+          <span className="has-text-right">Total Cost: {this.state.totalPrice}Tk</span>
           <button className="delete" aria-label="close" onClick={() => {this.setState({updateModal: false, showModal: true})}}></button>
         </header>
         <section className="modal-card-body">
