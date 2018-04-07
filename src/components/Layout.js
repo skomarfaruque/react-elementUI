@@ -107,7 +107,7 @@ class Layout extends React.Component {
     if (typeof value === 'number') {
       value = Math.floor(value)
     } else {
-      console.log('ca', this.props.cartItem.cartItems[key])
+      console.log(value)
       value = this.props.cartItem.cartItems[key].quantity
     }
     let obj = {key, value}
