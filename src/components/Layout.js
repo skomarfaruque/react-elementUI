@@ -52,6 +52,7 @@ class Layout extends React.Component {
   }
   async deleteItemFromCart (key) {
     await this.props.cart(key)
+    await this.upateGrandTotalPrice()
   }
   async enableUPdateScreen (key) {
     await this.setState(
@@ -170,7 +171,13 @@ class Layout extends React.Component {
     delete finalIteration.key
     let ind = {finalIteration, arrayInd: this.state.key}
     await this.props.updateCartItems(ind)
+    await this.upateGrandTotalPrice()
     await this.setState({updateModal: false, showModal: true})
+  }
+  async showCartModal () {
+    await this.setState({showModal: true})
+    await this.upateGrandTotalPrice()
+
   }
   render () {
    
@@ -329,7 +336,7 @@ class Layout extends React.Component {
           <div className="column is-4">Welcome to Tong {this.props.isLoggedIn} - {this.props.cartItem.product.length} <a><span className="mi mi-face"></span></a></div>
           <div className="column is-4">
           <Badge value={ this.props.cartItem.cartItems.length }>
-            <Button size="small" onClick={() => {this.setState({showModal: true})}}>Items</Button>
+            <Button size="small" onClick={this.showCartModal.bind(this)}>Items</Button>
           </Badge>
           </div>
         </div>
