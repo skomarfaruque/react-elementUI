@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
-import { Badge, Button, InputNumber, Tag } from 'element-react';
+import { Badge, Button, InputNumber, Tag, Checkbox, Radio } from 'element-react';
 import { connect } from 'react-redux';
 import ReactDrawer from 'react-drawer';
 import 'react-drawer/lib/react-drawer.css';
@@ -13,11 +13,14 @@ class Layout extends React.Component {
     this.state = {
         optionsdata : [],
         open: false,
-      position: 'left',
-      noOverlay: false,
-      showModal: false,
-      num6: 1,
-      grandTotalPrice: 0
+        position: 'left',
+        noOverlay: false,
+        showModal: false,
+        num6: 1,
+        grandTotalPrice: 0,
+        updateModal: false,
+        activeCartItem: {},
+        activeTempProduct: this.props.cartItem.tempProduct,
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.closeDrawer = this.closeDrawer.bind(this);
@@ -49,6 +52,53 @@ class Layout extends React.Component {
   async deleteItemFromCart (key) {
     await this.props.cart(key)
   }
+  async enableUPdateScreen (key) {
+    await this.setState(
+      {
+        showModal: false, 
+        updateModal: true, 
+        activeCartItem: this.props.cartItem.cartItems[key],
+        activeTempProduct: this.props.cartItem.cartItems[key].tempProduct
+      })
+      let objArr = []
+      let obj = this.state.activeCartItem
+      for (var key in obj) { // loop the json object
+        if (obj.hasOwnProperty(key)) {
+          if (key !== 'totalPrice' && key !=='tempProduct' && key !=='allconfig' && key !== 'quantity') {
+            let dummyInfo = {key, info: [], array: true}
+            if (Array.isArray(obj[key])) {
+              obj[key].map (dt=>{
+                dummyInfo.info.push({configId:(dt).toString()})
+              })
+            } else {
+              dummyInfo.array = false
+              dummyInfo.info.push({configId:(obj[key]).toString()})
+            }
+            objArr.push(dummyInfo)
+          }
+        }
+      }
+      // console.log(result)
+      console.log('activeCartItem', this.state.activeCartItem, 'a', objArr )
+      await this.state.activeTempProduct.ProductDetails.map(async(data)=>{
+        let foundAdon = await objArr.find(d=> {
+          return d.key === data.ConfigurationName
+        })
+        console.log('foundadon', foundAdon)
+        if (foundAdon.key === data.ConfigurationName) {
+          if (foundAdon.array) {
+            let selectedAdonsArrayType = []
+            await foundAdon.info.map(adt=> {
+              selectedAdonsArrayType.push(adt.configId)
+            })
+            console.log(selectedAdonsArrayType)
+            await this.setState({[data.ConfigurationName]: selectedAdonsArrayType || ''})
+          } else {
+            await this.setState({[data.ConfigurationName]: foundAdon.info[0].configId || ''})
+          }
+        }
+      })
+  }
   async onChange (key, value) {
     let obj = {key, value}
     await this.props.updateQuantity(obj)
@@ -60,6 +110,12 @@ class Layout extends React.Component {
       grandTotalPrice += p.quantity * p.totalPrice
     })
     this.setState({grandTotalPrice})
+  }
+  async onChangeUpdate(key, value) {
+    await this.setState({
+      [key]: value
+    })
+
   }
 
   render () {
@@ -99,7 +155,6 @@ class Layout extends React.Component {
               <div className="columns">{cartData.tempProduct.Name} </div>
               <div className="columns">
                 {objArr.map(inf=> {
-                  // console.log(inf)
                     if (inf.values[0]) {
                       return (  <div>
                         {inf.key}:
@@ -113,7 +168,7 @@ class Layout extends React.Component {
             </div>
             <div className="column is-3"> 
               <Button type="danger" icon="delete" onClick={this.deleteItemFromCart.bind(this, key)}></Button>
-              <Button type="primary" icon="edit" onClick={this.deleteItemFromCart.bind(this, key)}></Button>
+              <Button type="primary" icon="edit" onClick={this.enableUPdateScreen.bind(this, key)}></Button>
             </div>
             <div className="column is-3"> 
               <InputNumber size="large" min="1" defaultValue={cartData.quantity} onChange={this.onChange.bind(this, key)}></InputNumber>
@@ -122,11 +177,89 @@ class Layout extends React.Component {
 
               {cartData.totalPrice * cartData.quantity} tk
             </div>
-        </div>
-        <hr/>
+          </div>
+          <hr/>
         </div>
       )
     })
+    let product = this.state.activeTempProduct
+    let displayAdons = product.ProductDetails.map ((data, key) => {
+
+      let adonsData = []
+      for (var keyData in data.Configurables) { // loop the json object
+        if (data.Configurables.hasOwnProperty(keyData)) {
+            adonsData.push({adons:data.Configurables[keyData], id: keyData})
+        }
+      }
+      if (data.Multiple) { // check box
+        return (<div className="column is-3" key={data.ConfigurationName+ key}>
+        <span className="has-text-link" style={{fontWeight: 'bold'}}>{data.ConfigurationName}</span>
+            {
+              <Checkbox.Group   className="orderSecond" size="large" value={this.state[data.ConfigurationName]} onChange={this.onChangeUpdate.bind(this, data.ConfigurationName)}>
+                {
+                  adonsData.map ((adonInfo,aKey) => {
+                    return <Checkbox.Button key={adonInfo.adons.Title+aKey} value={adonInfo.id} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>hello</Checkbox.Button>
+                  })
+                }
+             </Checkbox.Group>
+            }
+        </div>)
+      } else { // radio box
+        return (<div className="column is-3" key={data.ConfigurationName+ key}>{data.ConfigurationName}
+            {
+              <Radio.Group className="orderSecond" size="large" value={this.state[data.ConfigurationName]}  onChange={this.onChangeUpdate.bind(this, data.ConfigurationName)}>
+                {
+                  adonsData.map ((adonInfo,aKey) => {
+                    return <Radio.Button key={aKey} value={adonInfo.id}>{adonInfo.adons.Title + "+"+ adonInfo.adons.Price+"Tk" }</Radio.Button>
+                  })
+                }
+             </Radio.Group>
+            }
+        </div>)
+      }
+    })
+    let modalContent = ''
+    if (this.state.showModal) {
+     return modalContent =  (  <div className={"modal " + (this.state.showModal ? 'is-active': '')}>
+     <div className="modal-background"></div>
+    
+     <div className="modal-card" style={{width: '95%'}}>
+       <header className="modal-card-head">
+         <p className="modal-card-title"><span className="has-text-left">Cart Summary</span></p>
+         <span className="has-text-right">Total Cost: {this.state.grandTotalPrice}Tk</span>
+         <button className="delete" aria-label="close" onClick={() => {this.setState({showModal: false})}}></button>
+       </header>
+       <section className="modal-card-body">
+         {showCartItems}
+       </section>
+       <footer className="modal-card-foot">
+         <button className="button is-success">Checkout</button>
+         <button className="button" onClick={() => {this.setState({showModal: false})}}>Cancel</button>
+       </footer>
+     </div>
+   </div>)
+    } else if (this.state.updateModal) {
+      return modalContent = ( <div className="modal is-active">
+      <div className="modal-background"></div>
+     
+      <div className="modal-card" style={{width: '95%'}}>
+        <header className="modal-card-head">
+          <p className="modal-card-title"><span className="has-text-left">Update Screen</span></p>
+          <span className="has-text-right">Total Cost: {this.state.activeCartItem.totalPrice * this.state.activeCartItem.quantity}Tk</span>
+          <button className="delete" aria-label="close" onClick={() => {this.setState({updateModal: false, showModal: true})}}></button>
+        </header>
+        <section className="modal-card-body">
+        <div className="columns is-multiline" key="adons">
+    {displayAdons}
+  </div>
+        </section>
+        <footer className="modal-card-foot">
+          <button className="button is-success">Update</button>
+          <button className="button" onClick={() => {this.setState({updateModal: false, showModal: true})}}>Cancel</button>
+        </footer>
+      </div>
+    </div>)
+    }
     return (
       <div>
 
@@ -147,24 +280,7 @@ class Layout extends React.Component {
           </div>
         </div>
         <div className="container">{this.props.children}</div>
-          
-        <div className={"modal " + (this.state.showModal ? 'is-active': '')}>
-          <div className="modal-background"></div>
-          <div className="modal-card" style={{width: '95%'}}>
-            <header className="modal-card-head">
-              <p className="modal-card-title"><span className="has-text-left">Cart Summary</span></p>
-              <span className="has-text-right">Total Cost: {this.state.grandTotalPrice}Tk</span>
-              <button className="delete" aria-label="close" onClick={() => {this.setState({showModal: false})}}></button>
-            </header>
-            <section className="modal-card-body">
-              {showCartItems}
-            </section>
-            <footer className="modal-card-foot">
-              <button className="button is-success">Checkout</button>
-              <button className="button" onClick={() => {this.setState({showModal: false})}}>Cancel</button>
-            </footer>
-          </div>
-        </div>
+       {modalContent}
       
         <ReactDrawer
           open={this.state.open}

@@ -48,10 +48,12 @@ class OrderSecondStep extends React.Component{
     this.priceCalculation()
   }
   async addToCart () {
+    
     await this.props.cart(this.state)
     this.successNotification()
   }
   async addToCartResetPage () {
+    console.log('add', this.state)
     await this.props.cart(this.state)
     this.successNotification()
   }
