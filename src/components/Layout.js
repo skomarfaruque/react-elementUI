@@ -169,7 +169,8 @@ class Layout extends React.Component {
     delete finalIteration.updateModal
     delete finalIteration.key
     let ind = {finalIteration, arrayInd: this.state.key}
-    this.props.updateCartItems(ind)
+    await this.props.updateCartItems(ind)
+    await this.setState({updateModal: false, showModal: true})
   }
   render () {
    
