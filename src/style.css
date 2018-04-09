@@ -1,0 +1,80 @@
+.redClass {
+    background: red;
+    border-radius: 8px;
+    color: white;
+  }
+  .orderFirst .el-radio-button--large .el-radio-button__inner{
+    padding: 20% 30%!important;
+    font-size: 28px !important;
+    width: 100%!important
+  }
+  .orderSecond .el-radio-button--large .el-radio-button__inner{
+    padding: 20% 12%!important;
+    font-size: 1.3rem !important;
+    width: 100%!important;
+    margin-top: 1%
+  }
+  .el-radio-button--large .el-radio-button__inner{
+    padding: 20% 30%!important;
+    font-size: 28px !important
+  }
+  .el-radio-group {
+      width: 100%!important
+  }
+  .homeScreen .el-radio-button {
+      width: 50%!important
+  }
+  .orderFirst .el-radio-button {
+      width: 24%!important
+  }
+  .el-radio-button__inner{
+      border: 1px solid #bfcbd9!important
+  }
+  .el-input{
+    height: 70px!important
+  }
+  .home-screen .el-input__inner {
+      height: 70px!important;
+      font-size: 28px!important
+  }
+  .orderSecond .el-radio-button {
+      display: list-item;
+  }
+  .el-radio-button__inner {
+      width: 100%
+  }
+  .el-checkbox-button, .el-checkbox-button__inner {
+      width: 100%
+  }
+  .el-checkbox-button--large .el-checkbox-button__inner{
+    padding: 20% 12%!important;
+    font-size: 1.3rem!important;
+    margin-top: 1%
+  }
+  .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer___2r5VH-sass {
+      background-color: #ffffff!important
+  }
+  .panel-heading, .panel-tabs, .panel-block {
+      border-right: none!important
+  }
+  .blue-background {
+      background-color: #20a0ff
+  }
+  .panel-block {
+      color: #20a0ff!important;
+      font-weight: bold;
+      text-transform: capitalize
+  }
+  .el-icon-close {
+    color: #20a0ff!important;
+  }
+  .custom-large {
+      width: 200px!important;
+      height: 80px!important;
+      font-weight: bold;
+      text-transform: uppercase
+  }
+  .space-btween {
+      justify-content: space-between
+  }
+  

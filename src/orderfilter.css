@@ -1,0 +1,21 @@
+
+  .el-radio-button--large .el-radio-button__inner{
+    padding: 20% 30%!important;
+    font-size: 28px !important
+  }
+  .el-radio-group {
+      width: 100%!important
+  }
+  .el-radio-button {
+      width: 50%!important
+  }
+  .el-radio-button__inner{
+      border: 1px solid #bfcbd9!important
+  }
+  .el-input{
+    height: 70px!important
+  }
+  .el-input__inner {
+      height: 70px!important;
+      font-size: 28px!important
+  }
