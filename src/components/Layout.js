@@ -64,7 +64,18 @@ class Layout extends React.Component {
       this.successNotification("Removed from cart")
     }).catch(() => {
     });
-   
+  }
+  clearAll () {
+    MessageBox.confirm('Would you like to Continue?', 'Confirmation', {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      type: 'error'
+    }).then(async () => {
+      await this.props.removeAll()
+      this.successNotification("Removed from cart")
+      this.setState({showModal: false})
+    }).catch(() => {
+    });
   }
   async enableUPdateScreen (key) {
     await this.setState(
@@ -322,7 +333,7 @@ class Layout extends React.Component {
               {showCartItems}
             </section>
             <footer className="modal-card-foot space-btween">
-              <button className="button is-danger custom-large" onClick={() => {this.setState({showModal: false})}}>Cancel</button>
+              <button className="button is-danger custom-large" onClick={this.clearAll.bind(this)}>Clear all</button>
               <button className="button is-success custom-large">Checkout</button>
             </footer>
           </div>
@@ -396,6 +407,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   cart: (index) => dispatch({ type: 'removeCartItems', index }),
+  removeAll: (index) => dispatch({ type: 'removeAll', index }),
   updateQuantity: (index) => dispatch({ type: 'updateQuantity', index }),
   updateCartItems: (index) => dispatch({ type: 'updateCartItems', index })
 })
