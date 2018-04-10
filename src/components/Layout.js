@@ -6,6 +6,9 @@ import { Badge, Button, InputNumber, Tag, Checkbox, Radio } from 'element-react'
 import { connect } from 'react-redux';
 import ReactDrawer from 'react-drawer';
 import 'react-drawer/lib/react-drawer.css';
+import FaBeer from 'react-icons/lib/fa/align-justify'
+import Cart from 'react-icons/lib/fa/shopping-cart'
+// import * as FontAwesome from 'react-icons/lib/fa'
 
 class Layout extends React.Component {
   constructor(props, context) {
@@ -328,23 +331,19 @@ class Layout extends React.Component {
     </div>)
     }
     return (
-      <div>
+      <div style={{margin: '1%'}}>
 
-        <div className="columns" style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>
-          <div className="column is-4">
-          <a onClick={this.toggleDrawer}><i class="el-icon-menu"></i></a>
-            {/* <button 
-              onClick={this.toggleDrawer}
-              disabled={this.state.open && !this.state.noOverlay}
-              >
-              {!this.state.open ? <span>Menu</span>: <span>close drawer</span>}
-            </button> */}
+        <div className="columns">
+          <div className="column is-6 has-text-left">
+          
+          <a onClick={this.toggleDrawer} style={{margin: '3%'}}><FaBeer size="50" color="#ff0000" /></a>
           </div>
-          <div className="column is-4">Welcome to Tong {this.props.isLoggedIn} - {this.props.cartItem.product.length} <a><span className="mi mi-face"></span></a></div>
-          <div className="column is-4">
+          <div className="column is-6 has-text-right">
+          <span onClick={this.showCartModal.bind(this)}>
           <Badge value={ this.props.cartItem.cartItems.length }>
-            <Button size="small" onClick={this.showCartModal.bind(this)}>Items</Button>
+            <Cart  size="50" color="#ff0000" />
           </Badge>
+          </span>
           </div>
         </div>
         <div className="container">{this.props.children}</div>
