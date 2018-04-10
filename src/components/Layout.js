@@ -205,9 +205,10 @@ class Layout extends React.Component {
     await this.setState({updateModal: false, showModal: true})
   }
   async showCartModal () {
-    await this.setState({showModal: true})
-    await this.upateGrandTotalPrice()
-
+    if (this.props.cartItem.cartItems.length) {
+      await this.setState({showModal: true})
+      await this.upateGrandTotalPrice()
+    }
   }
   successNotification(msg) {
     Notification({
@@ -215,6 +216,9 @@ class Layout extends React.Component {
       message: msg,
       type: 'success'
     });
+  }
+  logout () {
+    console.log('loggedout', this.props)
   }
 
   render () {
@@ -394,7 +398,7 @@ class Layout extends React.Component {
             <Link className="panel-block list-group-item is-primary" to ="/home">Home</Link>
             <Link className="panel-block list-group-item is-primary" to ="/order-first-step">Product</Link>
             <Link className="panel-block list-group-item is-primary" to ="/pending-orders">Orders pending</Link>
-            <a className="panel-block list-group-item is-warning">Logout</a>
+            <a className="panel-block list-group-item is-warning" onClick={this.logout.bind(this)}>Logout</a>
           </div>
         </ReactDrawer>
       </div>
