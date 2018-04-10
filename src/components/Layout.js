@@ -332,12 +332,13 @@ class Layout extends React.Component {
 
         <div className="columns" style={{textAlign: 'center', lineHeight: '53px', backgroundColor: 'gray'}}>
           <div className="column is-4">
-            <button 
+          <a onClick={this.toggleDrawer}><i class="el-icon-menu"></i></a>
+            {/* <button 
               onClick={this.toggleDrawer}
               disabled={this.state.open && !this.state.noOverlay}
               >
               {!this.state.open ? <span>Menu</span>: <span>close drawer</span>}
-            </button>
+            </button> */}
           </div>
           <div className="column is-4">Welcome to Tong {this.props.isLoggedIn} - {this.props.cartItem.product.length} <a><span className="mi mi-face"></span></a></div>
           <div className="column is-4">
@@ -354,10 +355,11 @@ class Layout extends React.Component {
           position={this.state.position}
           onClose={this.onDrawerClose}
           noOverlay={this.state.noOverlay}>
-          <i onClick={this.closeDrawer} className="icono-cross"></i>
+          
+          {/* <i onClick={this.closeDrawer} className="icono-cross"></i> */}
           <div className="columns">
             <div className="column has-text-right" style={{marginRight: '2%'}}>
-            <i onClick={this.closeDrawer} className="icono-cross">x</i></div>
+            <i  onClick={this.closeDrawer} className="el-icon-close"></i></div>
           </div>
           <div className="panel list-group">
           <Link className="panel-block list-group-item is-primary" to ="/home">Home</Link>
