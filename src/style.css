@@ -10,7 +10,7 @@
   }
   .orderSecond .el-radio-button--large .el-radio-button__inner{
     padding: 20% 12%!important;
-    font-size: 28px !important;
+    font-size: 1.3rem !important;
     width: 100%!important;
     margin-top: 1%
   }
@@ -48,7 +48,7 @@
   }
   .el-checkbox-button--large .el-checkbox-button__inner{
     padding: 20% 12%!important;
-    font-size: 28px!important;
+    font-size: 1.3rem!important;
     margin-top: 1%
   }
   .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer___2r5VH-sass {

@@ -290,80 +290,81 @@ class Layout extends React.Component {
     })
     let modalContent = ''
     if (this.state.showModal) {
-     return modalContent =  (  <div className={"modal " + (this.state.showModal ? 'is-active': '')}>
-     <div className="modal-background"></div>
-    
-     <div className="modal-card" style={{width: '95%'}}>
-       <header className="modal-card-head">
-         <p className="modal-card-title"><span className="has-text-left">Cart Summary</span></p>
-         <span className="has-text-right">Total Cost: {this.state.grandTotalPrice}Tk</span>
-         <button className="delete" aria-label="close" onClick={() => {this.setState({showModal: false})}}></button>
-       </header>
-       <section className="modal-card-body">
-         {showCartItems}
-       </section>
-       <footer className="modal-card-foot">
-         <button className="button is-success">Checkout</button>
-         <button className="button" onClick={() => {this.setState({showModal: false})}}>Cancel</button>
-       </footer>
-     </div>
-   </div>)
+     return modalContent =  
+      (
+        <div className={"modal " + (this.state.showModal ? 'is-active': '')}>
+          <div className="modal-background"></div>
+          <div className="modal-card" style={{width: '95%'}}>
+            <header className="modal-card-head">
+              <p className="modal-card-title"><span className="has-text-left">Cart Summary</span></p>
+              <span className="has-text-right">Total Cost: {this.state.grandTotalPrice}Tk</span>
+              <button className="delete" aria-label="close" onClick={() => {this.setState({showModal: false})}}></button>
+            </header>
+            <section className="modal-card-body">
+              {showCartItems}
+            </section>
+            <footer className="modal-card-foot">
+              <button className="button is-success">Checkout</button>
+              <button className="button" onClick={() => {this.setState({showModal: false})}}>Cancel</button>
+            </footer>
+          </div>
+        </div>
+      )
     } else if (this.state.updateModal) {
-      return modalContent = ( <div className="modal is-active">
-      <div className="modal-background"></div>
-     
-      <div className="modal-card" style={{width: '95%'}}>
-        <header className="modal-card-head">
-          <p className="modal-card-title"><span className="has-text-left">Update Screen</span></p>
-          <span className="has-text-right">Total Cost: {this.state.totalPrice}Tk</span>
-          <button className="delete" aria-label="close" onClick={() => {this.setState({updateModal: false, showModal: true})}}></button>
-        </header>
-        <section className="modal-card-body">
-        <div className="columns is-multiline" key="adons">
-    {displayAdons}
-  </div>
-        </section>
-        <footer className="modal-card-foot">
-          <button className="button is-success" onClick={this.updateCartItem.bind(this)}>Update</button>
-          <button className="button" onClick={() => {this.setState({updateModal: false, showModal: true})}}>Cancel</button>
-        </footer>
-      </div>
-    </div>)
+      return modalContent = 
+        (
+          <div className="modal is-active">
+            <div className="modal-background"></div>
+            <div className="modal-card" style={{width: '95%'}}>
+              <header className="modal-card-head">
+                <p className="modal-card-title"><span className="has-text-left">Update Screen</span></p>
+                <span className="has-text-right">Total Cost: {this.state.totalPrice}Tk</span>
+                <button className="delete" aria-label="close" onClick={() => {this.setState({updateModal: false, showModal: true})}}></button>
+              </header>
+              <section className="modal-card-body">
+                <div className="columns is-multiline" key="adons">
+                  {displayAdons}
+                </div>
+              </section>
+              <footer className="modal-card-foot">
+                <button className="button is-success" onClick={this.updateCartItem.bind(this)}>Update</button>
+                <button className="button" onClick={() => {this.setState({updateModal: false, showModal: true})}}>Cancel</button>
+              </footer>
+            </div>
+        </div>
+      )
     }
     return (
       <div style={{margin: '1%'}}>
-
         <div className="columns blue-background">
           <div className="column is-6 has-text-left">
-          
-          <a onClick={this.toggleDrawer} style={{margin: '3%'}}><FaBeer size="50" color="#ffffff" /></a>
+            <a onClick={this.toggleDrawer} style={{margin: '3%'}}><FaBeer size="50" color="#ffffff" /></a>
           </div>
           <div className="column is-6 has-text-right">
-          <span onClick={this.showCartModal.bind(this)}>
-          <Badge value={ this.props.cartItem.cartItems.length }>
-            <Cart  size="50" color="#ffffff" />
-          </Badge>
-          </span>
+            <span onClick={this.showCartModal.bind(this)}>
+              <Badge value={ this.props.cartItem.cartItems.length }>
+                <Cart  size="50" color="#ffffff" />
+              </Badge>
+            </span>
           </div>
         </div>
         <div className="container">{this.props.children}</div>
-       {modalContent}
+        {modalContent}
       
         <ReactDrawer
           open={this.state.open}
           position={this.state.position}
           onClose={this.onDrawerClose}
           noOverlay={this.state.noOverlay}>
-          
-          {/* <i onClick={this.closeDrawer} className="icono-cross"></i> */}
           <div className="columns">
             <div className="column has-text-right" style={{marginRight: '2%'}}>
-            <i  onClick={this.closeDrawer} className="el-icon-close"></i></div>
+              <i  onClick={this.closeDrawer} className="el-icon-close"></i>
+            </div>
           </div>
           <div className="panel list-group">
-          <Link className="panel-block list-group-item is-primary" to ="/home">Home</Link>
-          <Link className="panel-block list-group-item is-primary" to ="/order-first-step">Product</Link>
-          <Link className="panel-block list-group-item is-primary" to ="/pending-orders">Orders pending</Link>
+            <Link className="panel-block list-group-item is-primary" to ="/home">Home</Link>
+            <Link className="panel-block list-group-item is-primary" to ="/order-first-step">Product</Link>
+            <Link className="panel-block list-group-item is-primary" to ="/pending-orders">Orders pending</Link>
             <a className="panel-block list-group-item is-warning">Logout</a>
           </div>
         </ReactDrawer>
