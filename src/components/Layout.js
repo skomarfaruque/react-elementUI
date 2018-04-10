@@ -303,9 +303,9 @@ class Layout extends React.Component {
             <section className="modal-card-body">
               {showCartItems}
             </section>
-            <footer className="modal-card-foot">
-              <button className="button is-success">Checkout</button>
-              <button className="button" onClick={() => {this.setState({showModal: false})}}>Cancel</button>
+            <footer className="modal-card-foot space-btween">
+              <button className="button is-danger custom-large" onClick={() => {this.setState({showModal: false})}}>Cancel</button>
+              <button className="button is-success custom-large">Checkout</button>
             </footer>
           </div>
         </div>
@@ -326,9 +326,9 @@ class Layout extends React.Component {
                   {displayAdons}
                 </div>
               </section>
-              <footer className="modal-card-foot">
-                <button className="button is-success" onClick={this.updateCartItem.bind(this)}>Update</button>
-                <button className="button" onClick={() => {this.setState({updateModal: false, showModal: true})}}>Cancel</button>
+              <footer className="modal-card-foot space-btween">
+                <button className="button is-danger custom-large" onClick={() => {this.setState({updateModal: false, showModal: true})}}>Cancel</button>
+                <button className="button is-success custom-large" onClick={this.updateCartItem.bind(this)}>Update</button>
               </footer>
             </div>
         </div>

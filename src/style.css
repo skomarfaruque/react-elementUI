@@ -68,3 +68,12 @@
   .el-icon-close {
     color: #20a0ff!important;
   }
+  .custom-large {
+      width: 200px!important;
+      height: 80px!important;
+      font-weight: bold;
+      text-transform: uppercase
+  }
+  .space-btween {
+      justify-content: space-between
+  }
