@@ -32,14 +32,13 @@ class Home extends React.Component{
         margin: '11% 15% 20%'
       },
       inputBox: {
-        width: '95%', margin: '4% 0% 1%'
+        margin: '4% 0% 1%'
       },
       rightNav: {
       },
       verticalLine: {
       },
       submitButtonDiv: {
-        width: '95%',
         height: '70px',
         marginTop: '3%'
       },
@@ -64,7 +63,7 @@ class Home extends React.Component{
               </Radio.Group>
             </Layout.Row>
 
-            <Layout.Row type="flex" style={styles.inputBox}>
+            <Layout.Row type="flex" style={styles.inputBox} className="home-screen">
               <Layout.Col  offset="0">
                 <Input placeholder="Phone number"/>
               </Layout.Col>

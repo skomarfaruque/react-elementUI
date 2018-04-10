@@ -33,10 +33,10 @@
   .el-input{
     height: 70px!important
   }
-  /* .el-input__inner {
+  .home-screen .el-input__inner {
       height: 70px!important;
       font-size: 28px!important
-  } */
+  }
   .orderSecond .el-radio-button {
       display: list-item;
   }
@@ -52,8 +52,16 @@
     margin-top: 1%
   }
   .css-sourceMap-modules-importLoaders-1-localIdentName-ReactDrawer__drawer___2r5VH-sass {
-      background-color: #ff0000!important
+      background-color: #ffffff!important
   }
   .panel-heading, .panel-tabs, .panel-block {
       border-right: none!important
+  }
+  .blue-background {
+      background-color: #20a0ff
+  }
+  .panel-block {
+      color: #20a0ff!important;
+      font-weight: bold;
+      text-transform: capitalize
   }

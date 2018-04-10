@@ -333,15 +333,15 @@ class Layout extends React.Component {
     return (
       <div style={{margin: '1%'}}>
 
-        <div className="columns">
+        <div className="columns blue-background">
           <div className="column is-6 has-text-left">
           
-          <a onClick={this.toggleDrawer} style={{margin: '3%'}}><FaBeer size="50" color="#ff0000" /></a>
+          <a onClick={this.toggleDrawer} style={{margin: '3%'}}><FaBeer size="50" color="#ffffff" /></a>
           </div>
           <div className="column is-6 has-text-right">
           <span onClick={this.showCartModal.bind(this)}>
           <Badge value={ this.props.cartItem.cartItems.length }>
-            <Cart  size="50" color="#ff0000" />
+            <Cart  size="50" color="#ffffff" />
           </Badge>
           </span>
           </div>
