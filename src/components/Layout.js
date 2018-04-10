@@ -8,8 +8,7 @@ import ReactDrawer from 'react-drawer';
 import 'react-drawer/lib/react-drawer.css';
 import FaBeer from 'react-icons/lib/fa/align-justify'
 import Cart from 'react-icons/lib/fa/shopping-cart'
-// import * as FontAwesome from 'react-icons/lib/fa'
-
+import * as FontAwesome from 'react-icons/lib/fa'
 class Layout extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -25,6 +24,7 @@ class Layout extends React.Component {
         activeCartItem: {},
         activeTempProduct: this.props.cartItem.tempProduct,
         totalPrice: 0,
+        isFull: true
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.closeDrawer = this.closeDrawer.bind(this);
@@ -32,8 +32,20 @@ class Layout extends React.Component {
     this.setPosition = this.setPosition.bind(this);
     this.setNoOverlay = this.setNoOverlay.bind(this);
   }
+  componentWillMount () {
+    document.documentElement.webkitRequestFullscreen()
+    
+  }
   async componentDidMount () {
    await this.upateGrandTotalPrice()
+   if (!document.fullscreenElement) {
+     document.documentElement.webkitRequestFullscreen()
+   }
+  }
+  componentDidUpdate() {
+    if (!document.fullscreenElement) {
+      document.documentElement.webkitRequestFullscreen()
+    }
   }
   setPosition(e) {
     this.setState({position: e.target.value});
@@ -215,12 +227,8 @@ class Layout extends React.Component {
       title: 'Success',
       message: msg,
       type: 'success'
-    });
+    })
   }
-  logout () {
-    console.log('loggedout', this.props)
-  }
-
   render () {
    
     let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
@@ -255,19 +263,19 @@ class Layout extends React.Component {
         <div>
           <div className="columns" key>
             <div className="column is-4">
-              <div className="columns">{cartData.tempProduct.Name} </div>
-              <div className="columns">
+              <div className="columns is-size-4">{cartData.tempProduct.Name} </div>
+             
                 {objArr.map(inf=> {
                     if (inf.values[0]) {
-                      return (  <div>
-                        {inf.key}:
+                      return (  <div className="columns">
+                        <div className="column is-4 has-text-right tag">{inf.key}: </div>
                         {inf.values.map(ind=> {
-                          return (<Tag>{ind.adons.Title}</Tag>)
+                          return (<div className="column has-text-left tag">{ind.adons.Title}</div>)
                         })}
                       </div>)
                     }
                 })}
-              </div>
+             
             </div>
             <div className="column is-3"> 
               <Button type="danger" icon="delete" onClick={this.deleteItemFromCart.bind(this, key)}></Button>
@@ -368,7 +376,7 @@ class Layout extends React.Component {
       )
     }
     return (
-      <div style={{margin: '1%'}}>
+      <div className="full-screenable-node" style={{margin: '1%'}}>
         <div className="columns blue-background">
           <div className="column is-6 has-text-left">
             <a onClick={this.toggleDrawer} style={{margin: '3%'}}><FaBeer size="50" color="#ffffff" /></a>
@@ -398,10 +406,11 @@ class Layout extends React.Component {
             <Link className="panel-block list-group-item is-primary" to ="/home">Home</Link>
             <Link className="panel-block list-group-item is-primary" to ="/order-first-step">Product</Link>
             <Link className="panel-block list-group-item is-primary" to ="/pending-orders">Orders pending</Link>
-            <a className="panel-block list-group-item is-warning" onClick={this.logout.bind(this)}>Logout</a>
+            <Link className="panel-block list-group-item is-primary" to ="/logout">Logout</Link>
           </div>
         </ReactDrawer>
       </div>
+ 
     )
   }
 } 
