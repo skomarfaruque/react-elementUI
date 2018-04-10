@@ -65,3 +65,6 @@
       font-weight: bold;
       text-transform: capitalize
   }
+  .el-icon-close {
+    color: #20a0ff!important;
+  }
