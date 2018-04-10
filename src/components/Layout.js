@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
-import { Badge, Button, InputNumber, Tag, Checkbox, Radio } from 'element-react';
+import { Badge, Button, InputNumber, Tag, Checkbox, Radio, Notification, MessageBox } from 'element-react';
 import { connect } from 'react-redux';
 import ReactDrawer from 'react-drawer';
 import 'react-drawer/lib/react-drawer.css';
@@ -54,8 +54,17 @@ class Layout extends React.Component {
     console.log(this.props)
   }
   async deleteItemFromCart (key) {
-    await this.props.cart(key)
-    await this.upateGrandTotalPrice()
+    MessageBox.confirm('Would you like to Continue?', 'Confirmation', {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      type: 'error'
+    }).then(async () => {
+      await this.props.cart(key)
+      await this.upateGrandTotalPrice()
+      this.successNotification("Removed from cart")
+    }).catch(() => {
+    });
+   
   }
   async enableUPdateScreen (key) {
     await this.setState(
@@ -181,6 +190,7 @@ class Layout extends React.Component {
     let ind = {finalIteration, arrayInd: this.state.key}
     await this.props.updateCartItems(ind)
     await this.upateGrandTotalPrice()
+    this.successNotification("Update success")
     await this.setState({updateModal: false, showModal: true})
   }
   async showCartModal () {
@@ -188,6 +198,14 @@ class Layout extends React.Component {
     await this.upateGrandTotalPrice()
 
   }
+  successNotification(msg) {
+    Notification({
+      title: 'Success',
+      message: msg,
+      type: 'success'
+    });
+  }
+
   render () {
    
     let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
