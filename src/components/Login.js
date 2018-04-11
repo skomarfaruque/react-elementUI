@@ -60,7 +60,6 @@ class Login extends React.Component{
   
   handleReset(e) {
     e.preventDefault();
-  
     this.refs.form.resetFields();
   }
   
@@ -73,7 +72,27 @@ class Login extends React.Component{
   render() {
     return (
       <div>
-        <Layout.Row>
+        <div className="container">
+          <div className="columns">
+            <div className="column has-text-centered"><img style={{width: '100px', height: '100px'}} src={require('../logo.png')} alt="Logo" /></div>
+          </div>
+          <div className="columns">
+            <div className="column has-text-centered">
+              <Form ref="form" label-position="top" model={this.state.form} rules={this.state.rules} labelWidth="100" className="demo-ruleForm">
+                <Form.Item label="User name" prop="userName">
+                  <Input type="text" value={this.state.form.userName} onChange={this.onChange.bind(this, 'userName')} autoComplete="off" />
+                </Form.Item>
+                <Form.Item label="Password" prop="password">
+                  <Input type="password" value={this.state.form.password} onChange={this.onChange.bind(this, 'password')} autoComplete="off" />
+                </Form.Item>
+                <Form.Item>
+                  <Button type="primary" onClick={this.handleSubmit.bind(this)}>Login{this.props.isLoggedIn}</Button>
+                </Form.Item>
+              </Form>
+            </div>
+          </div>
+        </div>
+        {/* <Layout.Row>
           <Layout.Col offset="9">
             <div className="grid-content bg-purple">
               <img style={{width: '100px', height: '100px'}} src={require('../logo.png')} alt="Logo" />
@@ -94,7 +113,7 @@ class Login extends React.Component{
               </Form.Item>
             </Form>
           </Layout.Col>
-        </Layout.Row>
+        </Layout.Row> */}
       </div>
     )
   }

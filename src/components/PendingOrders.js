@@ -107,11 +107,5 @@ class PendingOrders extends React.Component{
     )
   }
 }
-const mapStateToProps = state => ({
-  slidedVal: state.amountReducer.value
-})
 
-const mapDispatchToProps = dispatch => ({
-  addSliderValue: (value) => dispatch({ type: 'storeAmount', value }),
-})
-export default connect(mapStateToProps, mapDispatchToProps)(PendingOrders);  
+export default PendingOrders
