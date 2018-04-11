@@ -30,7 +30,7 @@ class Layout extends React.Component {
     this.setPosition = this.setPosition.bind(this);
     this.setNoOverlay = this.setNoOverlay.bind(this);
   }
-  componentWillMount () {
+  async componentWillMount () {
     document.documentElement.webkitRequestFullscreen()
     
   }
@@ -233,7 +233,6 @@ class Layout extends React.Component {
   render () {
    
     let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
-      // console.log(cartData)
       let objArr = []
       let obj = cartData
       for (var akey in obj) { // loop the json object
