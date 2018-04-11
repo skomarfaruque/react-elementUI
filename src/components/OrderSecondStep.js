@@ -48,16 +48,9 @@ class OrderSecondStep extends React.Component{
     // console.log(key, value)
     this.priceCalculation()
   }
-  async addToCart () {
-    
-    await this.props.cart(this.state)
-    this.successNotification()
-    this.props.history.push('checkout')
-  }
-  async addToCartResetPage () {
-    // var arr= [];
+  async addToCartResetPage (type) { // type indicates whose screen to load after adding cart
+    console.log(type)
     var obj=this.state
-    // delete obj.fingerPrint
     let sum = ''
     for( var el in obj ) {
       if( obj.hasOwnProperty( el ) ) {
@@ -75,14 +68,14 @@ class OrderSecondStep extends React.Component{
     } else {
       await this.props.updateQuantityCart({cryptoFingerPrint, quantity: matchedInCart.quantity + 1})
     }
+    if (type === 2) {
+      this.props.history.push('order-first-step')
+    } else if (type === 3) {
+      this.props.history.push('checkout')
+    }
     this.successNotification()
   }
-  async addToCartReturnHome () {
-    await this.props.cart(this.state)
-    this.successNotification()
-    this.props.history.push('order-first-step')
-    console.log(this.props)
-  }
+
   async priceCalculation () {
     let objArr = []
     let obj = this.state
@@ -187,13 +180,13 @@ class OrderSecondStep extends React.Component{
         </div>
         <div className="columns">
           <div className="column">
-            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCartReturnHome.bind(this)}>Add & Go Back</button>
+            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this, 2)}>Add & Go Back</button>
           </div>
           <div className="column">
-            <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this)}>Add to Cart</button>
+            <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this, 1)}>Add to Cart</button>
           </div>
           <div className="column">
-            <button className="button is-success is-large" style={{width: '100%'}} onClick={this.addToCart.bind(this)}>Add & Checkout</button>
+            <button className="button is-success is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this, 3)}>Add & Checkout</button>
           </div>
         </div>
       </SiteLayout>
