@@ -115,5 +115,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addSliderValue: (value) => dispatch({ type: 'storeAmount', value }),
 })
-
-export default PendingOrders
+export default connect(null, mapDispatchToProps)(PendingOrders);  

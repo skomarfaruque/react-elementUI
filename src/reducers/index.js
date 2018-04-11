@@ -52,7 +52,7 @@ function cart(state = initialCart, action) {
     return { 
       ...state, 
       cartItems: state.cartItems.map(
-          (data, i) => data.fingerPrint === action.data.cryptoFingerPrint ? {...data, quantity: parseInt(action.data.quantity)}
+          (data, i) => data.fingerPrint === action.data.cryptoFingerPrint ? {...data, quantity: parseInt(action.data.quantity, 10)}
                                   : data
       )
    }

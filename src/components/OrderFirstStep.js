@@ -98,7 +98,7 @@ class OrderFirstStep extends React.Component{
         </Breadcrumb> */}
         <Layout.Row type="flex" justify="left">
           <Layout.Col>
-              <Radio.Group className="orderFirst" size="large" value={this.state.selectedCategory} onChange={this.onChange.bind(this, 'selectedCategory')}>
+              <Radio.Group className="orderFirst" key="fstep" size="large" value={this.state.selectedCategory} onChange={this.onChange.bind(this, 'selectedCategory')}>
               <Radio.Button value="All" className="firstChild"/>
                 {category}
               </Radio.Group>

@@ -269,12 +269,12 @@ class Layout extends React.Component {
             <div className="column is-4">
               <div className="columns is-size-4">{cartData.tempProduct.Name} </div>
              
-                {objArr.map(inf=> {
+                {objArr.map((inf,rid)=> {
                     if (inf.values[0]) {
-                      return (  <div className="columns">
+                      return (  <div key={rid} className="columns">
                         <div className="column is-4 has-text-right tag">{inf.key}: </div>
-                        {inf.values.map(ind=> {
-                          return (<div className="column has-text-left tag">{ind.adons.Title}</div>)
+                        {inf.values.map((ind,kid)=> {
+                          return (<div key={kid} className="column has-text-left tag">{ind.adons.Title}</div>)
                         })}
                       </div>)
                     }

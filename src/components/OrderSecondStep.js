@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SiteLayout from './Layout';
 
-import { Button, Breadcrumb, Card, Layout, Radio, Checkbox, Tag, Notification  } from 'element-react';
+import { Breadcrumb, Radio, Checkbox, Tag, Notification  } from 'element-react';
 
 import 'element-theme-default';
 import { isArray } from 'util';
@@ -45,11 +45,9 @@ class OrderSecondStep extends React.Component{
     await this.setState({
       [key]: value
     })
-    // console.log(key, value)
     this.priceCalculation()
   }
   async addToCartResetPage (type) { // type indicates whose screen to load after adding cart
-    console.log(type)
     var obj=this.state
     let sum = ''
     for( var el in obj ) {
@@ -83,8 +81,8 @@ class OrderSecondStep extends React.Component{
       if (obj.hasOwnProperty(key)) {
         if (key !== 'totalPrice' && key !=='tempProduct' && key !=='allconfig' && key !== 'quantity') {
           if (isArray(obj[key])) {
-            obj[key].map (dt=>{
-              objArr.push({configId:(dt).toString()})
+            obj[key].map (dt => {
+              return objArr.push({configId:(dt).toString()})
             })
           } else {
             objArr.push({configId:(obj[key]).toString()})
