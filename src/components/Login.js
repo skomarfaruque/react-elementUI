@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Layout } from 'element-react';
+import { Button, Form, Input } from 'element-react';
 import { connect } from 'react-redux'
 import 'element-theme-default';
 class Login extends React.Component{
