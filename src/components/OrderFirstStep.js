@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SiteLayout from './Layout';
-import { Button, Breadcrumb, Card, Layout, Radio } from 'element-react';
+import { Button, Card, Layout, Radio } from 'element-react';
 
 import 'element-theme-default';
 require('dotenv');

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Form, Input, Layout } from 'element-react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import 'element-theme-default';
 class Login extends React.Component{
@@ -77,7 +76,7 @@ class Login extends React.Component{
         <Layout.Row>
           <Layout.Col offset="9">
             <div className="grid-content bg-purple">
-              <img style={{width: '100px', height: '100px'}} src={require('../logo.png')} />
+              <img style={{width: '100px', height: '100px'}} src={require('../logo.png')} alt="Logo" />
             </div>
           </Layout.Col>
         </Layout.Row>

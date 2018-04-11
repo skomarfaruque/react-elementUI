@@ -1,11 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import OrderFirstStep from './components/OrderFirstStep';
 import OrderSecondStep from './components/OrderSecondStep';
 import Login from './components/Login';
 import PendingOrders from './components/PendingOrders';
-import Layout from './components/Layout';
 import Home from './components/Home';
 import Checkout from './components/Checkout';
 import Logout from './components/Logout';

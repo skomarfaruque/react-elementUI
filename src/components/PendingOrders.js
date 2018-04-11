@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Layout from './Layout';
-import createStore from '../store';
 
-import { Button, Table } from 'element-react';
+import { Table } from 'element-react';
 
 import 'element-theme-default';
 class PendingOrders extends React.Component{
@@ -115,4 +114,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addSliderValue: (value) => dispatch({ type: 'storeAmount', value }),
 })
-export default connect(null, mapDispatchToProps)(PendingOrders);  
+export default connect(mapStateToProps, mapDispatchToProps)(PendingOrders);  

@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SiteLayout from './Layout';
-import { Button, Breadcrumb, Layout, Radio, Table, Tag, Checkbox, Notification, Input  } from 'element-react';
+import { Button, Radio, Notification, Input  } from 'element-react';
 
 import 'element-theme-default';
-import { isArray } from 'util';
 
 class OrderSecondStep extends React.Component{
   constructor (props) {
@@ -66,7 +65,6 @@ class OrderSecondStep extends React.Component{
   }
   async componentWillMount () {
     document.title = "Checkout";
-    let pro = this.props.cartItem.tempProduct
   }
   async componentDidMount () {
   //  console.log(this.props)
@@ -94,13 +92,6 @@ console.log('sd')
 
 
   render () {
-    var styles = {
-      marginTop: {
-        margin: '3%',
-        textAlign: 'left'
-      }
-    }
-    console.log(this.state.paymentType)
     let cardInput = <div className="columns home-screen marginTop cardNumber"><Input placeholder="Last 4 Digit"/></div>
     let cardNumber = this.state.paymentType === 'card' ? cardInput : ''
     return (
