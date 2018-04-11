@@ -51,6 +51,7 @@ class OrderSecondStep extends React.Component{
     
     await this.props.cart(this.state)
     this.successNotification()
+    this.props.history.push('checkout')
   }
   async addToCartResetPage () {
     console.log('add', this.state)

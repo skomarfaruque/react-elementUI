@@ -77,4 +77,38 @@
   .space-btween {
       justify-content: space-between
   }
+  .customButton {
+    width: 100%;
+    height: 70px;
+    font-size: 28px
+  }
+  .marginTop {
+      margin-top: 1rem
+  }
+  .cardNumber .el-input__inner {
+    text-align: center;
+  }
+  .home-screen .columns {
+      margin-right: 0px!important
+  }
+  .history .panel-heading, .panel-tabs, .panel-block {
+      border-right: 1px solid #dbdbdb!important;
+      font-weight: normal!important;
+      color: #363636!important;
+      font-size: 13px!important
+
+  }
+  .panel {
+      width: 100%!important
+  }
+  .marginLeft {
+      margin-left: 1rem
+  }
+  .panel-block .columns {
+      width: 100%!important
+  }
+  .marginTopBottom {
+      margin-top:.5rem!important;
+      margin-bottom: .5rem!important
+  }
   

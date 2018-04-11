@@ -33,7 +33,8 @@ class PendingOrders extends React.Component{
           prop: "name",
         }
       ],
-      data: [{
+      data: [
+        {
         date: '2016-05-03',
         name: 'Tom',
         state: 'California',
