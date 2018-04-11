@@ -119,7 +119,6 @@ class Layout extends React.Component {
         let foundAdon = await objArr.find(d=> {
           return d.key === data.ConfigurationName
         })
-        console.log('foundadon', foundAdon)
         if (foundAdon.key === data.ConfigurationName) {
           if (foundAdon.array) {
             let selectedAdonsArrayType = []
