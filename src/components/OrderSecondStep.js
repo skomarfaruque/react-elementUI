@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SiteLayout from './Layout';
+
 import { Button, Breadcrumb, Card, Layout, Radio, Checkbox, Tag, Notification  } from 'element-react';
 
 import 'element-theme-default';
 import { isArray } from 'util';
-
+var crypto = require('crypto');
 class OrderSecondStep extends React.Component{
   constructor (props) {
     super(props);
@@ -54,8 +55,26 @@ class OrderSecondStep extends React.Component{
     this.props.history.push('checkout')
   }
   async addToCartResetPage () {
-    console.log('add', this.state)
-    await this.props.cart(this.state)
+    // var arr= [];
+    var obj=this.state
+    // delete obj.fingerPrint
+    let sum = ''
+    for( var el in obj ) {
+      if( obj.hasOwnProperty( el ) ) {
+        sum += obj[el]
+      }
+    }
+    let cryptoFingerPrint = await crypto.createHash('md5').update(sum).digest("hex");
+    let fingerPrint = {fingerPrint: cryptoFingerPrint}
+    let matchedInCart = await this.props.cartItem.cartItems.find(d => {
+      return d.fingerPrint === cryptoFingerPrint
+    })
+    if (!matchedInCart) {
+      let postObj = Object.assign(fingerPrint, this.state)
+      await this.props.cart(postObj)
+    } else {
+      await this.props.updateQuantityCart({cryptoFingerPrint, quantity: matchedInCart.quantity + 1})
+    }
     this.successNotification()
   }
   async addToCartReturnHome () {
@@ -168,7 +187,7 @@ class OrderSecondStep extends React.Component{
         </div>
         <div className="columns">
           <div className="column">
-            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCartReturnHome.bind(this)}>Add & GO Back</button>
+            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCartReturnHome.bind(this)}>Add & Go Back</button>
           </div>
           <div className="column">
             <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this)}>Add to Cart</button>
@@ -187,5 +206,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   cart: (cartItems) => dispatch({ type: 'cartItems', cartItems }),
+  updateQuantityCart: (data) => dispatch({ type: 'updateQuantityCart', data }),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderSecondStep);  

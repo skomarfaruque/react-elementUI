@@ -48,6 +48,14 @@ function cart(state = initialCart, action) {
                                   : data
       )
    }
+    case 'updateQuantityCart':
+    return { 
+      ...state, 
+      cartItems: state.cartItems.map(
+          (data, i) => data.fingerPrint === action.data.cryptoFingerPrint ? {...data, quantity: parseInt(action.data.quantity)}
+                                  : data
+      )
+   }
       // return { ...state, cartItems: [...state.cartItems[action.index.key].quantity, action.index.value] }
     case 'firstStep':
       return { ...state, product: [...state.product, action.product] }
