@@ -36,6 +36,7 @@ class OrderSecondStep extends React.Component{
   }
   async componentDidMount () {
   //  console.log(this.props)
+  //  this.priceCalculation()
   }
   productNext (key) { // here key is the product index
     let product = this.state.products[key]
