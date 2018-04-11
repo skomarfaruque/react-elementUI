@@ -1,8 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import SiteLayout from './Layout';
-import createStore from '../store';
-
 import { Button, Input, Radio, Layout, Breadcrumb } from 'element-react';
 import '../style.css'
 import 'element-theme-default';
@@ -82,12 +79,5 @@ class Home extends React.Component{
     )
   }
 }
-const mapStateToProps = state => ({
-  slidedVal: state.amountReducer.value
-})
-
-const mapDispatchToProps = dispatch => ({
-  addSliderValue: (value) => dispatch({ type: 'storeAmount', value }),
-})
 
 export default Home

@@ -1,14 +1,12 @@
-import React from 'react';
+import React from 'react'
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
-import { Badge, Button, InputNumber, Tag, Checkbox, Radio, Notification, MessageBox } from 'element-react';
-import { connect } from 'react-redux';
-import ReactDrawer from 'react-drawer';
-import 'react-drawer/lib/react-drawer.css';
+import { Link } from "react-router-dom"
+import { Badge, Button, InputNumber, Checkbox, Radio, Notification, MessageBox } from 'element-react'
+import { connect } from 'react-redux'
+import ReactDrawer from 'react-drawer'
+import 'react-drawer/lib/react-drawer.css'
 import FaBeer from 'react-icons/lib/fa/align-justify'
 import Cart from 'react-icons/lib/fa/shopping-cart'
-import * as FontAwesome from 'react-icons/lib/fa'
 class Layout extends React.Component {
   constructor(props, context) {
     super(props, context);

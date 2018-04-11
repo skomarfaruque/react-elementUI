@@ -30,18 +30,13 @@ class OrderFirstStep extends React.Component{
     }
     let proArray = []
     await result.categories.map(data => {
-      data.Products.map(proData => {
+      return data.Products.map(proData => {
         return proArray.push(proData)
       })
     })
     this.setState({products: proArray})
     this.setState({allProducts: proArray})
-    console.log('all products', this.state.products)
-
   }
-  // componentDidMount () {
-  //   console.log(this.state)
-  // }
   async onChange(key, value) {
     if (value === 'All') {
       this.setState({products: this.state.allProducts})
@@ -65,15 +60,8 @@ class OrderFirstStep extends React.Component{
   }
 
   render () {
-    var styles = {
-      marginTop: {
-        margin: '3%',
-        textAlign: 'left'
-      }
-    };
-
    let products =  this.state.products.map((productInfo, key) => {
-     return  <Layout.Col key= {key} span="6"  style={{margin: '.1rem'}} style={{width: '25%'}} >
+     return  <Layout.Col key span="6"  style={{margin: '.1rem', width: '25%'}}>
      <a onClick={this.productNext.bind(this, key)}><Card bodyStyle={{ padding: 0 }} >
        <div style={{ padding: '6%', textAlign: 'center' }}>
          <span>{productInfo.Name}</span>
@@ -112,9 +100,6 @@ class OrderFirstStep extends React.Component{
     )
   }
 }
-const mapStateToProps = state => ({
-  // slidedVal: state.amountReducer.value
-})
 
 const mapDispatchToProps = dispatch => ({
   cart: (product) => dispatch({ type: 'tempProduct', product }),
