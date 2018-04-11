@@ -14,9 +14,18 @@
     width: 100%!important;
     margin-top: 1%
   }
+  .checkoutScreen .el-radio-button--large .el-radio-button__inner{
+    padding: 8% 12%!important;
+    font-size: 1.3rem !important;
+    width: 100%!important;
+    margin-top: 1%
+  }
   .el-radio-button--large .el-radio-button__inner{
     padding: 20% 30%!important;
     font-size: 28px !important
+  }
+  .checkoutScreen .el-radio-button, .el-radio-button__inner {
+      width: 100%!important
   }
   .el-radio-group {
       width: 100%!important
@@ -102,7 +111,7 @@
       width: 100%!important
   }
   .marginLeft {
-      margin-left: 1rem
+      margin-left: .2rem
   }
   .panel-block .columns {
       width: 100%!important
@@ -110,5 +119,16 @@
   .marginTopBottom {
       margin-top:.5rem!important;
       margin-bottom: .5rem!important
+  }
+  .marginLeftOrderId {
+      margin-left: 1rem!important
+  }
+  .quantityCurve {
+      border: 1px solid #dbdbdb;
+      border-radius: .2rem;
+      padding: .4rem
+  }
+  .panelMarginTop {
+      margin-top: 4%!important
   }
   

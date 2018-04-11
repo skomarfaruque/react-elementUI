@@ -229,6 +229,10 @@ class Layout extends React.Component {
       type: 'success'
     })
   }
+  redirectCheckout () {
+    console.log(this.props)
+    // this.props.history.push('/checkout')
+  }
   render () {
    
     let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
@@ -346,7 +350,7 @@ class Layout extends React.Component {
             </section>
             <footer className="modal-card-foot space-btween">
               <button className="button is-danger custom-large" onClick={this.clearAll.bind(this)}>Clear all</button>
-              <button className="button is-success custom-large">Checkout</button>
+              <button className="button is-success custom-large" onClick={this.redirectCheckout.bind(this)}>Checkout</button>
             </footer>
           </div>
         </div>
@@ -382,7 +386,7 @@ class Layout extends React.Component {
             <a onClick={this.toggleDrawer} style={{margin: '3%'}}><FaBeer size="50" color="#ffffff" /></a>
           </div>
           <div className="column is-6 has-text-right">
-            <span onClick={this.showCartModal.bind(this)}>
+            <span onClick={this.showCartModal.bind(this)} style={{marginRight: '1.3rem'}}>
               <Badge value={ this.props.cartItem.cartItems.length }>
                 <Cart  size="50" color="#ffffff" />
               </Badge>

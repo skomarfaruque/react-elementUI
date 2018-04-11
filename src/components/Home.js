@@ -65,7 +65,7 @@ class Home extends React.Component{
 
             <Layout.Row type="flex" style={styles.inputBox} className="home-screen">
               <Layout.Col  offset="0">
-                <Input placeholder="Phone number"/>
+                <Input placeholder="Phone number" type="number"/>
               </Layout.Col>
             </Layout.Row>
 

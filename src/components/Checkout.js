@@ -105,13 +105,10 @@ console.log('sd')
     let cardNumber = this.state.paymentType === 'card' ? cardInput : ''
     return (
       <SiteLayout>
-        <div className="columns is-right" key="price">
-          <div className="column has-text-right">Payable: <Tag>{this.state.totalPrice} Tk</Tag> </div>
-        </div>
-        <div className="columns" key="ck">
+        <div className="columns marginTop marginLeft" key="ck">
           <div className="column is-4 home-screen">
             <div className="columns">
-              <Input placeholder="Phone number"/>
+              <Input placeholder="Phone number" type="number"/>
             </div>
             <div className="columns">
               <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Check</Button>
@@ -119,47 +116,45 @@ console.log('sd')
             <div className="columns marginTop">
               <nav className="panel history">
                 <p className="panel-heading">
-                  <span>12-12-2017</span><span className="marginLeft">TONG123</span>
+                  <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
                 </p>
                 <div className="panel-block">
                   <div className="columns marginTopBottom">
-                    <div className="column is-1">1</div>
-                    <div className="column is-9">
-                      <div className="columns">Lemon Tea</div>
+                    <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
+                    <div className="column is-8">
+                      <div className="columns has-text-weight-bold">Lemon Tea</div>
                       <div className="columns">
                       Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
                       </div>
                     </div>
-                    <div className="column is-2">$price</div>
+                    <div className="column is-2">80Tk</div>
                   </div>
-                
                 </div>
                 <div className="panel-block">
                   <div className="columns marginTopBottom">
-                    <div className="column is-1">1</div>
-                    <div className="column is-9">
-                      <div className="columns">Lemon Tea</div>
+                    <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
+                    <div className="column is-8">
+                      <div className="columns has-text-weight-bold">Lemon Tea</div>
                       <div className="columns">
                       Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
                       </div>
                     </div>
-                    <div className="column is-2">$price</div>
+                    <div className="column is-2">80Tk</div>
                   </div>
-                
                 </div>
                 <div className="panel-block">
                   <div className="columns marginTopBottom">
-                    <div className="column is-1">1</div>
-                    <div className="column is-9">
-                      <div className="columns">Lemon Tea</div>
+                    <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
+                    <div className="column is-8">
+                      <div className="columns has-text-weight-bold">Lemon Tea</div>
                       <div className="columns">
                       Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
                       </div>
                     </div>
-                    <div className="column is-2">$price</div>
+                    <div className="column is-2">80Tk</div>
                   </div>
-                
                 </div>
+          
               </nav>
             </div>
             <div className="columns marginTop">
@@ -174,7 +169,7 @@ console.log('sd')
           </div>
           <div className="column is-4 home-screen">
             <div className="columns">
-              <Radio.Group className="orderSecond" size="large" value={this.state.paymentType}  onChange={this.onChange.bind(this, "paymentType")}>
+              <Radio.Group className="checkoutScreen" size="large" value={this.state.paymentType}  onChange={this.onChange.bind(this, "paymentType")}>
                 <Radio.Button key="Cash" value="cash">Cash</Radio.Button>
                 <Radio.Button key="Card" value="card">Card</Radio.Button>
               </Radio.Group>
@@ -183,10 +178,10 @@ console.log('sd')
           </div>
           <div className="column is-4  home-screen">
             <div className="columns">
-              <Input placeholder="Amount"/>
+              <Input disabled placeholder="Amount" value="78Tk"/>
             </div>
-            <div className="columns marginTop">
-              <Input placeholder="Discount"/>
+            <div className="columns">
+              <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Cancel</Button>
             </div>
             <div className="columns">
               <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Confirm</Button>
