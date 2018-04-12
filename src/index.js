@@ -1,17 +1,17 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import OrderFirstStep from './components/OrderFirstStep';
-import OrderSecondStep from './components/OrderSecondStep';
-import Login from './components/Login';
-import PendingOrders from './components/PendingOrders';
-import Home from './components/Home';
-import Checkout from './components/Checkout';
-import Logout from './components/Logout';
+import React from 'react'
+import { render } from 'react-dom'
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import OrderFirstStep from './components/OrderFirstStep'
+import OrderSecondStep from './components/OrderSecondStep'
+import Login from './components/Login'
+import PendingOrders from './components/PendingOrders'
+import Home from './components/Home'
+import Checkout from './components/Checkout'
+import Logout from './components/Logout'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-import {store, persistor} from './store';
-const app = document.getElementById('spring-it');
+import {store, persistor} from './store'
+const app = document.getElementById('spring-it')
 render(
     <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -29,4 +29,4 @@ render(
     </PersistGate>
     </Provider>
     ,
-  app);
+  app)
