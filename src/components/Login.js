@@ -1,10 +1,10 @@
-import React from 'react';
-import { Button, Form, Input } from 'element-react';
+import React from 'react'
+import { Button, Form, Input } from 'element-react'
 import { connect } from 'react-redux'
-import 'element-theme-default';
+import 'element-theme-default'
 class Login extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       form: {
         userName: '',
@@ -39,7 +39,7 @@ class Login extends React.Component{
     };
   }
   componentWillMount () {
-    document.title = "Login";
+    document.title = "Login"
   }
   
   handleSubmit(e) {
@@ -47,11 +47,11 @@ class Login extends React.Component{
   
     this.refs.form.validate((valid) => {
       if (valid) {
-        let token = this.state.form.userName;
+        let token = this.state.form.userName
         this.props.login(token);
-        this.props.history.push("/home");
+        this.props.history.push("/home")
       } else {
-        console.log('error submit!!');
+        console.log('error submit!!')
         return false;
       }
     });
@@ -59,7 +59,7 @@ class Login extends React.Component{
   
   handleReset(e) {
     e.preventDefault();
-    this.refs.form.resetFields();
+    this.refs.form.resetFields()
   }
   
   onChange(key, value) {
@@ -104,5 +104,4 @@ const mapDispatchToProps = dispatch => ({
   login: (token) => dispatch({ type: 'Store', token }),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);  
-// export default Login
+export default connect(mapStateToProps, mapDispatchToProps)(Login) 
