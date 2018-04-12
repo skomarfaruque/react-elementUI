@@ -25,7 +25,7 @@ class Home extends React.Component{
   }
   async startBooking () {
     await this.props.cus(this.state.phone)
-    this.props.history.push(`${this.state.customerType === 'New' ? '/order-first-step': 'checkout'}`);
+    this.props.history.push(`${this.state.customerType === 'New' ? '/order-first-step': 'checkout'}`)
   }
 
   render () {
@@ -49,7 +49,7 @@ class Home extends React.Component{
         height: '70px',
         fontSize: '28px'
       }
-    };
+    }
     return (
       <SiteLayout>
         <Breadcrumb separator="/">
