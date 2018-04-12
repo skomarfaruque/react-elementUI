@@ -8,8 +8,7 @@ class Home extends React.Component{
   constructor (props) {
     super(props)
     this.state = {
-      radio3: 'New User',
-      radio4: 'Old User',
+      customerType: 'New',
       phone: this.props.customerPhone || ''
     }
   }
@@ -17,7 +16,7 @@ class Home extends React.Component{
     console.log(this.props)
   }
   componentWillMount () {
-    document.title = "Home || Order selection"
+    document.title = "Home || Customer selection"
   }
   onChange(key, value) {
     this.setState({
@@ -26,7 +25,7 @@ class Home extends React.Component{
   }
   async startBooking () {
     await this.props.cus(this.state.phone)
-    this.props.history.push("/order-first-step");
+    this.props.history.push(`${this.state.customerType === 'New' ? '/order-first-step': 'checkout'}`);
   }
 
   render () {
@@ -60,9 +59,9 @@ class Home extends React.Component{
         
           <Layout.Col style={styles.marginTop}>
             <Layout.Row type="flex">
-              <Radio.Group size="large" value={this.state.radio3} onChange={this.onChange.bind(this, 'radio3')} className="homeScreen">
-                <Radio.Button value="New User" />
-                <Radio.Button value="Old User" />
+              <Radio.Group size="large" value={this.state.customerType} onChange={this.onChange.bind(this, 'customerType')} className="homeScreen">
+                <Radio.Button value="New" />
+                <Radio.Button value="Old" />
               </Radio.Group>
             </Layout.Row>
 
