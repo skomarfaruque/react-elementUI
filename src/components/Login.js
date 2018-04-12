@@ -71,21 +71,22 @@ class Login extends React.Component{
   render() {
     return (
       <div>
-        <div className="container">
-          <div className="columns">
+        <div className="container marginTop">
+          <div className="columns is-mobile">
             <div className="column has-text-centered"><img style={{width: '100px', height: '100px'}} src={require('../logo.png')} alt="Logo" /></div>
           </div>
-          <div className="columns">
-            <div className="column has-text-centered">
-              <Form ref="form" label-position="top" model={this.state.form} rules={this.state.rules} labelWidth="100" className="demo-ruleForm">
-                <Form.Item label="User name" prop="userName">
-                  <Input type="text" value={this.state.form.userName} onChange={this.onChange.bind(this, 'userName')} autoComplete="off" />
+          <div className="columns is-mobile">
+          <div className="column is-3"></div>
+            <div className="column has-text-centered home-screen is-6">
+              <Form ref="form" label-position="top" model={this.state.form} rules={this.state.rules}>
+                <Form.Item prop="userName">
+                  <Input type="text" placeholder="User name" value={this.state.form.userName} onChange={this.onChange.bind(this, 'userName')} autoComplete="off" />
                 </Form.Item>
-                <Form.Item label="Password" prop="password">
-                  <Input type="password" value={this.state.form.password} onChange={this.onChange.bind(this, 'password')} autoComplete="off" />
+                <Form.Item prop="password">
+                  <Input type="password" placeholder="Password" value={this.state.form.password} onChange={this.onChange.bind(this, 'password')} autoComplete="off" />
                 </Form.Item>
                 <Form.Item>
-                  <Button type="primary" onClick={this.handleSubmit.bind(this)}>Login{this.props.isLoggedIn}</Button>
+                  <Button type="primary" className="customButton" onClick={this.handleSubmit.bind(this)}>Login{this.props.isLoggedIn}</Button>
                 </Form.Item>
               </Form>
             </div>

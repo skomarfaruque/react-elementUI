@@ -174,7 +174,7 @@ class OrderSecondStep extends React.Component{
         <div className="columns is-right" key="price">
           <div className="column has-text-right">Price: <Tag>{this.state.totalPrice} Tk</Tag> </div>
         </div>
-        <div className="columns is-multiline" key="adons">
+        <div className="columns is-multiline is-mobile" key="adons">
           {displayAdons}
         </div>
         <div className="columns">

@@ -90,25 +90,25 @@ console.log('sd')
 
 
   render () {
-    let cardInput = <div className="columns home-screen marginTop cardNumber"><Input placeholder="Last 4 Digit"/></div>
+    let cardInput = <div className="columns home-screen marginTop cardNumber is-mobile"><Input placeholder="Last 4 Digit"/></div>
     let cardNumber = this.state.paymentType === 'card' ? cardInput : ''
     return (
       <SiteLayout>
-        <div className="columns marginTop marginLeft" key="ck">
+        <div className="columns marginTop marginLeft is-mobile" key="ck">
           <div className="column is-4 home-screen">
             <div className="columns">
               <Input placeholder="Phone number" type="number"/>
             </div>
-            <div className="columns">
+            <div className="columns is-mobile">
               <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Check</Button>
             </div>
-            <div className="columns marginTop">
+            <div className="columns marginTop is-mobile">
               <nav className="panel history">
                 <p className="panel-heading">
                   <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
                 </p>
                 <div className="panel-block">
-                  <div className="columns marginTopBottom">
+                  <div className="columns marginTopBottom ">
                     <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
                     <div className="column is-8">
                       <div className="columns has-text-weight-bold">Lemon Tea</div>

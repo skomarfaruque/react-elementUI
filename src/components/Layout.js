@@ -266,7 +266,7 @@ class Layout extends React.Component {
       }
       return (
         <div>
-          <div className="columns" key>
+          <div className="columns is-mobile" key>
             <div className="column is-4">
               <div className="columns is-size-4">{cartData.tempProduct.Name} </div>
              
@@ -382,7 +382,7 @@ class Layout extends React.Component {
     }
     return (
       <div className="full-screenable-node" style={{margin: '1%'}}>
-        <div className="columns blue-background">
+        <div className="columns blue-background is-mobile">
           <div className="column is-6 has-text-left">
             <a onClick={this.toggleDrawer} style={{margin: '3%'}}><FaBeer size="50" color="#ffffff" /></a>
           </div>
