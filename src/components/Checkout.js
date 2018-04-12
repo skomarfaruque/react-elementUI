@@ -90,7 +90,7 @@ console.log('sd')
 
 
   render () {
-    let cardInput = <div className="columns home-screen marginTop cardNumber is-mobile"><Input placeholder="Last 4 Digit"/></div>
+    let cardInput = <div className="columns home-screen marginTop cardNumber is-mobile"><Input type="password" placeholder="Last 4 Digit"/></div>
     let cardNumber = this.state.paymentType === 'card' ? cardInput : ''
     return (
       <SiteLayout>
