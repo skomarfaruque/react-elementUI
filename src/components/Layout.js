@@ -7,9 +7,11 @@ import ReactDrawer from 'react-drawer'
 import 'react-drawer/lib/react-drawer.css'
 import FaBeer from 'react-icons/lib/fa/align-justify'
 import Cart from 'react-icons/lib/fa/shopping-cart'
+import PropTypes from 'prop-types'
 class Layout extends React.Component {
+
   constructor(props, context) {
-    super(props, context);
+    super(props, context)
     this.state = {
         optionsdata : [],
         open: false,
@@ -23,7 +25,7 @@ class Layout extends React.Component {
         activeTempProduct: this.props.cartItem.tempProduct,
         totalPrice: 0,
         isFull: true
-    };
+    }
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.closeDrawer = this.closeDrawer.bind(this);
     this.onDrawerClose = this.onDrawerClose.bind(this);
@@ -227,8 +229,7 @@ class Layout extends React.Component {
     })
   }
   redirectCheckout () {
-    console.log(this.props)
-    // this.props.history.push('/checkout')
+    this.context.router.history.push('checkout')
   }
   render () {
    
@@ -414,6 +415,9 @@ class Layout extends React.Component {
     )
   }
 } 
+Layout.contextTypes = {
+  router: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.token,
   cartItem: state.cart
@@ -425,4 +429,3 @@ const mapDispatchToProps = dispatch => ({
   updateCartItems: (index) => dispatch({ type: 'updateCartItems', index })
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);  
-// export default Layout;
