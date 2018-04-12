@@ -1,9 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import SiteLayout from './Layout';
-import { Button, Radio, Notification, Input  } from 'element-react';
-
-import 'element-theme-default';
+import React from 'react'
+import { connect } from 'react-redux'
+import SiteLayout from './Layout'
+import { Button, Radio, Notification, Input  } from 'element-react'
 
 class OrderSecondStep extends React.Component{
   constructor (props) {

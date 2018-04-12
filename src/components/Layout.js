@@ -34,6 +34,9 @@ class Layout extends React.Component {
   }
   async componentWillMount () {
     document.documentElement.webkitRequestFullscreen()
+    if (!this.props.isLoggedIn) {
+      this.context.router.history.push('/')
+    }
     
   }
   async componentDidMount () {
@@ -229,6 +232,7 @@ class Layout extends React.Component {
     })
   }
   redirectCheckout () {
+    this.setState({showModal: false})
     this.context.router.history.push('checkout')
   }
   render () {

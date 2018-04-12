@@ -12,7 +12,7 @@ class Home extends React.Component{
     }
   }
   componentWillMount () {
-    document.title = "Home || Order selection";
+    document.title = "Home || Order selection"
   }
   onChange(key, value) {
     this.setState({
