@@ -5,7 +5,7 @@ import { Button, Radio, Notification, Input  } from 'element-react'
 
 class OrderSecondStep extends React.Component{
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       totalPrice: 0,
       tempProduct: this.props.cartItem.tempProduct,
@@ -62,7 +62,7 @@ class OrderSecondStep extends React.Component{
     }
   }
   async componentWillMount () {
-    document.title = "Checkout";
+    document.title = "Checkout"
   }
   async componentDidMount () {
   //  console.log(this.props)
@@ -70,7 +70,7 @@ class OrderSecondStep extends React.Component{
   onChange(key, value) {
     this.setState({
       [key]: value
-    });
+    })
   }
 
   async checkPreviousHistory () {
@@ -78,14 +78,14 @@ console.log('sd')
   }
 
   breadCrumbAction (val) {
-    this.props.history.push(val);
+    this.props.history.push(val)
   }
   successNotification() {
     Notification({
       title: 'Success',
       message: 'Item is added to cart',
       type: 'success'
-    });
+    })
   }
 
 
@@ -188,4 +188,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   cart: (cartItems) => dispatch({ type: 'cartItems', cartItems }),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(OrderSecondStep);  
+export default connect(mapStateToProps, mapDispatchToProps)(OrderSecondStep)
