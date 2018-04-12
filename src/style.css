@@ -146,4 +146,7 @@
     bottom: .3rem;
     right: 19.5rem;
   }
-  
+  .grayButton {
+      color: #fff;
+      background-color: #bbb
+  }

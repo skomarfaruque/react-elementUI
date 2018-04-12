@@ -179,7 +179,7 @@ class OrderSecondStep extends React.Component{
           <Button type="primary customButton" onClick={this.checkPreviousHistory.bind(this)}>Confirm</Button>
         </div>
         <div className="stickyAddNew">
-          <Button type="default customButton" onClick={this.addNew.bind(this)}>Add New</Button>
+          <Button type="default customButton grayButton" onClick={this.addNew.bind(this)}>Add New</Button>
         </div>
       </SiteLayout>
     )
