@@ -70,7 +70,7 @@ class Home extends React.Component{
               <Button type="primary"  style={styles.submitButton} onClick={this.startBooking.bind(this)}>Next</Button>
             </div>
           </div>
-          <div className="column is-8">
+          <div className="column is-8" style={{height: '30rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
             <div className="columns marginTop marginLeft is-mobile">
               <nav className="panel history">
                 <p className="panel-heading">
