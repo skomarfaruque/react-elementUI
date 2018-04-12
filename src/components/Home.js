@@ -55,31 +55,69 @@ class Home extends React.Component{
         <Breadcrumb separator="/">
           <Breadcrumb.Item>Home</Breadcrumb.Item>
         </Breadcrumb>
-        <Layout.Row type="flex">
-        
-          <Layout.Col style={styles.marginTop}>
-            <Layout.Row type="flex">
+        <div className="columns">
+          <div className="column is-4">
+            <div className="columns marginTop">
               <Radio.Group size="large" value={this.state.customerType} onChange={this.onChange.bind(this, 'customerType')} className="homeScreen">
                 <Radio.Button value="New" />
                 <Radio.Button value="Old" />
               </Radio.Group>
-            </Layout.Row>
-
-            <Layout.Row type="flex" style={styles.inputBox} className="home-screen">
-              <Layout.Col  offset="0">
-                <Input placeholder="Phone number" type="number" value={this.state.phone} onChange={this.onChange.bind(this, 'phone')}/>
-              </Layout.Col>
-            </Layout.Row>
-
-            <Layout.Row type="flex" style={styles.submitButtonDiv}>
-              <Layout.Col  offset="0">
-               <Button type="primary"  style={styles.submitButton} onClick={this.startBooking.bind(this)}>Next</Button>
-              </Layout.Col>
-            </Layout.Row>
-
-          </Layout.Col>
-
-        </Layout.Row>
+            </div>
+            <div className="columns home-screen marginTop">
+              <Input placeholder="Phone number" type="number" value={this.state.phone} onChange={this.onChange.bind(this, 'phone')}/>
+            </div>
+            <div className="columns marginTop">
+              <Button type="primary"  style={styles.submitButton} onClick={this.startBooking.bind(this)}>Next</Button>
+            </div>
+          </div>
+          <div className="column is-8">
+            <div className="columns marginTop marginLeft is-mobile">
+                <nav className="panel history">
+                  <p className="panel-heading">
+                    <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
+                  </p>
+                  <div className="panel-block">
+                    <div className="columns marginTopBottom ">
+                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
+                      <div className="column is-8">
+                        <div className="columns has-text-weight-bold">Lemon Tea</div>
+                        <div className="columns">
+                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                        </div>
+                      </div>
+                      <div className="column is-2">80Tk</div>
+                    </div>
+                  </div>
+                  <div className="panel-block">
+                    <div className="columns marginTopBottom">
+                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
+                      <div className="column is-8">
+                        <div className="columns has-text-weight-bold">Lemon Tea</div>
+                        <div className="columns">
+                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                        </div>
+                      </div>
+                      <div className="column is-2">80Tk</div>
+                    </div>
+                  </div>
+                  <div className="panel-block">
+                    <div className="columns marginTopBottom">
+                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
+                      <div className="column is-8">
+                        <div className="columns has-text-weight-bold">Lemon Tea</div>
+                        <div className="columns">
+                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                        </div>
+                      </div>
+                      <div className="column is-2">80Tk</div>
+                    </div>
+                  </div>
+            
+                </nav>
+              </div>
+            </div>
+        </div>
+    
       </SiteLayout>
     )
   }
