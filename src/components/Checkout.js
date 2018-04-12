@@ -75,9 +75,12 @@ class OrderSecondStep extends React.Component{
   }
 
   async checkPreviousHistory () {
-console.log('sd')
+    console.log('sd')
   }
-
+  addNew () {
+    console.log(this.props)
+    this.props.history.push('/order-first-step')
+  }
   breadCrumbAction (val) {
     this.props.history.push(val)
   }
@@ -170,13 +173,13 @@ console.log('sd')
             <div className="columns">
               <Input disabled placeholder="Amount" value="78Tk"/>
             </div>
-            <div className="columns">
-              <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Cancel</Button>
-            </div>
-            <div className="columns">
-              <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Confirm</Button>
-            </div>
           </div>
+        </div>
+        <div className="stickyConfirm">
+          <Button type="primary customButton" onClick={this.checkPreviousHistory.bind(this)}>Confirm</Button>
+        </div>
+        <div className="stickyAddNew">
+          <Button type="default customButton" onClick={this.addNew.bind(this)}>Add New</Button>
         </div>
       </SiteLayout>
     )

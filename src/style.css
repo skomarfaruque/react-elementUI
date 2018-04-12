@@ -131,4 +131,19 @@
   .panelMarginTop {
       margin-top: 4%!important
   }
+
+  
+  .stickyConfirm {
+    position: fixed;
+    width: 18.5rem;
+    bottom: .3rem;
+    right: .7rem;
+  }
+  
+  .stickyAddNew {
+    position: fixed;
+    width: 18.5rem;
+    bottom: .3rem;
+    right: 19.5rem;
+  }
   
