@@ -12,6 +12,7 @@ class OrderSecondStep extends React.Component{
       allconfig: [],
       quantity: 1,
       paymentType: 'cash',
+      phone: this.props.customerPhone || '',
       columns: [
         {
           type: 'expand',
@@ -65,7 +66,7 @@ class OrderSecondStep extends React.Component{
     document.title = "Checkout"
   }
   async componentDidMount () {
-  //  console.log(this.props)
+   console.log(this.props)
   }
   onChange(key, value) {
     this.setState({
@@ -97,7 +98,7 @@ console.log('sd')
         <div className="columns marginTop marginLeft is-mobile" key="ck">
           <div className="column is-4 home-screen">
             <div className="columns">
-              <Input placeholder="Phone number" type="number"/>
+              <Input placeholder="Phone number"  value={this.state.phone} type="number"/>
             </div>
             <div className="columns is-mobile">
               <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Check</Button>
@@ -182,7 +183,8 @@ console.log('sd')
   }
 }
 const mapStateToProps = state => ({
-  cartItem: state.cart
+  cartItem: state.cart,
+  customerPhone: state.cus.phone
 })
 
 const mapDispatchToProps = dispatch => ({

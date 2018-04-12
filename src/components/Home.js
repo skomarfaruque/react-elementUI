@@ -1,15 +1,20 @@
-import React from 'react';
-import SiteLayout from './Layout';
-import { Button, Input, Radio, Layout, Breadcrumb } from 'element-react';
+import React from 'react'
+import SiteLayout from './Layout'
+import { connect } from 'react-redux'
+import { Button, Input, Radio, Layout, Breadcrumb } from 'element-react'
 import '../style.css'
-import 'element-theme-default';
+import 'element-theme-default'
 class Home extends React.Component{
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       radio3: 'New User',
-      radio4: 'Old User'
+      radio4: 'Old User',
+      phone: this.props.customerPhone || ''
     }
+  }
+  componentDidMount () {
+    console.log(this.props)
   }
   componentWillMount () {
     document.title = "Home || Order selection"
@@ -17,9 +22,10 @@ class Home extends React.Component{
   onChange(key, value) {
     this.setState({
       [key]: value
-    });
+    })
   }
-  startBooking () {
+  async startBooking () {
+    await this.props.cus(this.state.phone)
     this.props.history.push("/order-first-step");
   }
 
@@ -62,7 +68,7 @@ class Home extends React.Component{
 
             <Layout.Row type="flex" style={styles.inputBox} className="home-screen">
               <Layout.Col  offset="0">
-                <Input placeholder="Phone number" type="number"/>
+                <Input placeholder="Phone number" type="number" value={this.state.phone} onChange={this.onChange.bind(this, 'phone')}/>
               </Layout.Col>
             </Layout.Row>
 
@@ -79,5 +85,10 @@ class Home extends React.Component{
     )
   }
 }
-
-export default Home
+const mapStateToProps = state => ({
+  customerPhone: state.cus.phone
+})
+const mapDispatchToProps = dispatch => ({
+  cus: (phone) => dispatch({ type: 'StoreCus', phone }),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

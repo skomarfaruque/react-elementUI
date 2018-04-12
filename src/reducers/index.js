@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 const initialAuthState = { token: '', isLoggedIn: false };
-
+const customerInfo = { phone: ''}
 const initialCart = { 
   product: [],
   tempProduct: '',
@@ -13,6 +13,16 @@ function auth(state = initialAuthState, action) {
     case 'Store':
       return { ...state, token: action.token, isLoggedIn: true }
     case 'Logout':
+      return { ...state, token: '', isLoggedIn: false }
+    default:
+      return state;
+  }
+}
+function cus(state = customerInfo, action) {
+  switch (action.type) {
+    case 'StoreCus':
+      return { ...state, phone: action.phone }
+    case 'UpdateCus':
       return { ...state, token: '', isLoggedIn: false }
     default:
       return state;
@@ -69,7 +79,8 @@ function cart(state = initialCart, action) {
 
 const AppReducer = combineReducers({
   auth,
-  cart
+  cart,
+  cus
 });
 
 export default AppReducer;
