@@ -85,9 +85,9 @@ class PendingOrders extends React.Component{
       }]
     }
   }
-  componentWillMount () {
-    document.title = "Pending orders";
-  }
+  // componentWillMount () {
+  //   document.title = "Pending orders";
+  // }
 
 
 

@@ -38,9 +38,9 @@ class Login extends React.Component{
       }
     };
   }
-  componentWillMount () {
-    document.title = "Login"
-  }
+  // componentWillMount () {
+  //   document.title = "Login"
+  // }
   
   handleSubmit(e) {
     e.preventDefault();

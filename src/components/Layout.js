@@ -32,14 +32,17 @@ class Layout extends React.Component {
     this.setPosition = this.setPosition.bind(this);
     this.setNoOverlay = this.setNoOverlay.bind(this);
   }
-  async componentWillMount () {
-    document.documentElement.webkitRequestFullscreen()
+  // async componentWillMount () {
+  //   document.documentElement.webkitRequestFullscreen()
+  //   if (!this.props.isLoggedIn) {
+  //     this.context.router.history.push('/')
+  //   }
+    
+  // }
+  async componentDidMount () {
     if (!this.props.isLoggedIn) {
       this.context.router.history.push('/')
     }
-    
-  }
-  async componentDidMount () {
    await this.upateGrandTotalPrice()
    if (!document.fullscreenElement) {
      document.documentElement.webkitRequestFullscreen()
@@ -299,41 +302,46 @@ class Layout extends React.Component {
       )
     })
     let product = this.state.activeTempProduct
-    let displayAdons = product.ProductDetails.map ((data, key) => {
-
-      let adonsData = []
-      for (var keyData in data.Configurables) { // loop the json object
-        if (data.Configurables.hasOwnProperty(keyData)) {
-            adonsData.push({adons:data.Configurables[keyData], id: keyData})
+    let displayAdons
+    if (product) {
+      displayAdons = product.ProductDetails.map((data, key) => {
+        let adonsData = []
+        for (var keyData in data.Configurables) { // loop the json object
+          if (data.Configurables.hasOwnProperty(keyData)) {
+              adonsData.push({adons:data.Configurables[keyData], id: keyData})
+          }
         }
-      }
-      if (data.Multiple) { // check box
-        return (<div className="column is-3" key={data.ConfigurationName+ key}>
-        <span className="has-text-link" style={{fontWeight: 'bold'}}>{data.ConfigurationName}</span>
-            {
-              <Checkbox.Group   className="orderSecond" size="large" value={this.state[data.ConfigurationName] || []} onChange={this.onChangeUpdate.bind(this, data.ConfigurationName)}>
-                {
-                  adonsData.map ((adonInfo,aKey) => {
-                    return <Checkbox.Button key={adonInfo.adons.Title+aKey} value={adonInfo.id} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>hello</Checkbox.Button>
-                  })
-                }
-             </Checkbox.Group>
-            }
-        </div>)
-      } else { // radio box
-        return (<div className="column is-3" key={data.ConfigurationName+ key}>{data.ConfigurationName}
-            {
-              <Radio.Group className="orderSecond" size="large" value={this.state[data.ConfigurationName]}  onChange={this.onChangeUpdate.bind(this, data.ConfigurationName)}>
-                {
-                  adonsData.map ((adonInfo,aKey) => {
-                    return <Radio.Button key={aKey} value={adonInfo.id}>{adonInfo.adons.Title + "+"+ adonInfo.adons.Price+"Tk" }</Radio.Button>
-                  })
-                }
-             </Radio.Group>
-            }
-        </div>)
-      }
-    })
+        if (data.Multiple) { // check box
+          return (<div className="column is-3" key={data.ConfigurationName+ key}>
+          <span className="has-text-link" style={{fontWeight: 'bold'}}>{data.ConfigurationName}</span>
+              {
+                <Checkbox.Group   className="orderSecond" size="large" value={this.state[data.ConfigurationName] || []} onChange={this.onChangeUpdate.bind(this, data.ConfigurationName)}>
+                  {
+                    adonsData.map ((adonInfo,aKey) => {
+                      return <Checkbox.Button key={adonInfo.adons.Title+aKey} value={adonInfo.id} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>hello</Checkbox.Button>
+                    })
+                  }
+                </Checkbox.Group>
+              }
+          </div>)
+        } else { // radio box
+          return (<div className="column is-3" key={data.ConfigurationName+ key}>{data.ConfigurationName}
+              {
+                <Radio.Group className="orderSecond" size="large" value={this.state[data.ConfigurationName]}  onChange={this.onChangeUpdate.bind(this, data.ConfigurationName)}>
+                  {
+                    adonsData.map ((adonInfo,aKey) => {
+                      return <Radio.Button key={aKey} value={adonInfo.id}>{adonInfo.adons.Title + "+"+ adonInfo.adons.Price+"Tk" }</Radio.Button>
+                    })
+                  }
+                </Radio.Group>
+              }
+          </div>)
+        }
+      })
+    } else {
+      displayAdons = ''
+    }
+ 
     let modalContent = ''
     if (this.state.showModal) {
      return modalContent =  

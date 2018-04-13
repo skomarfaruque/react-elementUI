@@ -7,7 +7,7 @@ class Logout extends React.Component{
   constructor(props) {
     super(props);
   }
-  componentWillMount () {
+  componentDidMount () {
     this.props.removeAll()
     this.props.logOut()
     this.props.history.push('/')

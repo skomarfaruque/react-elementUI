@@ -75,12 +75,13 @@ class Checkout extends React.Component{
     }
    
   }
-  async componentWillMount () {
-    document.title = "Checkout"
-    console.log(this.props)
-    await this.upateGrandTotalPrice()
-  }
+  // async componentWillMount () {
+  //   document.title = "Checkout"
+  //   console.log(this.props)
+  //   await this.upateGrandTotalPrice()
+  // }
   async componentDidMount () {
+  document.title = "Checkout"
    console.log(this.props)
    await this.upateGrandTotalPrice()
   }

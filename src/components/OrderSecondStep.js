@@ -17,7 +17,7 @@ class OrderSecondStep extends React.Component{
       quantity: 1
     }
   }
-  async componentWillMount () {
+  async componentDidMount () {
     document.title = "Product details";
     let pro = this.props.cartItem.tempProduct
     let adonsData = []
@@ -33,10 +33,6 @@ class OrderSecondStep extends React.Component{
     })
     await this.setState({allconfig: adonsData, totalPrice: this.state.tempProduct.Price})
     this.priceCalculation()
-  }
-  async componentDidMount () {
-  //  console.log(this.props)
-  //  this.priceCalculation()
   }
   productNext (key) { // here key is the product index
     let product = this.state.products[key]

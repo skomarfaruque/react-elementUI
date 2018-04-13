@@ -16,7 +16,7 @@ class OrderFirstStep extends React.Component{
       allProducts: []
     }
   }
-  async componentWillMount () {
+  async componentDidMount () {
     document.title = "Category & Products";
     let res = await fetch(`http://52.14.91.110:8080/admin/product/list`, {
       method: 'GET',
