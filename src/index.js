@@ -11,6 +11,7 @@ import Logout from './components/Logout'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import {store, persistor} from './store'
+import registerServiceWorker from './registerServiceWorker'
 const app = document.getElementById('spring-it')
 render(
     <Provider store={store}>
@@ -30,3 +31,4 @@ render(
     </Provider>
     ,
   app)
+  registerServiceWorker()
