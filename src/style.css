@@ -150,3 +150,8 @@
       color: #fff;
       background-color: #bbb
   }
+  .orderPageButton {
+      position: fixed;
+      bottom: .1rem;
+      width: 100%
+  }

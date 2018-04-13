@@ -421,7 +421,7 @@ class Layout extends React.Component {
 } 
 Layout.contextTypes = {
   router: PropTypes.func.isRequired
-};
+}
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.token,
   cartItem: state.cart
@@ -432,4 +432,4 @@ const mapDispatchToProps = dispatch => ({
   updateQuantity: (index) => dispatch({ type: 'updateQuantity', index }),
   updateCartItems: (index) => dispatch({ type: 'updateCartItems', index })
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);  
+export default connect(mapStateToProps, mapDispatchToProps)(Layout)

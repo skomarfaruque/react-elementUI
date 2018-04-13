@@ -22,7 +22,7 @@ render(
             <Route exact path="/order-first-step" name="Order first step" component={OrderFirstStep}></Route>
             <Route exact path="/order-second-step" name="Order Second step" component={OrderSecondStep}></Route>
             <Route exact path="/home" name="type" component={Home}></Route>
-            <Route exact path="/checkout" name="type" component={Checkout}></Route>
+            <Route exact path="/checkout" name="checkoutName" component={Checkout}></Route>
             <Route exact path="/logout" name="type" component={Logout}></Route>
             <Route path="/pending-orders" name="Pending orders"  component={PendingOrders}></Route>
         </div>

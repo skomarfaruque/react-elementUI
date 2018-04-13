@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SiteLayout from './Layout'
+import PropTypes from 'prop-types'
 import { Button, Radio, Notification, Input  } from 'element-react'
 
-class OrderSecondStep extends React.Component{
+class Checkout extends React.Component{
   constructor (props) {
     super(props)
     this.state = {
-      totalPrice: 0,
+      grandTotalPrice: this.props.cartItem.cartItems.length,
       tempProduct: this.props.cartItem.tempProduct,
       allconfig: [],
       quantity: 1,
@@ -62,11 +63,33 @@ class OrderSecondStep extends React.Component{
       }]
     }
   }
+  async componentWillReceiveProps (props) {
+    if (props.cartItem.cartItems.length) {
+      let grandTotalPrice = 0
+      let grandTotal = await props.cartItem.cartItems.map(p=> {
+        grandTotalPrice += p.quantity * p.totalPrice
+      })
+      this.setState({grandTotalPrice})
+    } else {
+      this.context.router.history.push('order-first-step')
+    }
+   
+  }
   async componentWillMount () {
     document.title = "Checkout"
+    console.log(this.props)
+    await this.upateGrandTotalPrice()
   }
   async componentDidMount () {
    console.log(this.props)
+   await this.upateGrandTotalPrice()
+  }
+  async upateGrandTotalPrice () {
+    let grandTotalPrice = 0
+    let grandTotal = await this.props.cartItem.cartItems.map(p=> {
+      grandTotalPrice += p.quantity * p.totalPrice
+    })
+    this.setState({grandTotalPrice})
   }
   onChange(key, value) {
     this.setState({
@@ -99,65 +122,102 @@ class OrderSecondStep extends React.Component{
     return (
       <SiteLayout>
         <div className="columns marginTop marginLeft is-mobile" key="ck">
-          <div className="column is-4 home-screen">
+          <div className="column is-4 home-screen" >
             <div className="columns">
               <Input placeholder="Phone number"  value={this.state.phone} type="number"/>
             </div>
             <div className="columns is-mobile">
               <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Check</Button>
             </div>
-            <div className="columns marginTop is-mobile">
-              <nav className="panel history">
-                <p className="panel-heading">
-                  <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
-                </p>
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
-                    <div className="column is-8">
-                      <div className="columns has-text-weight-bold">Lemon Tea</div>
-                      <div className="columns">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+            <div className="columns marginTop is-mobile" style={{height: '15rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
+              <span>
+              <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
+                <nav className="panel history">
+                  <p className="panel-heading">
+                    <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
+                  </p>
+                  <div className="panel-block">
+                    <div className="columns marginTopBottom ">
+                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
+                      <div className="column is-8">
+                        <div className="columns has-text-weight-bold">Lemon Tea</div>
+                        <div className="columns">
+                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                        </div>
                       </div>
+                      <div className="column is-2">80Tk</div>
                     </div>
-                    <div className="column is-2">80Tk</div>
                   </div>
-                </div>
-                <div className="panel-block">
-                  <div className="columns marginTopBottom">
-                    <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
-                    <div className="column is-8">
-                      <div className="columns has-text-weight-bold">Lemon Tea</div>
-                      <div className="columns">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                  <div className="panel-block">
+                    <div className="columns marginTopBottom">
+                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
+                      <div className="column is-8">
+                        <div className="columns has-text-weight-bold">Lemon Tea</div>
+                        <div className="columns">
+                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                        </div>
                       </div>
+                      <div className="column is-2">80Tk</div>
                     </div>
-                    <div className="column is-2">80Tk</div>
                   </div>
-                </div>
-                <div className="panel-block">
-                  <div className="columns marginTopBottom">
-                    <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
-                    <div className="column is-8">
-                      <div className="columns has-text-weight-bold">Lemon Tea</div>
-                      <div className="columns">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                  <div className="panel-block">
+                    <div className="columns marginTopBottom">
+                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
+                      <div className="column is-8">
+                        <div className="columns has-text-weight-bold">Lemon Tea</div>
+                        <div className="columns">
+                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                        </div>
                       </div>
+                      <div className="column is-2">80Tk</div>
                     </div>
-                    <div className="column is-2">80Tk</div>
                   </div>
-                </div>
-          
-              </nav>
-            </div>
-            <div className="columns marginTop">
-              <nav className="panel history">
-                <p className="panel-heading">
-                  <span>12-12-2017</span><span className="marginLeft">TONG123</span>
-                </p>
-                <div className="panel-block">
-                </div>
-              </nav>
+                </nav>
+              </div>
+              <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
+                <nav className="panel history">
+                  <p className="panel-heading">
+                    <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
+                  </p>
+                  <div className="panel-block">
+                    <div className="columns marginTopBottom ">
+                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
+                      <div className="column is-8">
+                        <div className="columns has-text-weight-bold">Lemon Tea</div>
+                        <div className="columns">
+                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                        </div>
+                      </div>
+                      <div className="column is-2">80Tk</div>
+                    </div>
+                  </div>
+                  <div className="panel-block">
+                    <div className="columns marginTopBottom">
+                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
+                      <div className="column is-8">
+                        <div className="columns has-text-weight-bold">Lemon Tea</div>
+                        <div className="columns">
+                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                        </div>
+                      </div>
+                      <div className="column is-2">80Tk</div>
+                    </div>
+                  </div>
+                  <div className="panel-block">
+                    <div className="columns marginTopBottom">
+                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
+                      <div className="column is-8">
+                        <div className="columns has-text-weight-bold">Lemon Tea</div>
+                        <div className="columns">
+                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                        </div>
+                      </div>
+                      <div className="column is-2">80Tk</div>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+              </span>
             </div>
           </div>
           <div className="column is-4 home-screen">
@@ -171,7 +231,7 @@ class OrderSecondStep extends React.Component{
           </div>
           <div className="column is-4  home-screen">
             <div className="columns">
-              <Input disabled placeholder="Amount" value="78Tk"/>
+              <Input disabled placeholder="Amount" value={this.state.grandTotalPrice}/>
             </div>
           </div>
         </div>
@@ -185,6 +245,9 @@ class OrderSecondStep extends React.Component{
     )
   }
 }
+Checkout.contextTypes = {
+  router: PropTypes.func.isRequired
+}
 const mapStateToProps = state => ({
   cartItem: state.cart,
   customerPhone: state.cus.phone
@@ -193,4 +256,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   cart: (cartItems) => dispatch({ type: 'cartItems', cartItems }),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(OrderSecondStep)
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
