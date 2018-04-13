@@ -177,9 +177,9 @@ class OrderSecondStep extends React.Component{
         <div className="columns is-multiline is-mobile" key="adons">
           {displayAdons}
         </div>
-        <div className="columns">
+        <div className="columns" style={{position: 'fixed', bottom: '.1rem', width:'100%'}}>
           <div className="column">
-            <button className="button is-info is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this, 2)}>Add & Go Back</button>
+            <button className="button is-warning is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this, 2)}>Add & Go Back</button>
           </div>
           <div className="column">
             <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this, 1)}>Add to Cart</button>
