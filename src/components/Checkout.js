@@ -66,7 +66,7 @@ class Checkout extends React.Component{
   async componentWillReceiveProps (props) {
     if (props.cartItem.cartItems.length) {
       let grandTotalPrice = 0
-      let grandTotal = await props.cartItem.cartItems.map(p=> {
+      let grandTotal = await props.cartItem.cartItems.map( p => {
         grandTotalPrice += p.quantity * p.totalPrice
       })
       this.setState({grandTotalPrice})
