@@ -16,6 +16,7 @@ class Checkout extends React.Component{
       paymentType: 'cash',
       cardNumber: '',
       loadingButton: false,
+      orderActive: true,
       phone: this.props.customerPhone || '',
       columns: [
         {
@@ -67,6 +68,7 @@ class Checkout extends React.Component{
     }
   }
   async componentWillReceiveProps (props) {
+    console.log(props)
     if (props.cartItem.cartItems.length) {
       let grandTotalPrice = 0
       let grandTotal = await props.cartItem.cartItems.map( p => {
@@ -74,7 +76,11 @@ class Checkout extends React.Component{
       })
       this.setState({grandTotalPrice})
     } else {
-      this.context.router.history.push('order-first-step')
+      if (this.state.orderActive) {
+        this.context.router.history.push('order-first-step')
+      } else {
+        this.context.router.history.push('home')
+      }
     }
   }
   async componentDidMount () {
@@ -132,6 +138,7 @@ class Checkout extends React.Component{
     })
     console.log('finaldispatch', postObj)
     // once order is finished
+    this.setState({orderActive: false})
     await this.props.removeAll();
     this.setState({loadingButton: false})
   }

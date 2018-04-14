@@ -55,7 +55,6 @@ class Login extends React.Component{
   }
   async login () {
     let body = JSON.stringify({UserName: this.state.form.userName, Password: this.state.form.password})
-    console.log(body)
     let res = await fetch(`http://52.14.91.110:8080/admin/login`, {
       method: 'POST',
       headers: {

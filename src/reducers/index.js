@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 const initialAuthState = { token: '', isLoggedIn: false };
-const customerInfo = { phone: ''}
+const customerInfo = { phone: '', userType: '', history: []}
 const initialCart = { 
   product: [],
   tempProduct: '',
@@ -21,9 +21,9 @@ function auth(state = initialAuthState, action) {
 function cus(state = customerInfo, action) {
   switch (action.type) {
     case 'StoreCus':
-      return { ...state, phone: action.phone }
+      return { ...state, phone: action.value.phone, userType: action.value.userType, history: action.value.history }
     case 'removeCustomer':
-      return { ...state, phone: ''}
+      return { ...state, phone: '', userType: '', history: []}
     default:
       return state;
   }

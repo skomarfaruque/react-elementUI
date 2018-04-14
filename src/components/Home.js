@@ -15,15 +15,29 @@ class Home extends React.Component{
   componentDidMount () {
     console.log(this.props)
   }
-
   onChange(key, value) {
     this.setState({
       [key]: value
     })
   }
   async startBooking () {
-    await this.props.cus(this.state.phone)
-    this.props.history.push(`${this.state.customerType === 'New' ? '/order-first-step': 'customer-history'}`)
+    let body = JSON.stringify({PhoneNumber: this.state.phone})
+    let res = await fetch(`http://52.14.91.110:8080/admin/lookup`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body
+    })
+    let result = await res.json()
+    await this.props.cus(result)
+    if (result.userType === 1) {
+      await this.props.history.push('/order-first-step')
+    } else {
+      console.log('Old customer')
+      console.log(this.props)
+    }
   }
 
   render () {
@@ -189,9 +203,9 @@ class Home extends React.Component{
   }
 }
 const mapStateToProps = state => ({
-  customerPhone: state.cus.phone
+  customerData: state.cus
 })
 const mapDispatchToProps = dispatch => ({
-  cus: (phone) => dispatch({ type: 'StoreCus', phone }),
+  cus: (value) => dispatch({ type: 'StoreCus', value }),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
