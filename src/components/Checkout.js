@@ -73,13 +73,7 @@ class Checkout extends React.Component{
     } else {
       this.context.router.history.push('order-first-step')
     }
-   
   }
-  // async componentWillMount () {
-  //   document.title = "Checkout"
-  //   console.log(this.props)
-  //   await this.upateGrandTotalPrice()
-  // }
   async componentDidMount () {
   document.title = "Checkout"
    console.log(this.props)

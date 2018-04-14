@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Input, Notification } from 'element-react'
+import { Button, Form, Input, Notification, Message } from 'element-react'
 import { connect } from 'react-redux'
 import 'element-theme-default'
 class Login extends React.Component{
@@ -74,14 +74,14 @@ class Login extends React.Component{
     }
   }
   errorNotification() {
-    Notification({
+    Message({
       title: 'Error',
       message: 'Login Failed',
       type: 'error'
     });
   }
   successNotification() {
-    Notification({
+    Message({
       title: 'Success',
       message: 'Login success',
       type: 'success'

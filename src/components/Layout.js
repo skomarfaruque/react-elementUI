@@ -32,27 +32,13 @@ class Layout extends React.Component {
     this.setPosition = this.setPosition.bind(this)
     this.setNoOverlay = this.setNoOverlay.bind(this)
   }
-  // async componentWillMount () {
-  //   document.documentElement.webkitRequestFullscreen()
-  //   if (!this.props.isLoggedIn) {
-  //     this.context.router.history.push('/')
-  //   }
-    
-  // }
   async componentDidMount () {
     if (!this.props.isLoggedIn) {
       this.context.router.history.push('/')
     }
    await this.upateGrandTotalPrice()
-  //  if (!document.fullscreenElement) {
-  //    document.documentElement.webkitRequestFullscreen()
-  //  }
   }
-  // componentDidUpdate() {
-  //   if (!document.fullscreenElement) {
-  //     document.documentElement.webkitRequestFullscreen()
-  //   }
-  // }
+
   setPosition(e) {
     this.setState({position: e.target.value});
   }
