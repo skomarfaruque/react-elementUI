@@ -13,7 +13,7 @@ class Home extends React.Component{
     }
   }
   componentDidMount () {
-    console.log(this.props)
+    console.log('homedata', this.props)
   }
   onChange(key, value) {
     this.setState({
@@ -21,6 +21,9 @@ class Home extends React.Component{
     })
   }
   async startBooking () {
+    if (!this.state.phone) {
+      await this.props.history.push('/order-first-step')
+    }
     let body = JSON.stringify({PhoneNumber: this.state.phone})
     let res = await fetch(`http://52.14.91.110:8080/admin/lookup`, {
       method: 'POST',

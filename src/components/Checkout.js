@@ -68,7 +68,6 @@ class Checkout extends React.Component{
     }
   }
   async componentWillReceiveProps (props) {
-    console.log(props)
     if (props.cartItem.cartItems.length) {
       let grandTotalPrice = 0
       let grandTotal = await props.cartItem.cartItems.map( p => {
