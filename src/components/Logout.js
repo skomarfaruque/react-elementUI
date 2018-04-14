@@ -10,6 +10,7 @@ class Logout extends React.Component{
   componentDidMount () {
     this.props.removeAll()
     this.props.logOut()
+    this.props.removeCustomer()
     this.props.history.push('/')
   }
   
@@ -25,6 +26,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logOut: (token) => dispatch({ type: 'Logout', token }),
   removeAll: (index) => dispatch({ type: 'removeAll', index }),
+  removeCustomer: (index) => dispatch({ type: 'removeCustomer', index })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Logout);  

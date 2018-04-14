@@ -26,11 +26,11 @@ class Layout extends React.Component {
         totalPrice: 0,
         isFull: true
     }
-    this.toggleDrawer = this.toggleDrawer.bind(this);
-    this.closeDrawer = this.closeDrawer.bind(this);
-    this.onDrawerClose = this.onDrawerClose.bind(this);
-    this.setPosition = this.setPosition.bind(this);
-    this.setNoOverlay = this.setNoOverlay.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this)
+    this.closeDrawer = this.closeDrawer.bind(this)
+    this.onDrawerClose = this.onDrawerClose.bind(this)
+    this.setPosition = this.setPosition.bind(this)
+    this.setNoOverlay = this.setNoOverlay.bind(this)
   }
   // async componentWillMount () {
   //   document.documentElement.webkitRequestFullscreen()

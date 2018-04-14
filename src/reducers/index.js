@@ -22,8 +22,8 @@ function cus(state = customerInfo, action) {
   switch (action.type) {
     case 'StoreCus':
       return { ...state, phone: action.phone }
-    case 'UpdateCus':
-      return { ...state, token: '', isLoggedIn: false }
+    case 'removeCustomer':
+      return { ...state, phone: ''}
     default:
       return state;
   }
