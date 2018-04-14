@@ -16,7 +16,7 @@ const app = document.getElementById('spring-it')
 render(
     <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-    <Router basename="/demo/">
+    <Router>
         <div>
             <Route exact path="/" name="Login" component={Login}></Route>
             <Route exact path="/order-first-step" name="Order first step" component={OrderFirstStep}></Route>

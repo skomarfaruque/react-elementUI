@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Input } from 'element-react'
+import { Button, Form, Input, Notification } from 'element-react'
 import { connect } from 'react-redux'
 import 'element-theme-default'
 class Login extends React.Component{
@@ -38,25 +38,55 @@ class Login extends React.Component{
       }
     };
   }
-  // componentWillMount () {
-  //   document.title = "Login"
-  // }
+
   
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
   
-    this.refs.form.validate((valid) => {
+    await this.refs.form.validate(async (valid) => {
       if (valid) {
-        let token = this.state.form.userName
-        this.props.login(token);
-        this.props.history.push("/home")
+        await this.login()
+        
       } else {
         console.log('error submit!!')
         return false;
       }
     });
   }
-  
+  async login () {
+    let body = JSON.stringify({UserName: this.state.form.userName, Password: this.state.form.password})
+    console.log(body)
+    let res = await fetch(`http://52.14.91.110:8080/admin/login`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body
+    })
+    let result = await res.json()
+    if (result.status === 200) {
+      this.successNotification()
+      await this.props.login(result.user.id)
+      this.props.history.push("/home")
+    } else if (result.status === 400) {
+      this.errorNotification()
+    }
+  }
+  errorNotification() {
+    Notification({
+      title: 'Error',
+      message: 'Login Failed',
+      type: 'error'
+    });
+  }
+  successNotification() {
+    Notification({
+      title: 'Success',
+      message: 'Login success',
+      type: 'success'
+    });
+  }
   handleReset(e) {
     e.preventDefault();
     this.refs.form.resetFields()

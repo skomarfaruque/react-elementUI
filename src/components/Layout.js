@@ -44,15 +44,15 @@ class Layout extends React.Component {
       this.context.router.history.push('/')
     }
    await this.upateGrandTotalPrice()
-   if (!document.fullscreenElement) {
-     document.documentElement.webkitRequestFullscreen()
-   }
+  //  if (!document.fullscreenElement) {
+  //    document.documentElement.webkitRequestFullscreen()
+  //  }
   }
-  componentDidUpdate() {
-    if (!document.fullscreenElement) {
-      document.documentElement.webkitRequestFullscreen()
-    }
-  }
+  // componentDidUpdate() {
+  //   if (!document.fullscreenElement) {
+  //     document.documentElement.webkitRequestFullscreen()
+  //   }
+  // }
   setPosition(e) {
     this.setState({position: e.target.value});
   }
