@@ -404,7 +404,8 @@ class Layout extends React.Component {
           <div className="panel list-group">
             <Link className="panel-block list-group-item is-primary" to ="/home">Home</Link>
             <Link className="panel-block list-group-item is-primary" to ="/order-first-step">Product</Link>
-            <Link className="panel-block list-group-item is-primary" to ="/pending-orders">Orders</Link>
+            <Link className="panel-block list-group-item is-primary" to ="/orders">Orders</Link>
+            <Link className="panel-block list-group-item is-primary" to ="/pending-orders">Pending Orders</Link>
             <Link className="panel-block list-group-item is-primary" to ="/logout">Logout</Link>
           </div>
         </ReactDrawer>

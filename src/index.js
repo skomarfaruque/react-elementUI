@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 import OrderFirstStep from './components/OrderFirstStep'
 import OrderSecondStep from './components/OrderSecondStep'
 import Login from './components/Login'
+import Orders from './components/Orders'
 import PendingOrders from './components/PendingOrders'
 import Home from './components/Home'
 import Checkout from './components/Checkout'
@@ -24,6 +25,7 @@ render(
             <Route exact path="/home" name="type" component={Home}></Route>
             <Route exact path="/checkout" name="checkoutName" component={Checkout}></Route>
             <Route exact path="/logout" name="type" component={Logout}></Route>
+            <Route path="/orders" name="orders"  component={Orders}></Route>
             <Route path="/pending-orders" name="Pending orders"  component={PendingOrders}></Route>
         </div>
     </Router>

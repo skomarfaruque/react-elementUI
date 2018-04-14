@@ -91,6 +91,12 @@
     height: 70px;
     font-size: 28px
   }
+  .pending-orders .customButton {
+    width: 100%;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
   .marginTop {
       margin-top: 1rem
   }
@@ -120,13 +126,23 @@
       margin-top:.5rem!important;
       margin-bottom: .5rem!important
   }
+  .pending-orders .marginTopBottom {
+      margin-top:.1rem!important;
+      margin-bottom: .1rem!important
+  }
   .marginLeftOrderId {
       margin-left: 1rem!important
+  }
+  .pending-orders .quantityCurve {
+      border: 1px solid #dbdbdb;
+      border-radius: .2rem;
+      padding: .4rem;
+      font-size: 1.25rem
   }
   .quantityCurve {
       border: 1px solid #dbdbdb;
       border-radius: .2rem;
-      padding: .4rem
+      padding: .4rem;
   }
   .panelMarginTop {
       margin-top: 4%!important
@@ -154,4 +170,7 @@
       position: fixed;
       bottom: .1rem;
       width: 100%
+  }
+  .fontSizeOneRem {
+      font-size: 1rem
   }
