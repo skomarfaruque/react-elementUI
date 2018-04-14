@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import SiteLayout from './Layout'
 import PropTypes from 'prop-types'
 import { Button, Radio, Notification, Input  } from 'element-react'
+import { isArray } from 'util'
 
 class Checkout extends React.Component{
   constructor (props) {
@@ -13,6 +14,8 @@ class Checkout extends React.Component{
       allconfig: [],
       quantity: 1,
       paymentType: 'cash',
+      cardNumber: '',
+      loadingButton: false,
       phone: this.props.customerPhone || '',
       columns: [
         {
@@ -75,8 +78,6 @@ class Checkout extends React.Component{
     }
   }
   async componentDidMount () {
-  document.title = "Checkout"
-   console.log(this.props)
    await this.upateGrandTotalPrice()
   }
   async upateGrandTotalPrice () {
@@ -91,9 +92,48 @@ class Checkout extends React.Component{
       [key]: value
     })
   }
-
-  async checkPreviousHistory () {
-    console.log('sd')
+  checkPreviousHistory () {
+    console.log('a')
+  }
+  async confirmOrder () {
+    this.setState({loadingButton: true})
+    let postObj = {
+      customerId: '12',
+      managerId: this.props.loggedUser.token,
+      paymentType: this.state.paymentType,
+      cardNumber: this.state.cardNumber,
+      grandTotal: this.state.grandTotalPrice,
+      products: []
+    }
+    await this.props.cartItem.cartItems.map( obj => {
+      let customProduct = {
+        productId: obj.tempProduct.ProductId, 
+        quantity: obj.quantity,
+        totalPrice: obj.totalPrice,
+        fingerPrint: obj.fingerPrint,
+        adons: []
+      }
+      for (var key in obj) { // loop the json object
+        if (obj.hasOwnProperty(key)) {
+          if (key !== 'totalPrice' && key !=='tempProduct' && key !=='allconfig' && key !== 'quantity' && key !== 'isFull'  && key !== 'fingerPrint') {
+            if (isArray(obj[key])) {
+              obj[key].map (dt => {
+                return customProduct.adons.push((dt).toString())
+              })
+            } else {
+              if (obj[key]) {
+                customProduct.adons.push((obj[key]).toString())
+              }
+            }
+          }
+        }
+      }
+      postObj.products.push(customProduct)
+    })
+    console.log('finaldispatch', postObj)
+    // once order is finished
+    await this.props.removeAll();
+    this.setState({loadingButton: false})
   }
   addNew () {
     console.log(this.props)
@@ -112,7 +152,7 @@ class Checkout extends React.Component{
 
 
   render () {
-    let cardInput = <div className="columns home-screen marginTop cardNumber is-mobile"><Input type="password" placeholder="Last 4 Digit"/></div>
+    let cardInput = <div className="columns home-screen marginTop cardNumber is-mobile"><Input type="password" value={this.state.cardNumber}  onChange={this.onChange.bind(this, 'cardNumber')} placeholder="Last 4 Digit"/></div>
     let cardNumber = this.state.paymentType === 'card' ? cardInput : ''
     return (
       <SiteLayout>
@@ -231,7 +271,7 @@ class Checkout extends React.Component{
           </div>
         </div>
         <div className="stickyConfirm">
-          <Button type="primary customButton" onClick={this.checkPreviousHistory.bind(this)}>Confirm</Button>
+          <Button type="primary customButton" loading={this.state.loadingButton} onClick={this.confirmOrder.bind(this)}>Confirm</Button>
         </div>
         <div className="stickyAddNew">
           <Button type="default customButton grayButton" onClick={this.addNew.bind(this)}>Add New</Button>
@@ -245,10 +285,12 @@ Checkout.contextTypes = {
 }
 const mapStateToProps = state => ({
   cartItem: state.cart,
-  customerPhone: state.cus.phone
+  customerPhone: state.cus.phone,
+  loggedUser: state.auth
 })
 
 const mapDispatchToProps = dispatch => ({
   cart: (cartItems) => dispatch({ type: 'cartItems', cartItems }),
+  removeAll: (index) => dispatch({ type: 'removeAll', index }),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

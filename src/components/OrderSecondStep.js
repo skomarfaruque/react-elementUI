@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import SiteLayout from './Layout';
+import React from 'react'
+import { connect } from 'react-redux'
+import SiteLayout from './Layout'
 
-import { Breadcrumb, Radio, Checkbox, Tag, Notification  } from 'element-react';
+import { Breadcrumb, Radio, Checkbox, Tag, Notification  } from 'element-react'
 
-import 'element-theme-default';
-import { isArray } from 'util';
-var crypto = require('crypto');
+import 'element-theme-default'
+import { isArray } from 'util'
+var crypto = require('crypto')
 class OrderSecondStep extends React.Component{
   constructor (props) {
     super(props);
@@ -87,7 +87,6 @@ class OrderSecondStep extends React.Component{
         }
       }
     }
-
     let price = []
     await objArr.map(async oData => {
       let conPrice = await this.state.allconfig.find(allData => {
