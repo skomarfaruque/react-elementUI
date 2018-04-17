@@ -67,7 +67,7 @@ class Checkout extends React.Component{
       }]
     }
   }
-  async getDerivedStateFromProps (props) {
+  async componentWillReceiveProps (props) {
     if (props.cartItem.cartItems.length) {
       let grandTotalPrice = 0
       let grandTotal = await props.cartItem.cartItems.map( p => {
