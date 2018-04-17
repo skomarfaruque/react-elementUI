@@ -115,7 +115,7 @@ class Login extends React.Component{
                   <Input type="password" placeholder="Password" value={this.state.form.password} onChange={this.onChange.bind(this, 'password')} autoComplete="off" />
                 </Form.Item>
                 <Form.Item>
-                  <Button type="primary" className="customButton" onClick={this.handleSubmit.bind(this)}>Login{this.props.isLoggedIn}</Button>
+                  <Button type="primary" className="customButton" onClick={this.handleSubmit.bind(this)}>Login</Button>
                 </Form.Item>
               </Form>
             </div>
