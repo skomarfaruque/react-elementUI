@@ -67,10 +67,11 @@ class OrderSecondStep extends React.Component{
       this.props.history.push('order-first-step')
     } else if (type === 3) {
       this.props.history.push('checkout')
+    } else {
+      console.log('same page')
     }
     this.successNotification()
   }
-
   async priceCalculation () {
     let objArr = []
     let obj = this.state
@@ -135,7 +136,7 @@ class OrderSecondStep extends React.Component{
         return (<div className="column is-3" key={data.ConfigurationName+ key}>
         <span className="has-text-link" style={{fontWeight: 'bold'}}>{data.ConfigurationName}</span>
             {
-              <Checkbox.Group   className="orderSecond" size="large" onChange={this.onChange.bind(this, data.ConfigurationName)}>
+              <Checkbox.Group className="orderSecond" size="large" value={this.state[data.ConfigurationName] || []} onChange={this.onChange.bind(this, data.ConfigurationName)}>
                 {
                   adonsData.map ((adonInfo,aKey) => {
                     return <Checkbox.Button key={adonInfo.adons.Title+aKey} value={adonInfo.id} label={adonInfo.adons.Title + ' +' +adonInfo.adons.Price + 'Tk'}>hello</Checkbox.Button>
