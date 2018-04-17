@@ -110,7 +110,7 @@ class Login extends React.Component{
               <Form ref="form" label-position="top" model={this.state.form} rules={this.state.rules}>
                 <Form.Item prop="userName">
                   <Input type="text" placeholder="User name" value={this.state.form.userName} onChange={this.onChange.bind(this, 'userName')} autoComplete="off" />
-                </Form.Item>
+                </Form.Item> 
                 <Form.Item prop="password">
                   <Input type="password" placeholder="Password" value={this.state.form.password} onChange={this.onChange.bind(this, 'password')} autoComplete="off" />
                 </Form.Item>
