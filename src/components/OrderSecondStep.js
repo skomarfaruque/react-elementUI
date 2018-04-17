@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import SiteLayout from './Layout'
 
-import { Breadcrumb, Radio, Checkbox, Tag, Notification  } from 'element-react'
+import { Breadcrumb, Radio, Checkbox, Tag, Notification, Message  } from 'element-react'
 
 import 'element-theme-default'
 import { isArray } from 'util'
@@ -108,7 +108,7 @@ class OrderSecondStep extends React.Component{
     this.props.history.push(val);
   }
   successNotification() {
-    Notification({
+    Message({
       title: 'Success',
       message: 'Item is added to cart',
       type: 'success'

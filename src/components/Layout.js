@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Link } from "react-router-dom"
-import { Badge, Button, InputNumber, Checkbox, Radio, Notification, MessageBox } from 'element-react'
+import { Badge, Button, InputNumber, Checkbox, Radio, Notification, MessageBox, Message } from 'element-react'
 import { connect } from 'react-redux'
 import ReactDrawer from 'react-drawer'
 import 'react-drawer/lib/react-drawer.css'
@@ -66,6 +66,9 @@ class Layout extends React.Component {
       await this.props.cart(key)
       await this.upateGrandTotalPrice()
       this.successNotification("Removed from cart")
+      if (this.props.cartItem.cartItems.length === 0) {
+        this.context.router.history.push('home')
+      }
     }).catch(() => {
     });
   }
@@ -187,7 +190,6 @@ class Layout extends React.Component {
   
   }
   async updateCartItem () {
-    let d = {hello: 12}
     // let activeCart = await Object.assign({},this.state.activeCartItem) 
     let finalIteration = await Object.assign({},this.state.activeCartItem, this.state)
     delete finalIteration.activeCartItem
@@ -214,7 +216,8 @@ class Layout extends React.Component {
     }
   }
   successNotification(msg) {
-    Notification({
+    console.log(msg)
+    Message({
       title: 'Success',
       message: msg,
       type: 'success'
@@ -337,7 +340,7 @@ class Layout extends React.Component {
           <div className="modal-card" style={{width: '95%'}}>
             <header className="modal-card-head">
               <p className="modal-card-title"><span className="has-text-left">Cart Summary</span></p>
-              <span className="has-text-right">Total Cost: {this.state.grandTotalPrice}Tk</span>
+              <p className="modal-card-title has-text-left">Total Cost: {this.state.grandTotalPrice} Tk</p>
               <button className="delete" aria-label="close" onClick={() => {this.setState({showModal: false})}}></button>
             </header>
             <section className="modal-card-body">
@@ -358,7 +361,7 @@ class Layout extends React.Component {
             <div className="modal-card" style={{width: '95%'}}>
               <header className="modal-card-head">
                 <p className="modal-card-title"><span className="has-text-left">Update Screen</span></p>
-                <span className="has-text-right">Total Cost: {this.state.totalPrice}Tk</span>
+                <p className="modal-card-title has-text-left">Total Cost: {this.state.totalPrice} Tk</p>
                 <button className="delete" aria-label="close" onClick={() => {this.setState({updateModal: false, showModal: true})}}></button>
               </header>
               <section className="modal-card-body">
