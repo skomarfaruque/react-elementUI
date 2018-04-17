@@ -66,7 +66,7 @@ class Layout extends React.Component {
       await this.props.cart(key)
       await this.upateGrandTotalPrice()
       this.successNotification("Removed from cart")
-      if (this.props.cartItem.cartItems.length === 0) {
+      if (this.props.cartItem.cartItems.length === 0 ) {
         this.context.router.history.push('home')
       }
     }).catch(() => {
