@@ -9,7 +9,8 @@ class Home extends React.Component{
     super(props)
     this.state = {
       customerType: 'New',
-      phone: this.props.customerPhone || ''
+      phone: this.props.customerPhone || '',
+      userType: 1 // 1 means new user 2 means existing user
     }
   }
   componentDidMount () {
@@ -21,7 +22,7 @@ class Home extends React.Component{
     })
   }
   async startBooking () {
-    if (!this.state.phone) {
+    if (!this.state.phone || this.state.userType !== 1) {
       await this.props.history.push('/order-first-step')
     }
     let body = JSON.stringify({PhoneNumber: this.state.phone})
@@ -36,10 +37,10 @@ class Home extends React.Component{
     let result = await res.json()
     await this.props.cus(result)
     if (result.userType === 1) {
+      await this.setState({userType: 1})
       await this.props.history.push('/order-first-step')
     } else {
-      console.log('Old customer')
-      console.log(this.props)
+      this.setState({userType: 2})
     }
   }
 
@@ -81,9 +82,12 @@ class Home extends React.Component{
             <div className="columns home-screen marginTop">
               <Input placeholder="Phone number" type="number" value={this.state.phone} onChange={this.onChange.bind(this, 'phone')}/>
             </div>
-            <div className="columns marginTop">
+            { this.state.userType === 1 ? (<div className="columns marginTop">
               <Button type="primary"  style={styles.submitButton} onClick={this.startBooking.bind(this)}>Next</Button>
-            </div>
+            </div>) : ( <div className="columns marginTop">
+              <Button type="primary"  style={styles.submitButton} onClick={this.startBooking.bind(this)}>New order</Button>
+            </div>)}
+           
           </div>
           <div className="column is-8" style={{height: '30rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
             <div className="columns marginTop marginLeft is-mobile">
