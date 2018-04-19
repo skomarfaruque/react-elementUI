@@ -146,8 +146,44 @@ class PendingOrders extends React.Component{
                 </div>
               </nav>
             </div>
-
-    
+            <div className="columns marginTop is-mobile">
+              <nav className="panel history">
+                <p className="panel-heading">
+                  <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
+                </p>
+                <div className="panel-block">
+                  <div className="columns marginTopBottom ">
+                    <div className="column is-1 has-text-weight-semibold" >
+                      <span className="quantityCurve">6</span>
+                    </div>
+                    <div className="column is-5" >
+                      <div className="columns has-text-weight-bold fontSizeOneRem">Lemon Tea</div>
+                      <div className="columns fontSizeOneRem">
+                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                      </div>
+                    </div>
+                    <div className="column is-3"><Button size="small customButton" type="warning">IN PROGRESS</Button></div>
+                    <div className="column is-3"><Button size="small customButton" type="success">DONE</Button></div>
+                  </div>
+                </div>
+              
+                <div className="panel-block">
+                  <div className="columns marginTopBottom ">
+                    <div className="column is-1 has-text-weight-semibold" >
+                      <span className="quantityCurve">6</span>
+                    </div>
+                    <div className="column is-5" >
+                      <div className="columns has-text-weight-bold fontSizeOneRem">Lemon Tea</div>
+                      <div className="columns fontSizeOneRem">
+                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                      </div>
+                    </div>
+                    <div className="column is-3"><Button size="small customButton" type="warning">IN PROGRESS</Button></div>
+                    <div className="column is-3"><Button size="small customButton" type="success">DONE</Button></div>
+                  </div>
+                </div>
+              </nav>
+            </div>
           </div>
         </div>
     
