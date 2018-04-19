@@ -120,7 +120,8 @@ class Home extends React.Component{
     
   }
   async startBooking () {
-    if (!this.state.phone || this.state.userType !== 1) {
+    if (!this.state.phone) {
+      await await this.props.removeCustomer()
       return await this.props.history.push('/order-first-step')
     }
     let body = JSON.stringify({PhoneNumber: this.state.phone})
