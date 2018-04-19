@@ -67,10 +67,11 @@ class Layout extends React.Component {
       await this.upateGrandTotalPrice()
       this.successNotification("Removed from cart")
       if (this.props.cartItem.cartItems.length === 0 ) {
+        this.setState({showModa: false})
         this.context.router.history.push('home')
       }
     }).catch(() => {
-    });
+    })
   }
   clearAll () {
     MessageBox.confirm('Would you like to Continue?', 'Confirmation', {
