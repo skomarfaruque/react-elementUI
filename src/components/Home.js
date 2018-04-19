@@ -17,7 +17,9 @@ class Home extends React.Component{
     }
   }
   componentDidMount () {
-    console.log('p', this.props)
+    if (this.state.userType === 2) {
+      this.setState({customerType: 'Old'})
+    }
   }
   onChange(key, value) {
     this.setState({
@@ -136,7 +138,14 @@ class Home extends React.Component{
       await this.setState({userType: 1})
       await this.props.history.push('/order-first-step')
     } else {
-      this.setState({userType: 2})
+      this.setState({userType: 2, customerType: 'Old'})
+    }
+  }
+  async customerChange (val) {
+    await this.setState({customerType: val})
+    if (this.state.customerType === 'New') {
+      await this.props.removeCustomer(val)
+      this.setState({userType: 1})
     }
   }
 
@@ -199,7 +208,7 @@ class Home extends React.Component{
         <div className="columns">
           <div className="column is-4">
             <div className="columns marginTop">
-              <Radio.Group size="large" value={this.state.customerType} onChange={this.onChange.bind(this, 'customerType')} className="homeScreen">
+              <Radio.Group size="large" value={this.state.customerType} onChange={this.customerChange.bind(this)} className="homeScreen">
                 <Radio.Button value="New" />
                 <Radio.Button value="Old" />
               </Radio.Group>
@@ -229,5 +238,6 @@ const mapDispatchToProps = dispatch => ({
   cus: (value) => dispatch({ type: 'StoreCus', value }),
   cart: (cartItems) => dispatch({ type: 'cartItems', cartItems }),
   updateQuantityCart: (data) => dispatch({ type: 'updateQuantityCart', data }),
+  removeCustomer: (index) => dispatch({ type: 'removeCustomer', index })
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
