@@ -9,24 +9,33 @@ class Home extends React.Component{
     super(props)
     this.state = {
       customerType: 'New',
-      phone: this.props.customerPhone || '',
-      userType: 1 // 1 means new user 2 means existing user
+      phone: this.props.customerData.phone || '',
+      userType: this.props.customerData.userType || 1 // 1 means new user 2 means existing user
     }
   }
   componentDidMount () {
-    console.log('homedata', this.props)
+    console.log('homedata', process.env.REACT_APP_API_URL)
   }
   onChange(key, value) {
     this.setState({
       [key]: value
     })
   }
+  async changePhone (key, val) {
+    await this.setState({phone: val})
+    if (val) {
+      await this.startBooking()
+    } else {
+      this.setState({userType: 1})
+    }
+    
+  }
   async startBooking () {
     if (!this.state.phone || this.state.userType !== 1) {
       await this.props.history.push('/order-first-step')
     }
     let body = JSON.stringify({PhoneNumber: this.state.phone})
-    let res = await fetch(`http://52.14.91.110:8080/admin/lookup`, {
+    let res = await fetch(`${process.env.REACT_APP_API_URL}/lookup`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -66,11 +75,120 @@ class Home extends React.Component{
         fontSize: '28px'
       }
     }
+    let history = this.state.userType !== 1 ? 
+      <div className="column is-8" style={{height: '30rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
+      <div className="columns marginTop marginLeft is-mobile">
+        <nav className="panel history">
+          <p className="panel-heading">
+            <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
+          </p>
+          <div className="panel-block">
+            <div className="columns marginTopBottom ">
+              <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
+                <span className="quantityCurve">6</span>
+              </div>
+              <div className="column is-6" style={{marginTop: '1.2rem'}}>
+                <div className="columns has-text-weight-bold">Lemon Tea</div>
+                <div className="columns">
+                Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                </div>
+              </div>
+              <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
+              <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
+            </div>
+          </div>
+        
+          <div className="panel-block">
+            <div className="columns marginTopBottom ">
+              <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
+                <span className="quantityCurve">6</span>
+              </div>
+              <div className="column is-6" style={{marginTop: '1.2rem'}}>
+                <div className="columns has-text-weight-bold">Lemon Tea</div>
+                <div className="columns">
+                Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                </div>
+              </div>
+              <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
+              <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
+            </div>
+          </div>
+        
+          <div className="panel-block">
+            <div className="columns marginTopBottom ">
+              <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
+                <span className="quantityCurve">6</span>
+              </div>
+              <div className="column is-6" style={{marginTop: '1.2rem'}}>
+                <div className="columns has-text-weight-bold">Lemon Tea</div>
+                <div className="columns">
+                Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                </div>
+              </div>
+              <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
+              <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div className="columns marginTop marginLeft is-mobile">
+        <nav className="panel history">
+          <p className="panel-heading">
+            <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
+          </p>
+          <div className="panel-block">
+            <div className="columns marginTopBottom ">
+              <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
+                <span className="quantityCurve">6</span>
+              </div>
+              <div className="column is-6" style={{marginTop: '1.2rem'}}>
+                <div className="columns has-text-weight-bold">Lemon Tea</div>
+                <div className="columns">
+                Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                </div>
+              </div>
+              <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
+              <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
+            </div>
+          </div>
+        
+          <div className="panel-block">
+            <div className="columns marginTopBottom ">
+              <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
+                <span className="quantityCurve">6</span>
+              </div>
+              <div className="column is-6" style={{marginTop: '1.2rem'}}>
+                <div className="columns has-text-weight-bold">Lemon Tea</div>
+                <div className="columns">
+                Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                </div>
+              </div>
+              <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
+              <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
+            </div>
+          </div>
+        
+          <div className="panel-block">
+            <div className="columns marginTopBottom ">
+              <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
+                <span className="quantityCurve">6</span>
+              </div>
+              <div className="column is-6" style={{marginTop: '1.2rem'}}>
+                <div className="columns has-text-weight-bold">Lemon Tea</div>
+                <div className="columns">
+                Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                </div>
+              </div>
+              <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
+              <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div> : ''
+    
     return (
       <SiteLayout>
-        <Breadcrumb separator="/">
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-        </Breadcrumb>
         <div className="columns">
           <div className="column is-4">
             <div className="columns marginTop">
@@ -80,7 +198,7 @@ class Home extends React.Component{
               </Radio.Group>
             </div>
             <div className="columns home-screen marginTop">
-              <Input placeholder="Phone number" type="number" value={this.state.phone} onChange={this.onChange.bind(this, 'phone')}/>
+              <Input placeholder="Phone number" type="number" value={this.state.phone} onChange={this.changePhone.bind(this, 'phone')}/>
             </div>
             { this.state.userType === 1 ? (<div className="columns marginTop">
               <Button type="primary"  style={styles.submitButton} onClick={this.startBooking.bind(this)}>Next</Button>
@@ -89,120 +207,7 @@ class Home extends React.Component{
             </div>)}
            
           </div>
-          <div className="column is-8" style={{height: '30rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
-            <div className="columns marginTop marginLeft is-mobile">
-              <nav className="panel history">
-                <p className="panel-heading">
-                  <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
-                </p>
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-6" style={{marginTop: '1.2rem'}}>
-                      <div className="columns has-text-weight-bold">Lemon Tea</div>
-                      <div className="columns">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
-                    <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
-                  </div>
-                </div>
-              
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-6" style={{marginTop: '1.2rem'}}>
-                      <div className="columns has-text-weight-bold">Lemon Tea</div>
-                      <div className="columns">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
-                    <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
-                  </div>
-                </div>
-              
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-6" style={{marginTop: '1.2rem'}}>
-                      <div className="columns has-text-weight-bold">Lemon Tea</div>
-                      <div className="columns">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
-                    <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
-                  </div>
-                </div>
-              
-          
-              </nav>
-            </div>
-            <div className="columns marginTop marginLeft is-mobile">
-              <nav className="panel history">
-                <p className="panel-heading">
-                  <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
-                </p>
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-6" style={{marginTop: '1.2rem'}}>
-                      <div className="columns has-text-weight-bold">Lemon Tea</div>
-                      <div className="columns">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
-                    <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
-                  </div>
-                </div>
-              
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-6" style={{marginTop: '1.2rem'}}>
-                      <div className="columns has-text-weight-bold">Lemon Tea</div>
-                      <div className="columns">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
-                    <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
-                  </div>
-                </div>
-              
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" style={{marginTop: '1.5rem'}}>
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-6" style={{marginTop: '1.2rem'}}>
-                      <div className="columns has-text-weight-bold">Lemon Tea</div>
-                      <div className="columns">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-1" style={{marginTop: '1.5rem'}}>80Tk</div>
-                    <div className="column is-4"><Button size="small customButton" type="success">RE ORDER</Button></div>
-                  </div>
-                </div>
-              
-          
-              </nav>
-            </div>
-          </div>
+         {history}
         </div>
     
       </SiteLayout>

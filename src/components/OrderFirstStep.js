@@ -18,7 +18,7 @@ class OrderFirstStep extends React.Component{
   }
   async componentDidMount () {
     document.title = "Category & Products";
-    let res = await fetch(`http://52.14.91.110:8080/admin/product/list`, {
+    let res = await fetch(`${process.env.REACT_APP_API_URL}/product/list`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json'
