@@ -1,7 +1,7 @@
 import React from 'react'
 import SiteLayout from './Layout'
 import { connect } from 'react-redux'
-import { Button, Input, Radio, Layout, Breadcrumb } from 'element-react'
+import { Button, Input, Radio, Layout, Breadcrumb, Message } from 'element-react'
 import '../style.css'
 import 'element-theme-default'
 var crypto = require('crypto')
@@ -60,10 +60,19 @@ class Home extends React.Component{
     if (!matchedInCart) {
       let postObj = Object.assign(fingerPrint, this.state)
       await this.props.cart(postObj)
+      this.successNotification("Added to cart")
     } else {
       await this.props.updateQuantityCart({cryptoFingerPrint, quantity: matchedInCart.quantity + 1})
+      this.successNotification("Same product.Quantity updated in cart")
     }
 
+  }
+  successNotification(msg) {
+    Message({
+      title: 'Success',
+      message: msg,
+      type: 'success'
+    })
   }
   async priceCalculation () {
     let objArr = []

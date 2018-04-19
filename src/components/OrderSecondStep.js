@@ -112,7 +112,7 @@ class OrderSecondStep extends React.Component{
       title: 'Success',
       message: 'Item is added to cart',
       type: 'success'
-    });
+    })
   }
 
 

@@ -290,7 +290,6 @@ class Layout extends React.Component {
     })
     let product = this.state.activeTempProduct
     let displayAdons
-    console.log(this.state)
     if (product) {
       displayAdons = product.ProductDetails.map((data, key) => {
         let adonsData = []
