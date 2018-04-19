@@ -136,7 +136,6 @@ class Layout extends React.Component {
     if (typeof value === 'number') {
       value = Math.floor(value)
     } else {
-      console.log(value)
       value = this.props.cartItem.cartItems[key].quantity
     }
     let obj = {key, value}
@@ -216,7 +215,6 @@ class Layout extends React.Component {
     }
   }
   successNotification(msg) {
-    console.log(msg)
     Message({
       title: 'Success',
       message: msg,
@@ -292,6 +290,7 @@ class Layout extends React.Component {
     })
     let product = this.state.activeTempProduct
     let displayAdons
+    console.log(this.state)
     if (product) {
       displayAdons = product.ProductDetails.map((data, key) => {
         let adonsData = []
