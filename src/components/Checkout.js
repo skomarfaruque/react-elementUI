@@ -161,13 +161,20 @@ class Checkout extends React.Component{
       type: 'success'
     })
   }
+  errorNotification() {
+    Notification({
+      title: 'Error',
+      message: 'Wallet amount is low.',
+      type: 'error'
+    })
+  }
   walletUse (type) { // 1 means use wallet 2 means cancel wallet
     if (type === 1) {
-      if (this.state.customerWallet > this.state.grandTotalPrice) {
+      if (this.state.customerWallet >= this.state.grandTotalPrice) {
         let customerWallet = this.state.customerWallet - this.state.grandTotalPrice
         this.setState({customerWallet, usedWalletAmount: this.state.grandTotalPrice})
       } else {
-        this.setState({customerWallet: 0, usedWalletAmount: this.props.customerData.wallet})
+        return this.errorNotification()
       }
       this.setState(
         {
