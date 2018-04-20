@@ -164,7 +164,6 @@ class Checkout extends React.Component{
   walletUse (type) { // 1 means use wallet 2 means cancel wallet
     if (type === 1) {
       if (this.state.customerWallet > this.state.grandTotalPrice) {
-        // let paymentAmount = this.state.grandTotalPrice - this.state.customerWallet
         let customerWallet = this.state.customerWallet - this.state.grandTotalPrice
         this.setState({customerWallet, usedWalletAmount: this.state.grandTotalPrice})
       } else {
@@ -189,20 +188,24 @@ class Checkout extends React.Component{
       <SiteLayout>
         <div className="columns marginTop marginLeft is-mobile" key="ck">
           <div className="column is-4 home-screen" >
-            <div className="columns">
+          {this.props.customerData.id ? <div>  
+            <div className="columns is-mobile">
+              <label className="label">Customer Phone: {this.props.customerData.phone}</label>
+            </div>
+            <div className="columns is-mobile">
+              <label className="label">Wallet: {this.state.customerWallet} Tk</label>
+            </div>
+            {!this.state.useWallet ? <div className="columns is-mobile">
+              <Button type="warning customButton" onClick={this.walletUse.bind(this, 1)}>USE WALLET</Button>
+            </div>: ''}</div>: <div>  <div className="columns">
               <Input placeholder="Phone number"  value={this.state.phone} type="number"/>
             </div>
             <div className="columns is-mobile">
               <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Check</Button>
             </div>
-            <div className="columns is-mobile">
-              <p>Customer information</p>
-              <p>Customer Wallet: {this.state.customerWallet}</p>
-            </div>
-            {!this.state.useWallet ? <div className="columns is-mobile">
-              <Button type="warning customButton" onClick={this.walletUse.bind(this, 1)}>USE WALLET</Button>
-            </div>: ''}
-            
+          </div> }
+          
+{/*             
             <div className="columns marginTop is-mobile" style={{height: '15rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
               <span>
               <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
@@ -292,7 +295,7 @@ class Checkout extends React.Component{
                 </nav>
               </div>
               </span>
-            </div>
+            </div> */}
           </div>
           <div className="column is-4 home-screen">
             <div className="columns">

@@ -17,6 +17,7 @@ class Home extends React.Component{
     }
   }
   componentDidMount () {
+    console.log('p', this.props)
   }
   onChange(key, value) {
     this.setState({
@@ -118,7 +119,7 @@ class Home extends React.Component{
   }
   async startBooking () {
     if (!this.state.phone || this.state.userType !== 1) {
-      await this.props.history.push('/order-first-step')
+      return await this.props.history.push('/order-first-step')
     }
     let body = JSON.stringify({PhoneNumber: this.state.phone})
     let res = await fetch(`${process.env.REACT_APP_API_URL}/lookup`, {
