@@ -177,7 +177,7 @@ class Checkout extends React.Component{
         }
       )
     } else {
-      this.setState({useWallet: false, customerWallet: this.props.customerData.wallet})
+      this.setState({useWallet: false, customerWallet: this.props.customerData.wallet, usedWalletAmount: 0})
     }
   }
 
