@@ -13,11 +13,15 @@ class Checkout extends React.Component{
       tempProduct: this.props.cartItem.tempProduct,
       allconfig: [],
       quantity: 1,
+      useWallet: false,
+      usedWalletAmount: 0,
+      customerWallet: this.props.customerData.wallet,
+      payableAmount: 0,
       paymentType: 'cash',
       cardNumber: '',
       loadingButton: false,
       orderActive: true,
-      phone: this.props.customerPhone || '',
+      phone: this.props.customerData.phone || '',
       columns: [
         {
           type: 'expand',
@@ -83,6 +87,7 @@ class Checkout extends React.Component{
     }
   }
   async componentDidMount () {
+    console.log(this.props)
    await this.upateGrandTotalPrice()
   }
   async upateGrandTotalPrice () {
@@ -103,10 +108,11 @@ class Checkout extends React.Component{
   async confirmOrder () {
     this.setState({loadingButton: true})
     let postObj = {
-      customerId: '12',
+      customerId: this.props.customerData.id,
       managerId: this.props.loggedUser.token,
       paymentType: this.state.paymentType,
       cardNumber: this.state.cardNumber,
+      usedWalletAmount: this.state.usedWalletAmount,
       grandTotal: this.state.grandTotalPrice,
       products: []
     }
@@ -155,6 +161,25 @@ class Checkout extends React.Component{
       type: 'success'
     })
   }
+  walletUse (type) { // 1 means use wallet 2 means cancel wallet
+    if (type === 1) {
+      if (this.state.customerWallet > this.state.grandTotalPrice) {
+        // let paymentAmount = this.state.grandTotalPrice - this.state.customerWallet
+        let customerWallet = this.state.customerWallet - this.state.grandTotalPrice
+        this.setState({customerWallet, usedWalletAmount: this.state.grandTotalPrice})
+      } else {
+        this.setState({customerWallet: 0, usedWalletAmount: this.props.customerData.wallet})
+      }
+      this.setState(
+        {
+          useWallet: true,
+          payableAmount: (Number(this.state.grandTotalPrice) - Number(this.state.customerWallet))
+        }
+      )
+    } else {
+      this.setState({useWallet: false, customerWallet: this.props.customerData.wallet})
+    }
+  }
 
 
   render () {
@@ -170,6 +195,14 @@ class Checkout extends React.Component{
             <div className="columns is-mobile">
               <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Check</Button>
             </div>
+            <div className="columns is-mobile">
+              <p>Customer information</p>
+              <p>Customer Wallet: {this.state.customerWallet}</p>
+            </div>
+            {!this.state.useWallet ? <div className="columns is-mobile">
+              <Button type="warning customButton" onClick={this.walletUse.bind(this, 1)}>USE WALLET</Button>
+            </div>: ''}
+            
             <div className="columns marginTop is-mobile" style={{height: '15rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
               <span>
               <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
@@ -271,9 +304,26 @@ class Checkout extends React.Component{
              {cardNumber}
           </div>
           <div className="column is-4  home-screen">
-            <div className="columns">
+            {/* <div className="columns">
               <Input disabled placeholder="Amount" value={this.state.grandTotalPrice}/>
+            </div> */}
+            <div className="columns">
+              <div className="column">Total:</div>
+              <div className="column">{this.state.grandTotalPrice} Tk</div>
             </div>
+            {this.state.useWallet ? <div><div className="columns">
+              <div className="column">Wallet pay:</div>
+              <div className="column">{this.state.usedWalletAmount} Tk</div>
+            </div>
+            <div className="columns">
+              <div className="column">Payable:</div>
+              <div className="column">{this.state.payableAmount} Tk</div>
+            </div>
+            <div className="columns">
+            <Button type="danger customButton" onClick={this.walletUse.bind(this, 2)}>Cancel wallet</Button>
+            </div>
+            </div>: ''}
+           
           </div>
         </div>
         <div className="stickyConfirm">
@@ -291,7 +341,7 @@ Checkout.contextTypes = {
 }
 const mapStateToProps = state => ({
   cartItem: state.cart,
-  customerPhone: state.cus.phone,
+  customerData: state.cus,
   loggedUser: state.auth
 })
 

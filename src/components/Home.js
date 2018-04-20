@@ -59,6 +59,7 @@ class Home extends React.Component{
     })
     if (!matchedInCart) {
       let postObj = Object.assign(fingerPrint, this.state)
+      console.log('submitedobj', postObj)
       await this.props.cart(postObj)
       this.successNotification("Added to cart")
     } else {
