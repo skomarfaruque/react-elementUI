@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import SiteLayout from './Layout'
 import PropTypes from 'prop-types'
-import { Button, Radio, Notification, Input  } from 'element-react'
+import { Button, Radio, Notification, Input, Message  } from 'element-react'
 import { isArray } from 'util'
 
 class Checkout extends React.Component{
@@ -140,7 +140,7 @@ class Checkout extends React.Component{
     }
     await this.setState({orderActive: false})
     await this.props.removeAll()
-    this.successNotification("Order is placed successfully.")
+    this.successNotification(`Order is placed successfully.`)
     
   }
   addNew () {
@@ -151,14 +151,14 @@ class Checkout extends React.Component{
     this.props.history.push(val)
   }
   successNotification(msg) {
-    Notification({
+    Message({
       title: 'Success',
       message: msg,
       type: 'success'
     })
   }
   errorNotification(msg) {
-    Notification({
+    Message({
       title: 'Error',
       message: msg,
       type: 'error'
