@@ -63,17 +63,17 @@ class Checkout extends React.Component{
     if (!this.state.phone) {
       return await this.setState({phoneError: true})
     }
-    // let body = JSON.stringify({PhoneNumber: this.state.phone})
-    // let res = await fetch(`${process.env.REACT_APP_API_URL}/lookup`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body
-    // })
-    // let result = await res.json()
-    // await this.props.cus(result)
+    let body = JSON.stringify({PhoneNumber: this.state.phone})
+    let res = await fetch(`${process.env.REACT_APP_API_URL}/lookup`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body
+    })
+    let result = await res.json()
+    await this.props.cus(result)
     // if (result.userType === 1) {
     //   await this.setState({userType: 1})
     //   await this.props.history.push('/order-first-step')
@@ -337,5 +337,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   cart: (cartItems) => dispatch({ type: 'cartItems', cartItems }),
   removeAll: (index) => dispatch({ type: 'removeAll', index }),
+  cus: (value) => dispatch({ type: 'StoreCus', value }),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
