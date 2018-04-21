@@ -233,7 +233,7 @@ class Layout extends React.Component {
       let obj = cartData
       for (var akey in obj) { // loop the json object
         if (obj.hasOwnProperty(akey)) {
-          if (akey !== 'totalPrice' && akey !=='tempProduct' && akey !=='allconfig' && akey !== 'quantity') {
+          if (akey !== 'totalPrice' && akey !=='tempProduct' && akey !=='allconfig' && akey !== 'quantity' && akey !== 'userType') {
             let inserArray = {key: akey, values: []}
              /*eslint no-undef: "error"*/
             if (Array.isArray(obj[akey])) {
