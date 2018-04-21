@@ -18,6 +18,7 @@ class OrderSecondStep extends React.Component{
     }
   }
   async componentDidMount () {
+    console.log('second step', this.props)
     document.title = "Product details";
     let pro = this.props.cartItem.tempProduct
     let adonsData = []

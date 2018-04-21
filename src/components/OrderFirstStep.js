@@ -17,6 +17,7 @@ class OrderFirstStep extends React.Component{
     }
   }
   async componentDidMount () {
+    console.log('firststep', this.props)
     document.title = "Category & Products";
     let res = await fetch(`${process.env.REACT_APP_API_URL}/product/list`, {
       method: 'GET',

@@ -115,13 +115,16 @@ class Home extends React.Component{
     if (val) {
       await this.startBooking()
     } else {
-      this.setState({userType: 1})
+      await this.setState({userType: 1})
+      if (val === 1) {
+        await this.setState({phone: ''})
+      }
     }
     
   }
   async startBooking () {
     if (!this.state.phone) {
-      await await this.props.removeCustomer()
+      await this.props.removeCustomer()
       return await this.props.history.push('/order-first-step')
     }
     let body = JSON.stringify({PhoneNumber: this.state.phone})
@@ -142,11 +145,15 @@ class Home extends React.Component{
       this.setState({userType: 2, customerType: 'Old'})
     }
   }
+  newOrder () {
+    console.log(this.props)
+    this.props.history.push('/order-first-step')
+  }
   async customerChange (val) {
     await this.setState({customerType: val})
     if (this.state.customerType === 'New') {
       await this.props.removeCustomer(val)
-      this.setState({userType: 1})
+      this.setState({userType: 1, phone: ''})
     }
   }
 
@@ -220,7 +227,7 @@ class Home extends React.Component{
             { this.state.userType === 1 ? (<div className="columns marginTop">
               <Button type="primary"  style={styles.submitButton} onClick={this.startBooking.bind(this)}>Next</Button>
             </div>) : ( <div className="columns marginTop">
-              <Button type="primary"  style={styles.submitButton} onClick={this.startBooking.bind(this)}>New order</Button>
+              <Button type="primary"  style={styles.submitButton} onClick={this.newOrder.bind(this)}>New order</Button>
             </div>)}
            
           </div>
