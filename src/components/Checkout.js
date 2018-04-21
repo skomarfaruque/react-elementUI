@@ -134,9 +134,14 @@ class Checkout extends React.Component{
     let result = await res.json()
     console.log(result)
     // once order is finished
-    // this.setState({orderActive: false})
-    // await this.props.removeAll();
-    // this.setState({loadingButton: false})
+    this.setState({loadingButton: false})
+    if (result.status !== 200) {
+      return this.errorNotification("System error.Can not place order.")
+    }
+    await this.setState({orderActive: false})
+    await this.props.removeAll()
+    this.successNotification("Order is placed successfully.")
+    
   }
   addNew () {
     console.log(this.props)
@@ -145,17 +150,17 @@ class Checkout extends React.Component{
   breadCrumbAction (val) {
     this.props.history.push(val)
   }
-  successNotification() {
+  successNotification(msg) {
     Notification({
       title: 'Success',
-      message: 'Item is added to cart',
+      message: msg,
       type: 'success'
     })
   }
-  errorNotification() {
+  errorNotification(msg) {
     Notification({
       title: 'Error',
-      message: 'Wallet amount is low.',
+      message: msg,
       type: 'error'
     })
   }

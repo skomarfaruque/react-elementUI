@@ -33,4 +33,4 @@ render(
     </Provider>
     ,
   app)
-  registerServiceWorker()
+//   registerServiceWorker()
