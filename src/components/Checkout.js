@@ -188,7 +188,7 @@ class Checkout extends React.Component{
               <label className="label">Wallet: {this.state.customerWallet} Tk</label>
             </div>
            
-            <div className="columns marginTop is-mobile" style={{height: '15rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
+            <div className="columns marginTop is-mobile" style={{height: '22rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
               <span>
               <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
                 <nav className="panel history">
