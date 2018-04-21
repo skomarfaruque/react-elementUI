@@ -177,3 +177,7 @@
   .fontSizeOneRem {
       font-size: 1rem
   }
+  .home-card {
+    margin: '.1rem';
+    width: '24%'
+  }

@@ -1,13 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import SiteLayout from './Layout';
-import { Button, Card, Layout, Radio } from 'element-react';
-
-import 'element-theme-default';
-require('dotenv');
+import React from 'react'
+import { connect } from 'react-redux'
+import SiteLayout from './Layout'
+import { Button, Card, Layout, Radio } from 'element-react'
+import 'element-theme-default'
 class OrderFirstStep extends React.Component{
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       selectedCategory: 'All',
       image: 'https://eleme.github.io/element-react/50e4091cc60a.png',
@@ -17,9 +15,8 @@ class OrderFirstStep extends React.Component{
     }
   }
   async componentDidMount () {
-    console.log('firststep', this.props)
-    document.title = "Category & Products";
-    let res = await fetch(`${process.env.REACT_APP_API_URL}/product/list`, {
+    document.title = "Category & Products"
+    let res = await fetch(`${process.env.REACT_APP_API_URL}/product-list`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -62,7 +59,7 @@ class OrderFirstStep extends React.Component{
 
   render () {
    let products =  this.state.products.map((productInfo, key) => {
-     return  <Layout.Col key span="6"  style={{margin: '.1rem', width: '25%'}}>
+     return  <Layout.Col key span="6" className="home-card">
      <a onClick={this.productNext.bind(this, key)}><Card bodyStyle={{ padding: 0 }} >
        <div style={{ padding: '6%', textAlign: 'center' }}>
          <span>{productInfo.Name}</span>
