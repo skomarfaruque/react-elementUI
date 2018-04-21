@@ -123,10 +123,20 @@ class Checkout extends React.Component{
       postObj.products.push(customProduct)
     })
     console.log('finaldispatch', postObj)
+    let res = await fetch(`${process.env.REACT_APP_API_URL}/order`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postObj)
+    })
+    let result = await res.json()
+    console.log(result)
     // once order is finished
-    this.setState({orderActive: false})
-    await this.props.removeAll();
-    this.setState({loadingButton: false})
+    // this.setState({orderActive: false})
+    // await this.props.removeAll();
+    // this.setState({loadingButton: false})
   }
   addNew () {
     console.log(this.props)
@@ -187,97 +197,97 @@ class Checkout extends React.Component{
             <div className="columns is-mobile">
               <label className="label">Wallet: {this.state.customerWallet} Tk</label>
             </div>
-           
-            <div className="columns marginTop is-mobile" style={{height: '22rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
-              <span>
-              <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
-                <nav className="panel history">
-                  <p className="panel-heading">
-                    <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
-                  </p>
-                  <div className="panel-block">
-                    <div className="columns marginTopBottom ">
-                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
-                      <div className="column is-8">
-                        <div className="columns has-text-weight-bold">Lemon Tea</div>
-                        <div className="columns">
-                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+           {this.props.customerData.userType === 2 ? <div className="columns marginTop is-mobile" style={{height: '22rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
+              <div>
+                <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
+                  <nav className="panel history">
+                    <p className="panel-heading">
+                      <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
+                    </p>
+                    <div className="panel-block">
+                      <div className="columns marginTopBottom ">
+                        <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
+                        <div className="column is-8">
+                          <div className="columns has-text-weight-bold">Lemon Tea</div>
+                          <div className="columns">
+                          Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                          </div>
                         </div>
+                        <div className="column is-2">80Tk</div>
                       </div>
-                      <div className="column is-2">80Tk</div>
                     </div>
-                  </div>
-                  <div className="panel-block">
-                    <div className="columns marginTopBottom">
-                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
-                      <div className="column is-8">
-                        <div className="columns has-text-weight-bold">Lemon Tea</div>
-                        <div className="columns">
-                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                    <div className="panel-block">
+                      <div className="columns marginTopBottom">
+                        <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
+                        <div className="column is-8">
+                          <div className="columns has-text-weight-bold">Lemon Tea</div>
+                          <div className="columns">
+                          Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                          </div>
                         </div>
+                        <div className="column is-2">80Tk</div>
                       </div>
-                      <div className="column is-2">80Tk</div>
                     </div>
-                  </div>
-                  <div className="panel-block">
-                    <div className="columns marginTopBottom">
-                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
-                      <div className="column is-8">
-                        <div className="columns has-text-weight-bold">Lemon Tea</div>
-                        <div className="columns">
-                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                    <div className="panel-block">
+                      <div className="columns marginTopBottom">
+                        <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
+                        <div className="column is-8">
+                          <div className="columns has-text-weight-bold">Lemon Tea</div>
+                          <div className="columns">
+                          Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                          </div>
                         </div>
+                        <div className="column is-2">80Tk</div>
                       </div>
-                      <div className="column is-2">80Tk</div>
                     </div>
-                  </div>
-                </nav>
+                  </nav>
+                </div>
+                <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
+                  <nav className="panel history">
+                    <p className="panel-heading">
+                      <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
+                    </p>
+                    <div className="panel-block">
+                      <div className="columns marginTopBottom ">
+                        <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
+                        <div className="column is-8">
+                          <div className="columns has-text-weight-bold">Lemon Tea</div>
+                          <div className="columns">
+                          Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                          </div>
+                        </div>
+                        <div className="column is-2">80Tk</div>
+                      </div>
+                    </div>
+                    <div className="panel-block">
+                      <div className="columns marginTopBottom">
+                        <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
+                        <div className="column is-8">
+                          <div className="columns has-text-weight-bold">Lemon Tea</div>
+                          <div className="columns">
+                          Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                          </div>
+                        </div>
+                        <div className="column is-2">80Tk</div>
+                      </div>
+                    </div>
+                    <div className="panel-block">
+                      <div className="columns marginTopBottom">
+                        <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
+                        <div className="column is-8">
+                          <div className="columns has-text-weight-bold">Lemon Tea</div>
+                          <div className="columns">
+                          Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                          </div>
+                        </div>
+                        <div className="column is-2">80Tk</div>
+                      </div>
+                    </div>
+                  </nav>
+                </div>
               </div>
-              <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
-                <nav className="panel history">
-                  <p className="panel-heading">
-                    <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
-                  </p>
-                  <div className="panel-block">
-                    <div className="columns marginTopBottom ">
-                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
-                      <div className="column is-8">
-                        <div className="columns has-text-weight-bold">Lemon Tea</div>
-                        <div className="columns">
-                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                        </div>
-                      </div>
-                      <div className="column is-2">80Tk</div>
-                    </div>
-                  </div>
-                  <div className="panel-block">
-                    <div className="columns marginTopBottom">
-                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
-                      <div className="column is-8">
-                        <div className="columns has-text-weight-bold">Lemon Tea</div>
-                        <div className="columns">
-                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                        </div>
-                      </div>
-                      <div className="column is-2">80Tk</div>
-                    </div>
-                  </div>
-                  <div className="panel-block">
-                    <div className="columns marginTopBottom">
-                      <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
-                      <div className="column is-8">
-                        <div className="columns has-text-weight-bold">Lemon Tea</div>
-                        <div className="columns">
-                        Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                        </div>
-                      </div>
-                      <div className="column is-2">80Tk</div>
-                    </div>
-                  </div>
-                </nav>
-              </div>
-              </span>
-            </div>
+            </div>: <div className="columns box has-text-danger">This Customer is new and has no order history.</div>}
+            
             </div>: <div>  <div className="columns">
               <Input placeholder="Phone number" className={this.state.phoneError ? "is-error": ""} onChange={this.onChange.bind(this, 'phone')} value={this.state.phone} type="number"/>
             </div>

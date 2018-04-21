@@ -181,3 +181,8 @@
     margin: '.1rem';
     width: '24%'
   }
+  .checkout-user-history {
+    height: '22rem';
+    overflow: 'scroll';
+    scroll-behavior: 'smooth'
+  }
