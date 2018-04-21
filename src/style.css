@@ -46,6 +46,9 @@
       height: 70px!important;
       font-size: 28px!important
   }
+  .home-screen .is-error .el-input__inner {
+      border-color: #ff4949
+  }
   .orderSecond .el-radio-button {
       display: list-item;
   }

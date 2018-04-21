@@ -14,6 +14,7 @@ class Checkout extends React.Component{
       allconfig: [],
       quantity: 1,
       useWallet: false,
+      phoneError: false,
       usedWalletAmount: 0,
       customerWallet: this.props.customerData.wallet,
       payableAmount: 0,
@@ -21,54 +22,7 @@ class Checkout extends React.Component{
       cardNumber: '',
       loadingButton: false,
       orderActive: true,
-      phone: this.props.customerData.phone || '',
-      columns: [
-        {
-          type: 'expand',
-          expandPannel: function(data) {
-            return (
-              <div>
-                <p>State: {data.state}</p>
-                <p>City: {data.city}</p>
-                <p>Address: {data.address}</p>
-                <p>Zip: {data.zip}</p>
-              </div>
-            )
-          }
-        },
-        {
-          label: "Date",
-          prop: "date",
-        },
-        {
-          label: "Order Id",
-          prop: "name",
-        }
-      ],
-      data: [
-        {
-        date: '05-04-18',
-        name: 'T123',
-        Type: 'Tea',
-        Config: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      }, {
-        date: '2016-05-02',
-        name: 'T546',
-        state: 'California',
-        city: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      },
-      {
-        date: '2016-05-02',
-        name: 'T985',
-        state: 'California',
-        city: 'Los Angeles',
-        address: 'No. 189, Grove St, Los Angeles',
-        zip: 'CA 90036'
-      }]
+      phone: this.props.customerData.phone || ''
     }
   }
   async componentWillReceiveProps (props) {
@@ -98,12 +52,34 @@ class Checkout extends React.Component{
     this.setState({grandTotalPrice})
   }
   onChange(key, value) {
+    if (key === 'phone' && value) {
+      this.setState({phoneError: false})
+    }
     this.setState({
       [key]: value
     })
   }
-  checkPreviousHistory () {
-    console.log('a')
+  async checkPreviousHistory () {
+    if (!this.state.phone) {
+      return await this.setState({phoneError: true})
+    }
+    // let body = JSON.stringify({PhoneNumber: this.state.phone})
+    // let res = await fetch(`${process.env.REACT_APP_API_URL}/lookup`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body
+    // })
+    // let result = await res.json()
+    // await this.props.cus(result)
+    // if (result.userType === 1) {
+    //   await this.setState({userType: 1})
+    //   await this.props.history.push('/order-first-step')
+    // } else {
+    //   this.setState({userType: 2, customerType: 'Old'})
+    // }
   }
   async confirmOrder () {
     this.setState({loadingButton: true})
@@ -197,6 +173,9 @@ class Checkout extends React.Component{
           <div className="column is-4 home-screen" >
           {this.props.customerData.id ? <div>  
             <div className="columns is-mobile">
+              <label className="label">Customer Type: {this.props.customerData.userType === 1 ? "New": "Old"}</label>
+            </div>
+            <div className="columns is-mobile">
               <label className="label">Customer Phone: {this.props.customerData.phone}</label>
             </div>
             <div className="columns is-mobile">
@@ -205,7 +184,7 @@ class Checkout extends React.Component{
             {!this.state.useWallet ? <div className="columns is-mobile">
               <Button type="warning customButton" onClick={this.walletUse.bind(this, 1)}>USE WALLET</Button>
             </div>: ''}</div>: <div>  <div className="columns">
-              <Input placeholder="Phone number"  value={this.state.phone} type="number"/>
+              <Input placeholder="Phone number" className={this.state.phoneError ? "is-error": ""} onChange={this.onChange.bind(this, 'phone')} value={this.state.phone} type="number"/>
             </div>
             <div className="columns is-mobile">
               <Button type="primary customButton marginTop" onClick={this.checkPreviousHistory.bind(this)}>Check</Button>

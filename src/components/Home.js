@@ -146,7 +146,6 @@ class Home extends React.Component{
     }
   }
   newOrder () {
-    console.log(this.props)
     this.props.history.push('/order-first-step')
   }
   async customerChange (val) {
