@@ -15,6 +15,7 @@ class Checkout extends React.Component{
       quantity: 1,
       useWallet: false,
       phoneError: false,
+      diableWalletPay: false,
       usedWalletAmount: 0,
       customerWallet: this.props.customerData.wallet,
       payableAmount: 0,
@@ -31,7 +32,8 @@ class Checkout extends React.Component{
       let grandTotal = await props.cartItem.cartItems.map( p => {
         grandTotalPrice += p.quantity * p.totalPrice
       })
-      this.setState({grandTotalPrice})
+      await this.setState({grandTotalPrice})
+      await this.disableWalletPaymentFunc()
     } else {
       if (this.state.orderActive) {
         this.context.router.history.push('order-first-step')
@@ -40,9 +42,16 @@ class Checkout extends React.Component{
       }
     }
   }
+  async disableWalletPaymentFunc() {
+    if (this.state.customerWallet < this.state.grandTotalPrice) {
+      await this.setState({disableWalletPay: true})
+    } else {
+      await this.setState({disableWalletPay: false})
+    }
+  }
   async componentDidMount () {
-    console.log(this.props)
-   await this.upateGrandTotalPrice()
+    await this.upateGrandTotalPrice()
+    await this.disableWalletPaymentFunc()
   }
   async upateGrandTotalPrice () {
     let grandTotalPrice = 0
@@ -146,16 +155,17 @@ class Checkout extends React.Component{
         let customerWallet = this.state.customerWallet - this.state.grandTotalPrice
         this.setState({customerWallet, usedWalletAmount: this.state.grandTotalPrice})
       } else {
-        return this.errorNotification()
+        this.setState({diableWalletPay: true})
       }
       this.setState(
         {
           useWallet: true,
-          payableAmount: (Number(this.state.grandTotalPrice) - Number(this.state.customerWallet))
+          payableAmount: 0,
+          paymentType: 'wallet'
         }
       )
     } else {
-      this.setState({useWallet: false, customerWallet: this.props.customerData.wallet, usedWalletAmount: 0})
+      this.setState({useWallet: false, customerWallet: this.props.customerData.wallet, usedWalletAmount: 0, paymentType: 'cash'})
     }
   }
 
@@ -281,14 +291,14 @@ class Checkout extends React.Component{
           </div>
           <div className="column is-4 home-screen">
             <div className="columns">
-              <Radio.Group className="checkoutScreen" size="large" value={this.state.paymentType}  onChange={this.onChange.bind(this, "paymentType")}>
-                <Radio.Button key="Cash" value="cash">Cash</Radio.Button>
+              <Radio.Group className="checkoutScreen" disabled={this.state.useWallet} size="large" value={this.state.paymentType}  onChange={this.onChange.bind(this, "paymentType")}>
+                <Radio.Button key="Cash" value="cash" >Cash</Radio.Button>
                 <Radio.Button key="Card" value="card">Card</Radio.Button>
               </Radio.Group>
             </div>
              {cardNumber}
-             {!this.state.useWallet ? <div className="columns is-mobile marginTop">
-              <Button type="warning customButton" onClick={this.walletUse.bind(this, 1)}>USE WALLET</Button>
+             {!this.state.useWallet && this.props.customerData.id ? <div className="columns is-mobile marginTop">
+              <Button type="warning customButton" disabled={this.state.disableWalletPay} onClick={this.walletUse.bind(this, 1)}>USE WALLET</Button>
             </div>: ''}
           </div>
           <div className="column is-4  home-screen">
