@@ -19,7 +19,7 @@ class Home extends React.Component{
   async componentDidMount () {
     await this.props.emptyCart()
     await this.props.removeCustomer()
-    await this.setState({customerType: 'New', phone: ''})
+    await this.setState({customerType: 'New', phone: '', userType: 1})
     console.log('p', this.props, 's', this.state)
   }
   onChange(key, value) {
