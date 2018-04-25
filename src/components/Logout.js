@@ -8,9 +8,9 @@ class Logout extends React.Component{
     super(props);
   }
   componentDidMount () {
-    this.props.removeAll()
-    this.props.logOut()
+    this.props.emptyCart()
     this.props.removeCustomer()
+    this.props.logOut()
     this.props.history.push('/')
   }
   
@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logOut: (token) => dispatch({ type: 'Logout', token }),
-  removeAll: (index) => dispatch({ type: 'removeAll', index }),
+  emptyCart: (index) => dispatch({ type: 'removeAll', index }),
   removeCustomer: (index) => dispatch({ type: 'removeCustomer', index })
 })
 

@@ -16,10 +16,11 @@ class Home extends React.Component{
       userType: this.props.customerData.userType || 1 // 1 means new user 2 means existing user
     }
   }
-  componentDidMount () {
-    if (this.state.userType === 2) {
-      this.setState({customerType: 'Old'})
-    }
+  async componentDidMount () {
+    await this.props.emptyCart()
+    await this.props.removeCustomer()
+    await this.setState({customerType: 'New', phone: ''})
+    console.log('p', this.props, 's', this.state)
   }
   onChange(key, value) {
     this.setState({
@@ -245,6 +246,7 @@ const mapDispatchToProps = dispatch => ({
   cus: (value) => dispatch({ type: 'StoreCus', value }),
   cart: (cartItems) => dispatch({ type: 'cartItems', cartItems }),
   updateQuantityCart: (data) => dispatch({ type: 'updateQuantityCart', data }),
-  removeCustomer: (index) => dispatch({ type: 'removeCustomer', index })
+  removeCustomer: (index) => dispatch({ type: 'removeCustomer', index }),
+  emptyCart: (index) => dispatch({ type: 'removeAll', index })
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
