@@ -98,6 +98,7 @@ class Checkout extends React.Component{
       products: []
     }
     await this.props.cartItem.cartItems.map( obj => {
+      console.log('submit', obj)
       let customProduct = {
         productId: obj.tempProduct.ProductId, 
         quantity: obj.quantity,
@@ -107,7 +108,7 @@ class Checkout extends React.Component{
       }
       for (var key in obj) { // loop the json object
         if (obj.hasOwnProperty(key)) {
-          if (key !== 'totalPrice' && key !=='tempProduct' && key !=='allconfig' && key !== 'quantity' && key !== 'isFull'  && key !== 'fingerPrint') {
+          if (key !== 'totalPrice' && key !=='tempProduct' && key !=='allconfig' && key !== 'quantity' && key !== 'isFull'  && key !== 'fingerPrint' && key !== 'phone' && key !== 'customerType') {
             if (isArray(obj[key])) {
               obj[key].map (dt => {
                 return customProduct.adons.push((dt).toString())
