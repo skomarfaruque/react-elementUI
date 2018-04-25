@@ -105,8 +105,11 @@ class OrderSecondStep extends React.Component{
     this.setState({totalPrice: finalCalPrice})
   
   }
+  goBack () {
+    this.props.history.push('order-first-step')
+  }
   breadCrumbAction (val) {
-    this.props.history.push(val);
+    this.props.history.push(val)
   }
   successNotification() {
     Message({
@@ -176,7 +179,7 @@ class OrderSecondStep extends React.Component{
         </div>
         <div className="columns orderPageButton">
           <div className="column">
-            <button className="button is-warning is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this, 2)}>Add & Go Back</button>
+            <button className="button is-warning is-large" style={{width: '100%'}} onClick={() => {this.goBack()}}>Back</button>
           </div>
           <div className="column">
             <button className="button is-primary is-large" style={{width: '100%'}} onClick={this.addToCartResetPage.bind(this, 1)}>Add to Cart</button>
