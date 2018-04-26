@@ -28,6 +28,7 @@ class Home extends React.Component{
     })
   }
   async addToCart (historyInfo) {
+    console.log('his', this.props.customerData.history)
     let productReOrderObj = {
       ProductId: historyInfo.productId,
       Name: historyInfo.productTitle, 
@@ -180,7 +181,7 @@ class Home extends React.Component{
         fontSize: '28px'
       }
     }
-    let history = this.state.userType !== 1 ? 
+    let history = this.state.userType !== 1 ? this.props.customerData.history.length ?
     <div className="column is-8 pending-orders marginLeft" style={{height: '30rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
     {this.props.customerData.history.map( hisData => {
       return (   <div className="columns marginTop is-mobile">
@@ -210,7 +211,7 @@ class Home extends React.Component{
     })}
  
  
-  </div> : ''
+  </div>: <div className="column is-8 marginLeft has-text-danger" style={{margin: '10rem 16rem', fontWeight: 'bolder'}}>No history</div> : ''
     
     return (
       <SiteLayout>
