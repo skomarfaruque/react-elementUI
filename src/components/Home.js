@@ -138,6 +138,7 @@ class Home extends React.Component{
       body
     })
     let result = await res.json()
+    console.log('api response', result)
     await this.props.cus(result)
     if (result.userType === 1) {
       await this.setState({userType: 1})
@@ -185,7 +186,7 @@ class Home extends React.Component{
       return (   <div className="columns marginTop is-mobile">
       <nav className="panel history">
         <p className="panel-heading">
-          <span>{hisData.date}</span><span className="marginLeftOrderId">TONG123</span>
+          <span>{hisData.date}</span>
         </p>
        {hisData.orders.map(hisOrderData => {
          return ( <div className="panel-block">
