@@ -133,7 +133,6 @@ class Checkout extends React.Component{
       body: JSON.stringify(postObj)
     })
     let result = await res.json()
-    console.log(result)
     // once order is finished
     this.setState({loadingButton: false})
     if (result.status !== 200) {
@@ -203,57 +202,38 @@ class Checkout extends React.Component{
             <div className="columns is-mobile">
               <label className="label">Wallet: {this.state.customerWallet} Tk</label>
             </div>
-           {this.props.customerData.userType === 2 ? <div className="columns marginTop is-mobile" style={{height: '22rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
+           {this.props.customerData.userType === 2 ? this.props.customerData.history.length ?
+           <div className="columns marginTop is-mobile" style={{height: '22rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
               <div>
-              {this.props.customerData.history.map( hisData => {
-      return (
-                <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
-                  <nav className="panel history">
-                    <p className="panel-heading">
-                      <span>12-12-2017</span>
-                    </p>
-                    <div className="panel-block">
-                      <div className="columns marginTopBottom ">
-                        <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">6</span></div>
-                        <div className="column is-8">
-                          <div className="columns has-text-weight-bold">Lemon Tea</div>
-                          <div className="columns">
-                          Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                          </div>
-                        </div>
-                        <div className="column is-2">80Tk</div>
-                      </div>
-                    </div>
-                    <div className="panel-block">
-                      <div className="columns marginTopBottom">
-                        <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">2</span></div>
-                        <div className="column is-8">
-                          <div className="columns has-text-weight-bold">Lemon Tea</div>
-                          <div className="columns">
-                          Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                          </div>
-                        </div>
-                        <div className="column is-2">80Tk</div>
-                      </div>
-                    </div>
-                    <div className="panel-block">
-                      <div className="columns marginTopBottom">
-                        <div className="column is-2 has-text-weight-semibold panelMarginTop"><span className="quantityCurve">10</span></div>
-                        <div className="column is-8">
-                          <div className="columns has-text-weight-bold">Lemon Tea</div>
-                          <div className="columns">
-                          Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                          </div>
-                        </div>
-                        <div className="column is-2">80Tk</div>
-                      </div>
-                    </div>
-                  </nav>
-                </div>)
-       })}
-               
+                {this.props.customerData.history.map( hisData => {
+                  return (
+                    <div className="columns marginTop is-mobile" style={{margin: '.2rem 0 0 0'}}>
+                      <nav className="panel history">
+                        <p className="panel-heading">
+                          <span>{hisData.date}</span>
+                        </p>
+                        {hisData.orders.map(hisOrderData => {
+                          return (
+                            <div className="panel-block">
+                              <div className="columns marginTopBottom ">
+                                <div className="column is-2 has-text-weight-semibold panelMarginTop">
+                                  <span className="quantityCurve">{hisOrderData.quantity}</span>
+                                </div>
+                                <div className="column is-7">
+                                  <div className="columns has-text-weight-bold">{hisOrderData.productTitle}</div>
+                                  <div className="columns">
+                                  {hisOrderData.summary}
+                                  </div>
+                                </div>
+                                <div className="column is-3">{hisOrderData.orderGrandPrice} Tk</div>
+                              </div>
+                            </div>)
+                        })}
+                      </nav>
+                    </div>)
+                })}
               </div>
-            </div>: <div className="columns box has-text-danger">This Customer is new and has no order history.</div>}
+            </div>: <div className="columns box has-text-danger">This Customer has no order history.</div>: <div className="columns box has-text-danger">This Customer is new and has no order history.</div>}
             
             </div>: <div>  <div className="columns">
               <Input placeholder="Phone number" className={this.state.phoneError ? "is-error": ""} onChange={this.onChange.bind(this, 'phone')} value={this.state.phone} type="number"/>

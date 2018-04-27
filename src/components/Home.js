@@ -155,6 +155,7 @@ class Home extends React.Component{
     await this.setState({customerType: val})
     if (this.state.customerType === 'New') {
       await this.props.removeCustomer(val)
+      await this.props.emptyCart()
       this.setState({userType: 1, phone: ''})
     }
   }
