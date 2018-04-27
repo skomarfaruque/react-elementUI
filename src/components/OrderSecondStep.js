@@ -9,17 +9,27 @@ import { isArray } from 'util'
 var crypto = require('crypto')
 class OrderSecondStep extends React.Component{
   constructor (props) {
-    super(props);
-    this.state = {
+    super(props)
+    this.initialState = {
       totalPrice: 0,
       tempProduct: this.props.cartItem.tempProduct,
       allconfig: [],
       quantity: 1
-    }
   }
+    this.state = Object.assign({},this.initialState);
+    // this.baseState = this.state 
+  }
+  
   async componentDidMount () {
     console.log('second step', this.props)
-    document.title = "Product details";
+    console.log('active product', this.state.tempProduct)
+    document.title = "Product details"
+    this.initialProductDetails()
+  }
+  componentWillReceiveProps () {
+    this.initialProductDetails()
+  }
+  async initialProductDetails () {
     let pro = this.props.cartItem.tempProduct
     let adonsData = []
     await pro.ProductDetails.map(async(data)=>{
@@ -35,6 +45,7 @@ class OrderSecondStep extends React.Component{
     await this.setState({allconfig: adonsData, totalPrice: this.state.tempProduct.Price})
     this.priceCalculation()
   }
+
   productNext (key) { // here key is the product index
     let product = this.state.products[key]
     this.props.cart(product)
@@ -69,7 +80,8 @@ class OrderSecondStep extends React.Component{
     } else if (type === 3) {
       this.props.history.push('checkout')
     } else {
-      console.log('same page')
+      this.state = this.initialState
+      await this.initialProductDetails()
     }
     this.successNotification()
   }

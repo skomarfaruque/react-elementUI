@@ -231,7 +231,6 @@ class Layout extends React.Component {
     let showCartItems = this.props.cartItem.cartItems.map((cartData, key) => {
       let objArr = []
       let obj = cartData
-      console.log(cartData)
       for (var akey in obj) { // loop the json object
         if (obj.hasOwnProperty(akey)) {
           if (akey !== 'totalPrice' && akey !=='tempProduct' && akey !=='allconfig' && akey !== 'phone' && akey !== 'quantity' && akey !== 'userType') {
