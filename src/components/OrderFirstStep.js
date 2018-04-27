@@ -19,7 +19,9 @@ class OrderFirstStep extends React.Component{
     let res = await fetch(`${process.env.REACT_APP_API_URL}/product-list`, {
       method: 'GET',
       headers: new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'key': process.env.REACT_APP_API_KEY,
+        'secret': process.env.REACT_APP_API_SECRET
       })
     });
     let result = await res.json();

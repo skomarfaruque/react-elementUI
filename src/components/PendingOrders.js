@@ -4,43 +4,97 @@ import { connect } from 'react-redux'
 import { Button, Input, Radio, Layout, Breadcrumb } from 'element-react'
 import '../style.css'
 import 'element-theme-default'
+const pendingOrders = [
+  {
+    saleId: 1,
+    sales: [
+      {
+        saleItemId: 1,
+        productId: 1,
+        productTitle: 'Demo product 1',
+        orderGrandPrice: 120,
+        saleQuantity: 2,
+        saleStatus: 2,
+        addonSummary: 'Milk: 1 spoon, Sugar: 2 spoon'
+      },
+      {
+        saleItemId: 1,
+        productId: 1,
+        productTitle: 'Demo product 1',
+        orderGrandPrice: 10,
+        saleQuantity: 2,
+        saleStatus: 2,
+        addonSummary: 'Sugar: 2 spoon'
+      },
+      {
+        saleItemId: 1,
+        productId: 2,
+        productTitle: 'Demo product 2',
+        orderGrandPrice: 40,
+        saleQuantity: 5,
+        saleStatus: 3,
+        addonSummary: 'TeaBag: 1 spoon, Sugar: 2 spoon, Mint: demo 1, demo2, demo 3'
+      }
+    ]
+  },
+  {
+    saleId: 2,
+    sales: [
+      {
+        saleItemId: 3,
+        productId: 2,
+        productTitle: 'Demo product 2',
+        orderGrandPrice: 120,
+        saleQuantity: 2,
+        saleStatus: 1,
+        addonSummary: 'Milk: 1 spoon, Sugar: 2 spoon'
+      },
+      {
+        saleItemId: 11,
+        productId: 21,
+        productTitle: 'Demo product 1',
+        orderGrandPrice: 10,
+        saleQuantity: 2,
+        saleStatus: 2,
+        addonSummary: 'Sugar: 2 spoon'
+      },
+      {
+        saleItemId: 211,
+        productId: 2,
+        productTitle: 'Demo product 2',
+        saleGrandPrice: 40,
+        saleQuantity: 5,
+        saleStatus: 2,
+        addonSummary: 'TeaBag: 1 spoon, Sugar: 2 spoon, Mint: demo 1, demo2, demo 3'
+      }
+    ]
+  }
+
+]
 class PendingOrders extends React.Component{
   constructor (props) {
     super(props)
-    this.state = {
-      customerType: 'New',
-      phone: this.props.customerPhone || ''
-    }
+    
+    
+    this.state = {pendingOrders}
   }
   componentDidMount () {
-    console.log('homedata', this.props)
+    console.log('homedata', this.state)
+
   }
   onChange(key, value) {
     this.setState({
       [key]: value
     })
   }
-  async startBooking () {
-    if (!this.state.phone) {
-      await this.props.history.push('/order-first-step')
-    }
-    let body = JSON.stringify({PhoneNumber: this.state.phone})
-    let res = await fetch(`http://52.14.91.110:8080/admin/lookup`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body
-    })
-    let result = await res.json()
-    await this.props.cus(result)
-    if (result.userType === 1) {
-      await this.props.history.push('/order-first-step')
+  inProgressAction = async (key, proKey, type) => { // type 1= cancel
+    if (type == 1) {
+      pendingOrders[key].sales[proKey].saleStatus = 2
     } else {
-      console.log('Old customer')
-      console.log(this.props)
+      pendingOrders[key].sales[proKey].saleStatus = 3
     }
+    await this.setState({pendingOrders})
+
   }
 
   render () {
@@ -69,122 +123,44 @@ class PendingOrders extends React.Component{
       <SiteLayout>
         
         <div className="columns pending-orders">
-          <div className="column" style={{height: '30rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
-            <div className="columns marginTop is-mobile">
+          {this.state.pendingOrders.length ?   <div className="column" style={{height: '30rem', overflow: 'scroll', scrollBehavior: 'smooth'}}>
+            {pendingOrders.map((pOrders, key) => {
+              return ( <div className="columns marginTop is-mobile">
               <nav className="panel history">
                 <p className="panel-heading">
-                  <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
+                  <span>Sale id: </span><span className="marginLeftOrderId">{pOrders.saleId}</span>
                 </p>
-                <div className="panel-block">
+                {pOrders.sales.map((pOrderList, pkey) => {
+                  return (  <div className={"panel-block "+ (pOrderList.saleStatus === 3 ? 'inprogress': pOrderList.saleStatus === 1 ? 'done': '')}>
                   <div className="columns marginTopBottom ">
                     <div className="column is-1 has-text-weight-semibold" >
-                      <span className="quantityCurve">6</span>
+                      <span className="quantityCurve">{pOrderList.saleQuantity}</span>
                     </div>
-                    <div className="column is-5" >
-                      <div className="columns has-text-weight-bold fontSizeOneRem">Lemon Tea</div>
+                    <div className="column is-4">
+                      <div className="columns has-text-weight-bold fontSizeOneRem">{pOrderList.productTitle}</div>
                       <div className="columns fontSizeOneRem">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
+                      {pOrderList.addonSummary}
                       </div>
                     </div>
-                    <div className="column is-3"><Button size="small customButton" type="warning">IN PROGRESS</Button></div>
-                    <div className="column is-3"><Button size="small customButton" type="success">DONE</Button></div>
+                    {pOrderList.saleStatus === 3 ? 
+                      <div className="column is-4">
+                        <Button size="small customButton" type="danger" onClick={() => this.inProgressAction(key, pkey, 1)}>CANCEL PROGRESS</Button>
+                      </div> : 
+                      <div className="column is-4">
+                        <Button size="small customButton" type="warning"  onClick={() => this.inProgressAction(key, pkey, 2)}>IN PROGRESS</Button>
+                      </div>}
+                    
+                    <div className="column is-4"><Button size="small customButton" type="success">DONE</Button></div>
                   </div>
-                </div>
+                </div>)
+                })}
               
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" >
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-5" >
-                      <div className="columns has-text-weight-bold fontSizeOneRem">Lemon Tea</div>
-                      <div className="columns fontSizeOneRem">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-3"><Button size="small customButton" type="warning">IN PROGRESS</Button></div>
-                    <div className="column is-3"><Button size="small customButton" type="success">DONE</Button></div>
-                  </div>
-                </div>
               </nav>
-            </div>
-            <div className="columns marginTop is-mobile">
-              <nav className="panel history">
-                <p className="panel-heading">
-                  <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
-                </p>
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" >
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-5" >
-                      <div className="columns has-text-weight-bold fontSizeOneRem">Lemon Tea</div>
-                      <div className="columns fontSizeOneRem">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-3"><Button size="small customButton" type="warning">IN PROGRESS</Button></div>
-                    <div className="column is-3"><Button size="small customButton" type="success">DONE</Button></div>
-                  </div>
-                </div>
-              
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" >
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-5" >
-                      <div className="columns has-text-weight-bold fontSizeOneRem">Lemon Tea</div>
-                      <div className="columns fontSizeOneRem">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-3"><Button size="small customButton" type="warning">IN PROGRESS</Button></div>
-                    <div className="column is-3"><Button size="small customButton" type="success">DONE</Button></div>
-                  </div>
-                </div>
-              </nav>
-            </div>
-            <div className="columns marginTop is-mobile">
-              <nav className="panel history">
-                <p className="panel-heading">
-                  <span>12-12-2017</span><span className="marginLeftOrderId">TONG123</span>
-                </p>
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" >
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-5" >
-                      <div className="columns has-text-weight-bold fontSizeOneRem">Lemon Tea</div>
-                      <div className="columns fontSizeOneRem">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-3"><Button size="small customButton" type="warning">IN PROGRESS</Button></div>
-                    <div className="column is-3"><Button size="small customButton" type="success">DONE</Button></div>
-                  </div>
-                </div>
-              
-                <div className="panel-block">
-                  <div className="columns marginTopBottom ">
-                    <div className="column is-1 has-text-weight-semibold" >
-                      <span className="quantityCurve">6</span>
-                    </div>
-                    <div className="column is-5" >
-                      <div className="columns has-text-weight-bold fontSizeOneRem">Lemon Tea</div>
-                      <div className="columns fontSizeOneRem">
-                      Size: Medium, Sugar: 1Spoon, Adons: sample1, sample2
-                      </div>
-                    </div>
-                    <div className="column is-3"><Button size="small customButton" type="warning">IN PROGRESS</Button></div>
-                    <div className="column is-3"><Button size="small customButton" type="success">DONE</Button></div>
-                  </div>
-                </div>
-              </nav>
-            </div>
-          </div>
+            </div>)
+            })}
+           
+          </div> : '<div>Today there is no order</div>'}
+        
         </div>
     
       </SiteLayout>

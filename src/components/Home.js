@@ -134,6 +134,8 @@ class Home extends React.Component{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
+        'key': process.env.REACT_APP_API_KEY,
+        'secret': process.env.REACT_APP_API_SECRET,
         'Content-Type': 'application/json'
       },
       body

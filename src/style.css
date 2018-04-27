@@ -186,3 +186,9 @@
     overflow: 'scroll';
     scroll-behavior: 'smooth'
   }
+  .inprogress {
+      background: #fad275
+  }
+  .done {
+    background: #60f0a1
+  }

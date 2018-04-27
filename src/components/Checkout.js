@@ -77,7 +77,9 @@ class Checkout extends React.Component{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'key': process.env.REACT_APP_API_KEY,
+        'secret': process.env.REACT_APP_API_SECRET
       },
       body
     })
@@ -89,7 +91,7 @@ class Checkout extends React.Component{
     this.setState({loadingButton: true})
     let postObj = {
       customerId: this.props.customerData.id,
-      phoneNumber: this.props.customerData.phone,
+      // phoneNumber: this.props.customerData.phone,
       managerId: this.props.loggedUser.token,
       paymentType: this.state.paymentType,
       cardNumber: this.state.cardNumber,
@@ -128,7 +130,9 @@ class Checkout extends React.Component{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'key': process.env.REACT_APP_API_KEY,
+        'secret': process.env.REACT_APP_API_SECRET
       },
       body: JSON.stringify(postObj)
     })
