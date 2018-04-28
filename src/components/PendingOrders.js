@@ -87,6 +87,15 @@ class PendingOrders extends React.Component{
       [key]: value
     })
   }
+  doneAction = async (key, proKey, type) => { // type 1= cancel
+    if (type == 1) {
+      pendingOrders[key].sales[proKey].saleStatus = 2
+    } else {
+      pendingOrders[key].sales[proKey].saleStatus = 1
+    }
+    await this.setState({pendingOrders})
+
+  }
   inProgressAction = async (key, proKey, type) => { // type 1= cancel
     if (type == 1) {
       pendingOrders[key].sales[proKey].saleStatus = 2
@@ -142,15 +151,32 @@ class PendingOrders extends React.Component{
                       {pOrderList.addonSummary}
                       </div>
                     </div>
+                    {pOrderList.saleStatus === 2 ? 
+                      <div className="columns">
+                        <div className="column is-6">
+                          <Button size="small customButton" type="warning" onClick={() => this.inProgressAction(key, pkey, 2)}>IN PROGRESS</Button>
+                        </div>
+                        <div className="column is-6">
+                          <Button size="small customButton" type="success"  onClick={() => this.doneAction(key, pkey, 2)}>DONE</Button>
+                        </div></div> : ''}
                     {pOrderList.saleStatus === 3 ? 
-                      <div className="column is-4">
-                        <Button size="small customButton" type="danger" onClick={() => this.inProgressAction(key, pkey, 1)}>CANCEL PROGRESS</Button>
-                      </div> : 
-                      <div className="column is-4">
-                        <Button size="small customButton" type="warning"  onClick={() => this.inProgressAction(key, pkey, 2)}>IN PROGRESS</Button>
-                      </div>}
+                      <div className="columns">
+                        <div className="column is-6">
+                          <Button size="small customButton" type="danger" onClick={() => this.inProgressAction(key, pkey, 1)}>CANCEL PROGRESS</Button>
+                        </div>
+                        <div className="column is-6">
+                          <Button size="small customButton" type="success" onClick={() => this.doneAction(key, pkey, 2)}>DONE</Button>
+                        </div></div> : ''}
+                    {pOrderList.saleStatus === 1 ? 
+                      <div className="columns">
+                        <div className="column is-6">
+                          <Button size="small customButton" type="danger" disabled onClick={() => this.inProgressAction(key, pkey, 1)}>CANCEL PROGRESS</Button>
+                        </div>
+                        <div className="column is-6">
+                          <Button size="small customButton" type="danger" onClick={() => this.doneAction(key, pkey, 1)}>CANCEL DONE</Button>
+                        </div></div> : ''}
                     
-                    <div className="column is-4"><Button size="small customButton" type="success">DONE</Button></div>
+                    
                   </div>
                 </div>)
                 })}
